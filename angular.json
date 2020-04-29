@@ -92,9 +92,14 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootsrap.min.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/@popperjs/core/dist/umd/popper.min.js",
+              "node_modules/bootstrap/dist/css/bootsrap.js.css"
+            ]
           }
         },
         "lint": {
@@ -121,8 +126,16 @@
               "devServerTarget": "login-angular9-firebase:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
-    }},
-  "defaultProject": "login-angular9-firebase"
+    }
+  },
+  "defaultProject": "login-angular9-firebase",
+  "cli": {
+    "analytics": false
+  }
 }

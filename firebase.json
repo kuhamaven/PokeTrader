@@ -1,0 +1,19 @@
+{
+  "hosting": [
+    {
+      "target": "login-angular9-firebase",
+      "public": "dist/login-angular9-firebase",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ]
+}

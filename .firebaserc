@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "loginangular-843e5": {
+      "hosting": {
+        "login-angular9-firebase": [
+          "loginangular-843e5"
+        ]
+      }
+    }
+  }
+}

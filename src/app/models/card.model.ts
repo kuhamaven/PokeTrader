@@ -1,14 +1,18 @@
 
 export class Card{
     public name: string;
-    public url: string;
+    public imageURL: string;
+    public id: number;
     public type: string;
+    public variant: string;
     public
 
-    constructor(n:string, u:string, t: string){
+    constructor(n:string, u:string, i:number, t: string, v: string){
         this.name=n;
-        this.url=u;
+        this.imageURL=u;
         this.type=t;
+        this.id=i;
+        this.variant=v;
     }
 }
 

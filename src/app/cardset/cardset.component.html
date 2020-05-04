@@ -16,10 +16,18 @@
                         <input type="text" class="form-control" id="imageUrl" placeholder="Add picture url..." #url>
                     </div>
                     <div class="form-group">
+                        <label for="type">Id</label>
+                        <input type="text" class="form-control" id="id" placeholder="Add id..." #id>
+                    </div>
+                    <div class="form-group">
                         <label for="type">Type</label>
                         <input type="text" class="form-control" id="type" placeholder="Add type..." #type>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-large btn-block" (click)="addCard(name.value,url.value,type.value)">Add</button>
+                    <div class="form-group">
+                        <label for="type">Varint</label>
+                        <input type="text" class="form-control" id="variant" placeholder="Add variant..." #variant>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-large btn-block" (click)="addCard(name.value,url.value,id.value,type.value,variant.value)">Add</button>
                 </form>
             </div>
         </div>

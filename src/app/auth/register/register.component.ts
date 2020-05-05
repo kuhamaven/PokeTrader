@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { AuthService } from './../services/auth.service';
 import { Router } from '@angular/router';
+import { AngularFireStorage } from "@angular/fire/storage";
+import { map, finalize } from "rxjs/operators";
+import { Observable } from "rxjs";
+
 
 @Component({
   selector: 'app-register',
@@ -15,10 +19,52 @@ export class RegisterComponent implements OnInit {
     password: new FormControl(''),
   });
 
-  constructor(private authSvc: AuthService, private router: Router) { 
+  constructor(private authSvc: AuthService, private router: Router, private storage: AngularFireStorage) { 
   }
 
   ngOnInit(): void {
+  }
+  selectedFile: File = null;
+  fb;
+  downloadURL: Observable<string>;
+  uploadPercent: Observable<number>;
+  urlImage: Observable<string>;
+
+  onUpload(e){
+    //console.log("subir",e);
+    const id = Math.random().toString(36).substring(2);
+    const file=e.target.files[0];
+    const filePath= `uploads/profile_${id}`;
+    const ref=this.storage.ref(filePath);
+    const task=this.storage.upload(filePath,file);
+    this.uploadPercent=task.percentageChanges();
+    task.snapshotChanges().pipe(finalize(() => this.urlImage= ref.getDownloadURL())).subscribe();
+
+  }
+  onFileSelected(event) {
+    var n = Date.now();
+    const file = event.target.files[0];
+    const filePath = `RoomsImages/${n}`;
+    const fileRef = this.storage.ref(filePath);
+    const task = this.storage.upload(`RoomsImages/${n}`, file);
+    task
+      .snapshotChanges()
+      .pipe(
+        finalize(() => {
+          this.downloadURL = fileRef.getDownloadURL();
+          this.downloadURL.subscribe(url => {
+            if (url) {
+              this.fb = url;
+            }
+            console.log(this.fb);
+          });
+        })
+      )
+      .subscribe(url => {
+        if (url) {
+          console.log(url);
+        }
+      });
   }
 
   async onRegister(){

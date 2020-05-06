@@ -3,9 +3,13 @@
         <img src={{card.imageURL}} alt="">
     </div>
     <div class="card-desc">
-        <h3>{{card.name}}</h3>
-        <h3>{{card.type}}</h3>
-        <h3>{{card.variant}}</h3>
-        <h3>{{card.id}}</h3>
+        <h3>Name: {{card.name}}</h3>
+        <h3>Type: {{card.type}}</h3>
+        <h3>Stage: {{card.variant}}</h3>
+        <h3> </h3>
+        <a class="btn-card" (click)="setSelected()">Add to colection</a>
+        <span *ngIf="isSelected()">
+            <span ngNonBindable> In collection!</span>
+        </span>
     </div>
 </div>

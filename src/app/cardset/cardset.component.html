@@ -1,7 +1,7 @@
 <div class="row">
-    <div class="col-md-6	mx-auto  mt-5">
+    <div class="col-md-6	mx-auto  mt-5" *ngIf="user$ | async as user; else">
         <!-- form	card	login	with	validation	feedback	-->
-        <div class="card">
+        <div class="card" *ngIf="isAdmin(user.uid)">
             <div class="card-body">
                 <h1 class="text-center">Add card</h1>
             </div>

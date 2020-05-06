@@ -2,18 +2,28 @@ import { Component, OnInit } from '@angular/core';
 import { Card } from '../models/card.model';
 //import cardsList from './../../assets/a.json';
 import { HttpClient } from '@angular/common/http';
+import AdminIds from './../../assets/AdminIds.json';
+import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/auth/services/auth.service';
+
+
 
 
 @Component({
   selector: 'app-cardset',
   templateUrl: './cardset.component.html',
-  styleUrls: ['./cardset.component.scss']
+  styleUrls: ['./cardset.component.scss'],
+  providers: [AuthService]
+
 })
 export class CardsetComponent implements OnInit {
   cards: Card[] = [];
+  adminIDList: string[] = AdminIds;
+  public user$: Observable<any> = this.authSvc.afAuth.user;
+
 
   constructor( 
-    private http: HttpClient
+    private http: HttpClient, private authSvc: AuthService
   ) { 
     //this.cards = cardsList;
     try {
@@ -33,6 +43,11 @@ export class CardsetComponent implements OnInit {
 
   addCard(nombre: string , url: string, id: number, type: string, variant: string):boolean {
     this.cards.push(new Card(nombre,url,id,type,variant));
+    return false;
+  }
+
+  isAdmin(uid: string): boolean {
+    if(this.adminIDList.indexOf(uid)>-1) {return true};
     return false;
   }
 

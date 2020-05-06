@@ -72,7 +72,9 @@ export class RegisterComponent implements OnInit {
     //if(password.length<6) { alert('El password debe ser mayor o igual a 6 caracteres!')}
     try{
       const user = await this.authSvc.register(email, password);
-      if(user){
+  
+      if(user){ 
+        user.user.updateProfile({photoURL:(await this.urlImage.toPromise()).toString()});
         this.router.navigate(['/home']);
       }
     }

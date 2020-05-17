@@ -10,9 +10,29 @@ import {Observable} from 'rxjs';
 })
 export class ProfileComponent implements OnInit {
 public user$:Observable<any>=this.authService.afAuth.user;
+public currentUser: any;
+public photoURL: string;
   constructor(private authService: AuthService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.currentUser=this.authService.afAuth.currentUser;
+    this.photoURL=this.currentUser.photoURL;
+    console.log(this.photoURL);
+  }
+
+  async setPhoto(url: string){
+    try{
+      var userToAlter = this.authService.afAuth.currentUser;
+      console.log((await userToAlter).photoURL, 'before change');
+      (await userToAlter).updateProfile({
+        photoURL: url
+      }).then(function(){
+        console.log('Done!');
+      })
+    }
+    catch(error){
+
+    }
   }
 
 }

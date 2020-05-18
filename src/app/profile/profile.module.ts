@@ -12,4 +12,14 @@ import { ProfileComponent } from './profile.component';
     ProfileRoutingModule
   ]
 })
-export class ProfileModule { }
+
+
+export class ProfileModule { 
+  photoURL: string;
+
+  ngOnInit() {
+    
+  }
+
+}
+

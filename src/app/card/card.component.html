@@ -7,7 +7,7 @@
         <h3>Type: {{card.type}}</h3>
         <h3>Stage: {{card.variant}}</h3>
         <h3> </h3>
-        <a class="btn-card" (click)="setSelected()">Add to colection</a>
+        <a class="btn-card" (click)="setSelected(card.id)">Add to colection</a>
         <span *ngIf="isSelected()">
             <span ngNonBindable> In collection!</span>
         </span>

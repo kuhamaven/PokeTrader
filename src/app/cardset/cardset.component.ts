@@ -18,6 +18,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 })
 export class CardsetComponent implements OnInit {
   cards: Card[] = [];
+  cardsIDList: string[] = [];
   adminIDList: string[] = AdminIds;
   public user$: Observable<any> = this.authSvc.afAuth.user;
 
@@ -25,6 +26,7 @@ export class CardsetComponent implements OnInit {
   constructor( 
     private http: HttpClient, private authSvc: AuthService
   ) { 
+    this.addNewCardToCollection = this.addNewCardToCollection.bind(this);
     //this.cards = cardsList;
     try {
       this.http.get('http://localhost:8080/card').toPromise().then(
@@ -49,6 +51,21 @@ export class CardsetComponent implements OnInit {
   isAdmin(uid: string): boolean {
     if(this.adminIDList.indexOf(uid)>-1) {return true};
     return false;
+  }
+
+  addNewCardToCollection = (id: string) => {
+    if(this.cardsIDList.indexOf(id)<0){
+    this.cardsIDList.push(id);
+    }
+  }
+
+  setCards(){
+    console.log(this.cardsIDList); 
+    console.log(JSON.stringify(this.cardsIDList));
+    this.http.post('http://localhost:8080/cardmaker',JSON.stringify(this.cardsIDList)).toPromise().then( data => {
+      console.log(data);
+      }
+    )
   }
 
 }

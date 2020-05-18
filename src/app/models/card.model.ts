@@ -5,7 +5,6 @@ export class Card{
     public id: number;
     public type: string;
     public variant: string;
-    public
 
     constructor(n:string, u:string, i:number, t: string, v: string){
         this.name=n;

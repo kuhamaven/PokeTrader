@@ -8,6 +8,7 @@ import { Card } from '../models/card.model';
 })
 export class CardComponent implements OnInit {
   @Input() card: Card;
+  @Input() setSelected;
   selected: boolean = false;
   @HostBinding('attr.class') cssClass = 'col-md-4';
 
@@ -15,11 +16,15 @@ export class CardComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  setSelected(){
-	  this.selected = !this.selected;
-	}
+  
+
+  
 	isSelected(){
 	  return this.selected;
-    }
+  }
+
+  getID(){
+    return this.card.id;
+  }
 
 }

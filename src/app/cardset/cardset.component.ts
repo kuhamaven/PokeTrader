@@ -55,17 +55,25 @@ export class CardsetComponent implements OnInit {
 
   addNewCardToCollection = (id: string) => {
     if(this.cardsIDList.indexOf(id)<0){
+      console.log(id);
     this.cardsIDList.push(id);
     }
   }
 
-  setCards(){
-    console.log(this.cardsIDList); 
-    console.log(JSON.stringify(this.cardsIDList));
-    this.http.post('http://localhost:8080/cardmaker',JSON.stringify(this.cardsIDList)).toPromise().then( data => {
+  setCards(email: string){
+    console.log(email);
+    const cardsIDListWithMail = [email].concat(this.cardsIDList);
+    console.log(cardsIDListWithMail); 
+    console.log(JSON.stringify(cardsIDListWithMail));
+    try{
+      this.http.post('http://localhost:8080/cardmaker',JSON.stringify(cardsIDListWithMail)).toPromise().then( data => {
       console.log(data);
       }
     )
+    }
+    catch(error){
+      
+    }
   }
 
 }

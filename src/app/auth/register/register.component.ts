@@ -39,8 +39,8 @@ export class RegisterComponent implements OnInit {
     const task=this.storage.upload(filePath,file);
     this.uploadPercent=task.percentageChanges();
     task.snapshotChanges().pipe(finalize(() => this.urlImage= ref.getDownloadURL())).subscribe();
-
   }
+  
   onFileSelected(event) {
     var n = Date.now();
     const file = event.target.files[0];
@@ -69,7 +69,6 @@ export class RegisterComponent implements OnInit {
 
   async onRegister(){
     const { email, password } = this.registerForm.value;
-    //if(password.length<6) { alert('El password debe ser mayor o igual a 6 caracteres!')}
     try{
       const user = await this.authSvc.register(email, password);
   

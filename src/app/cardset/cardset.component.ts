@@ -65,15 +65,12 @@ export class CardsetComponent implements OnInit {
     const cardsIDListWithMail = [email].concat(this.cardsIDList);
     console.log(cardsIDListWithMail); 
     console.log(JSON.stringify(cardsIDListWithMail));
-    try{
-      this.http.post('http://localhost:8080/cardmaker',JSON.stringify(cardsIDListWithMail)).toPromise().then( data => {
+      this.http.put('http://localhost:8080/cardmaker',JSON.stringify(cardsIDListWithMail)).toPromise().then( data => {
       console.log(data);
-      }
-    )
-    }
-    catch(error){
-      
-    }
   }
+    )
+    .catch(x => console.log(x))
+  }
+
 
 }

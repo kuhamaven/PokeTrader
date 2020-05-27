@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AngularFireStorage } from "@angular/fire/storage";
 import { map, finalize } from "rxjs/operators";
 import { Observable } from "rxjs";
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class RegisterComponent implements OnInit {
     password: new FormControl(''),
   });
 
-  constructor(private authSvc: AuthService, private router: Router, private storage: AngularFireStorage) { 
+  constructor(private authSvc: AuthService, private router: Router, private storage: AngularFireStorage,private http:HttpClient) { 
   }
 
   ngOnInit(): void {
@@ -73,7 +74,15 @@ export class RegisterComponent implements OnInit {
       const user = await this.authSvc.register(email, password);
   
       if(user){ 
-        user.user.updateProfile({photoURL:(await this.urlImage.toPromise()).toString()});
+        const url =(await this.urlImage.toPromise()).toString();
+        const userData=[email,user.user.uid,url]
+        this.http.put('http://localhost:8080/register',JSON.stringify(userData)).toPromise().then( data => {
+      
+        }
+          )
+          .catch(x => console.log(x))
+        
+
         this.router.navigate(['/home']);
       }
     }

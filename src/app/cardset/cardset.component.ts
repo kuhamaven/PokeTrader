@@ -61,9 +61,17 @@ export class CardsetComponent implements OnInit {
   }
 
   setCards(email: string){
-    console.log(email);
+    this.authSvc.afAuth.currentUser.then(
+        user => {
+          user.getIdToken().then(
+            result => {
+              let userToken = result;
+              console.log(userToken);
+            }
+          )
+        }
+      )
     const cardsIDListWithMail = [email].concat(this.cardsIDList);
-    console.log(cardsIDListWithMail); 
     console.log(JSON.stringify(cardsIDListWithMail));
       this.http.put('http://localhost:8080/cardmaker',JSON.stringify(cardsIDListWithMail)).toPromise().then( data => {
       console.log(data);

@@ -39,6 +39,7 @@ export class CardsetComponent implements OnInit {
     catch(error) {
       console.log(error);
     }
+    
   }
 
   ngOnInit(): void {

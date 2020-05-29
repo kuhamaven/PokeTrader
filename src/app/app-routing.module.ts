@@ -23,7 +23,8 @@ const routes: Routes = [
     path: 'register',
     loadChildren: () => import('./auth/register/register.module').then(m => m.RegisterModule)
   },
-  { path: 'profile', loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule) }
+  { path: 'profile', loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule) },
+  { path: 'cardmaker', loadChildren: () => import('./cardmaker/cardmaker.module').then(m => m.CardmakerModule) }
 ];
 
 @NgModule({

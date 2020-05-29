@@ -5,12 +5,15 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarColor01">
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav mr-auto" *ngIf="user$ | async as user; else login">
             <li class="nav-item active">
                 <a class="nav-link" routerLink="/">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" routerLink="/cardset">CardSet</a>
+                <a class="nav-link" routerLink="/cardset">Add to Collection</a>
+            </li>
+            <li class="nav-item" *ngIf="isAdmin(user.uid)">
+                <a class="nav-link" routerLink="/cardmaker">Create a Card</a>
             </li>
         </ul>
         <ul class="navbar-nav mx-auto" *ngIf="user$ | async as user; else login">
@@ -20,7 +23,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" routerLink="/profile">
-                    {{ user?.email }}
+                    My Profile
                 </a>
             </li>
             <li class="nav-item" *ngIf="isAdmin(user.uid)">

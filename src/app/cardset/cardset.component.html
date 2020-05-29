@@ -1,40 +1,6 @@
-<div class="row">
-    <div class="col-md-6	mx-auto  mt-5" *ngIf="user$ | async as user; else">
-        <!-- form	card	login	with	validation	feedback	-->
-        <div class="card" *ngIf="isAdmin(user.uid)">
-            <div class="card-body">
-                <h1 class="text-center">Add card</h1>
-            </div>
-            <div class="card-body">
-                <form>
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" placeholder="Add name..." #name>
-                    </div>
-                    <div class="form-group">
-                        <label for="image Url">Image Url</label>
-                        <input type="text" class="form-control" id="imageUrl" placeholder="Add picture url..." #url>
-                    </div>
-                    <div class="form-group">
-                        <label for="type">Id</label>
-                        <input type="text" class="form-control" id="id" placeholder="Add id..." #id>
-                    </div>
-                    <div class="form-group">
-                        <label for="type">Type</label>
-                        <input type="text" class="form-control" id="type" placeholder="Add type..." #type>
-                    </div>
-                    <div class="form-group">
-                        <label for="type">Varint</label>
-                        <input type="text" class="form-control" id="variant" placeholder="Add variant..." #variant>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-large btn-block" (click)="addCard(name.value,url.value,id.value,type.value,variant.value)">Add</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<hr class="mb-5">
-<div class="row row-flex" *ngIf="user$ | async as user; else">
+
+<hr class="mb-5" [ngStyle]="{backgroundImage:'https://i.imgur.com/y3Vt8R8.png'}" >
+<div class="row row-flex" *ngIf="user$ | async as user; else" [ngStyle]="{backgroundImage:'https://i.imgur.com/y3Vt8R8.png'}">
     <app-card *ngFor="let c of cards" [card]="c" [setSelected]="addNewCardToCollection"></app-card>
     <button type="submit" class="btn btn-primary btn-large btn-block" (click)="setCards(user.email)">Send</button>
 </div>

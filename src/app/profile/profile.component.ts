@@ -3,6 +3,7 @@ import {AuthService} from 'src/app/auth/services/auth.service';
 import {Observable, from} from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Card } from '../models/card.model';
+import { User } from '../models/user.model';
 
 @Component({
   selector: 'app-profile',
@@ -13,10 +14,10 @@ import { Card } from '../models/card.model';
 export class ProfileComponent implements OnInit {
 public user$:Observable<any>=this.authService.afAuth.user;
 public currentUser: any;
-public photoURL: string;
-public email: string;
+public userData: string[]=[];
 cards: Card[] = [];
-public userData: string[] = [];
+public userEmail: string[] = [];
+public databaseUser:User=new User();
 
 
 constructor( private http: HttpClient, private authService: AuthService) { 
@@ -26,9 +27,7 @@ constructor( private http: HttpClient, private authService: AuthService) {
   ngOnInit() {
     this.authService.afAuth.currentUser.then(
       user => {
-        this.email = user.email;
-        console.log("El email es: "+this.email);
-        this.userData.push(this.email)
+        this.userEmail.push(user.email)
         this.loadProfile();
       }
     ) .catch(x=> console.log(x))
@@ -36,16 +35,17 @@ constructor( private http: HttpClient, private authService: AuthService) {
   
 
   loadProfile(){
-    this.http.put('http://localhost:8080/profile',JSON.stringify(this.userData)).toPromise().then(
+    this.http.put('http://localhost:8080/profile',JSON.stringify(this.userEmail)).toPromise().then(
     data => {
-      console.log(data);
-      this.photoURL=data.toString();
-      console.log(JSON.parse(this.photoURL));
+  
+      Object.assign(this.databaseUser,data);
+    
     }
   )
   .catch(x=> console.log(x))
+    
   try {
-    this.http.put('http://localhost:8080/collection',JSON.stringify(this.userData)).toPromise().then(
+    this.http.put('http://localhost:8080/collection',JSON.stringify(this.userEmail)).toPromise().then(
     data => {
       Object.assign(this.cards,data)
     }
@@ -54,7 +54,7 @@ constructor( private http: HttpClient, private authService: AuthService) {
   catch(error) {
     console.log(error);
   }
-   
+    
   }
   
 

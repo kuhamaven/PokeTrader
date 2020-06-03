@@ -12,6 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 // ng build --watch=true --outputPath=../../IdeaProjects/poke-trader/src/main/webapp --deleteOutputPath=false
 
@@ -28,7 +29,8 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
     AngularFireAuthModule,
     HttpClientModule,
     AngularFireStorageModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -4,8 +4,8 @@ import { Card } from '../models/card.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import {MatSnackBar,MatSnackBarModule} from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+
 
 
 
@@ -17,12 +17,13 @@ import { Router } from '@angular/router';
 
 })
 export class CardsetComponent implements OnInit {
+  public alert: boolean=false;
   cards: Card[] = [];
   cardsIDList: string[] = [];
   public user$: Observable<any> = this.authSvc.afAuth.user;
 
 
-  constructor( private http: HttpClient, private authSvc: AuthService,private _snackBar: MatSnackBar,private router: Router) { 
+  constructor( private http: HttpClient, private authSvc: AuthService,private router: Router) { 
     this.addNewCardToCollection = this.addNewCardToCollection.bind(this);
     //this.cards = cardsList;
     try {
@@ -44,7 +45,7 @@ export class CardsetComponent implements OnInit {
   addNewCardToCollection = (id: string) => {
     if(this.cardsIDList.indexOf(id)<0){
     this.cardsIDList.push(id);
-    this.openSnackBar('Card Selected!','OK')
+    this.alert=true;
     }
   }
 
@@ -64,14 +65,11 @@ export class CardsetComponent implements OnInit {
   }
     )
     .catch(x => console.log(x))
-    this.openSnackBar('Card(s) Added Succesfully!','OK')
     this.router.navigate(['/profile']);
   }
 
-  openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {
-      duration: 2000,
-    });
+  closeAlert(){
+    this.alert=false;
   }
 
 

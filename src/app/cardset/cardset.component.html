@@ -1,13 +1,13 @@
-<hr class="mb-5" [ngStyle]="{backgroundImage:'https://i.imgur.com/y3Vt8R8.png'}">
-<div class="row row-flex" *ngIf="user$ | async as user; else" [ngStyle]="{backgroundImage:'https://i.imgur.com/y3Vt8R8.png'}">
-    <app-card *ngFor="let c of cards" [card]="c" [setSelected]="addNewCardToCollection"></app-card>
-    <button type="submit" class="btn btn-primary btn-large btn-block" (click)="setCards(user.email)">Send</button>
-</div>
-<div class="modal-body" style="padding:0px; position:fixed; top: 0;">
+<div class="modal-body" style="padding:0px; position:fixed; top: 30px; left:540px; z-index: 10;">
     <div *ngIf="alert" class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+        <strong>Card Added!</strong> This card will now be included in your collection.
         <button (click)="closeAlert()" type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
     </div>
+</div>
+<hr class="mb-5" [ngStyle]="{backgroundImage:'https://i.imgur.com/y3Vt8R8.png'}">
+<div class="row row-flex" *ngIf="user$ | async as user; else" [ngStyle]="{backgroundImage:'https://i.imgur.com/y3Vt8R8.png'}">
+    <app-card *ngFor="let c of cards" [card]="c" [setSelected]="addNewCardToCollection"></app-card>
+    <button type="submit" class="btn btn-primary btn-large btn-block" (click)="setCards(user.email)">Send</button>
 </div>

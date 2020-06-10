@@ -20,6 +20,7 @@ export class CardmakerComponent implements OnInit {
   adminIDList: string[] = AdminIds;
   cardData: string[]=[];
   public user$: Observable<any> = this.authSvc.afAuth.user;
+  alert: boolean=false;
 
 
   constructor(  private http: HttpClient, private authSvc: AuthService) {
@@ -43,13 +44,17 @@ export class CardmakerComponent implements OnInit {
   }
     )
     .catch(x => console.log(x))
-  
+    this.alert=true;
     return false;
   }
 
   isAdmin(uid: string): boolean {
     if(this.adminIDList.indexOf(uid)>-1) {return true};
     return false;
+  }
+
+  closeAlert(){
+    this.alert=false;
   }
 
 }

@@ -7,6 +7,7 @@ export class User{
     public userName: string;
     public id: string;
     public cards: Card[];
+    public recentlyModified: boolean;
 
     constructor(){
         this.email="";
@@ -15,6 +16,7 @@ export class User{
         this.userName="";
         this.id="";
         this.cards=[];
+        this.recentlyModified=false;
     }
 
     

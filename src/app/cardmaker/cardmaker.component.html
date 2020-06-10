@@ -9,23 +9,23 @@
                 <form [formGroup]="registerCardForm" (ngSubmit)="addCard()">
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" placeholder="Add name..." >
+                        <input type="text" class="form-control" formControlName="name" placeholder="Add name..." >
                     </div>
                     <div class="form-group">
                         <label for="image Url">Image Url</label>
-                        <input type="text" class="form-control" id="imageUrl" placeholder="Add picture url...">
+                        <input type="text" class="form-control" formControlName="imageUrl" placeholder="Add picture url...">
                     </div>
                     <div class="form-group">
                         <label for="type">Id</label>
-                        <input type="text" class="form-control" id="id" placeholder="Add id...">
+                        <input type="text" class="form-control" formControlName="id" placeholder="Add id...">
                     </div>
                     <div class="form-group">
                         <label for="type">Type</label>
-                        <input type="text" class="form-control" id="type" placeholder="Add type...">
+                        <input type="text" class="form-control" formControlName="type" placeholder="Add type...">
                     </div>
                     <div class="form-group">
                         <label for="type">Variant</label>
-                        <input type="text" class="form-control" id="variant" placeholder="Add variant...">
+                        <input type="text" class="form-control" formControlName="variant" placeholder="Add variant...">
                     </div>
                     <button type="submit" class="btn btn-primary btn-large btn-block">Add</button>
                 </form>

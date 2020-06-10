@@ -6,28 +6,28 @@
                 <h1 class="text-center">Add card</h1>
             </div>
             <div class="card-body">
-                <form>
+                <form [formGroup]="registerCardForm" (ngSubmit)="addCard()">
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" placeholder="Add name..." #name>
+                        <input type="text" class="form-control" id="name" placeholder="Add name..." >
                     </div>
                     <div class="form-group">
                         <label for="image Url">Image Url</label>
-                        <input type="text" class="form-control" id="imageUrl" placeholder="Add picture url..." #url>
+                        <input type="text" class="form-control" id="imageUrl" placeholder="Add picture url...">
                     </div>
                     <div class="form-group">
                         <label for="type">Id</label>
-                        <input type="text" class="form-control" id="id" placeholder="Add id..." #id>
+                        <input type="text" class="form-control" id="id" placeholder="Add id...">
                     </div>
                     <div class="form-group">
                         <label for="type">Type</label>
-                        <input type="text" class="form-control" id="type" placeholder="Add type..." #type>
+                        <input type="text" class="form-control" id="type" placeholder="Add type...">
                     </div>
                     <div class="form-group">
                         <label for="type">Variant</label>
-                        <input type="text" class="form-control" id="variant" placeholder="Add variant..." #variant>
+                        <input type="text" class="form-control" id="variant" placeholder="Add variant...">
                     </div>
-                    <button type="submit" class="btn btn-primary btn-large btn-block" (click)="addCard(user.uid,name.value,url.value,id.value,type.value,variant.value)">Add</button>
+                    <button type="submit" class="btn btn-primary btn-large btn-block">Add</button>
                 </form>
             </div>
         </div>

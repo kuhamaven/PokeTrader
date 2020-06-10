@@ -55,7 +55,7 @@ export class CardmakerComponent implements OnInit {
     )
     .catch(x => console.log(x))
     this.alert=true;
-    this.registerCardForm.reset(false);
+    this.registerCardForm.reset();
     this.alert=true;
     return false;
     

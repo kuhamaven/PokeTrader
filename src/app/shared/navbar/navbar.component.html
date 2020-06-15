@@ -15,6 +15,16 @@
             <li class="nav-item" *ngIf="isAdmin(user.uid)">
                 <a class="nav-link" routerLink="/cardmaker">Create a Card</a>
             </li>
+            <li class="nav-item dropdown show">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" role="button" aria-haspopup="true" aria-expanded="true" (click)="openDropdown()">Trade</a>
+                <div *ngIf="tradeDropdown" class="dropdown-menu show" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px; will-change: transform;" x-placement="bottom-start">
+                  <a class="dropdown-item" routerLink="/tradecreator">Create a Trade</a>
+                  <a class="dropdown-item" href="#">My Trades</a>
+                  <a class="dropdown-item" href="#">My Bids</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Report</a>
+                </div>
+              </li>
         </ul>
         <ul class="navbar-nav mx-auto" *ngIf="user$ | async as user; else login">
 

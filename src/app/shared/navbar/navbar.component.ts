@@ -13,6 +13,8 @@ import AdminIds from './../../../assets/AdminIds.json';
 export class NavbarComponent{
   private adminIDList: string [] = AdminIds;
   public user$: Observable<any> = this.authSvc.afAuth.user;
+  public tradeDropdown: boolean=false;
+
 
   constructor(private authSvc: AuthService, private router: Router) { }
 
@@ -29,6 +31,16 @@ export class NavbarComponent{
 
   isAdmin(uid: string): boolean {
     if(this.adminIDList.indexOf(uid)>-1) {return true};
+    return false;
+  }
+
+  openDropdown(){
+    if(this.tradeDropdown){
+      this.tradeDropdown=false;
+    }
+    else{
+      this.tradeDropdown=true;
+    }
     return false;
   }
 

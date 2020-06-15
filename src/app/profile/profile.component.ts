@@ -60,6 +60,13 @@ constructor( private http: HttpClient, private authService: AuthService) {
   closeAlert():void{
     this.databaseUser.recentlyModified=false;
   }
+
+
+
+
+ 
+
+
   
 
  

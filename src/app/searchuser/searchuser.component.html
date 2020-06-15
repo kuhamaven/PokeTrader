@@ -1,0 +1,42 @@
+<div class="jumbotron">
+<form class="form-inline my-2 my-lg-0">
+    <input class="form-control mr-sm-2" type="text" placeholder="Search"#email>
+    <button class="btn btn-secondary my-2 my-sm-0" type="submit"(click)="searchUser(email.value)">Search</button>
+  </form>
+
+  </div >
+  <section *ngIf=profileOn id="profile" class="container">
+    <div class="row mt-5">
+        <div class="offset-lg-4 col-lg-4 col-sm-6 col-12 main-section text-center card" >
+            <div class="row">
+                <div class="col-lg-12 col-sm-12 col-12 profile-header"></div>
+            </div>
+            <div class="row user-details">
+                <div class="col-12">
+                    <img src="{{ databaseUser.photoUrl }}" class="rounded-circle img-thumbnail" alt="profile">
+                    <h5>{{ databaseUser.userName}}</h5>
+                    <p>
+                        {{databaseUser.email}}
+                    </p>
+
+                    <hr>
+                    <span>{{ databaseUser.bio }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<hr class="mb-5">
+<div *ngIf=profileOn class="row row-flex">
+    <app-searchuser-card *ngFor="let c of cards" [card]="c"></app-searchuser-card>
+</div>
+<div class="modal-body" style="padding:0px; position:fixed;top: 80px; left:535px; z-index: 10; ">
+    <div *ngIf=alertOn class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>User Does Not Exist!</strong> Try Again!
+        <button (click)="closeAlert()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+</div>
+

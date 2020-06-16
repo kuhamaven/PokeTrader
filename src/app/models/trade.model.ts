@@ -4,7 +4,7 @@ import { Bid } from './bid.model';
 export class Trade{
     public userId: string;
     public card: Card;
-    public id: Long;
+    public id: number;
     public openingDate: string;
     public condition: string;
     public willingToAccept: Card[];

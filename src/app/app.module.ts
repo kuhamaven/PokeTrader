@@ -14,6 +14,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TradecomponentComponent } from './tradecomponent/tradecomponent.component';
+import { BidcomponentComponent } from './bidcomponent/bidcomponent.component';
 
 // ng build --watch=true --outputPath=../../IdeaProjects/poke-trader/src/main/webapp --deleteOutputPath=false
 
@@ -22,6 +23,7 @@ import { TradecomponentComponent } from './tradecomponent/tradecomponent.compone
     AppComponent,
     NavbarComponent,
     TradecomponentComponent,
+    BidcomponentComponent,
 
 
   ],

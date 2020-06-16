@@ -4,7 +4,7 @@ export class Bid{
     public userId: string;
     public card: Card;
     public trade: Trade;
-    public id: Long;
+    public id: number;
     public date: string;
     
 

@@ -1,13 +1,10 @@
 
 <ol class="breadcrumb">
     <li class="breadcrumb-item active" style="opacity: initial;font-weight: bolder;font-size: x-large;"> My Profile</li>
-  </ol>
-
-<section id="profile" class="container">
     <div class="row mt-5">
-        <div class="offset-lg-12 col-lg-12 col-sm-6 col-12 main-section text-center card" *ngIf="user$ | async as user; else ">
+        <div *ngIf="user$ | async as user; else ">
             <div class="row">
-                <div class="col-lg-12 col-sm-12 col-12 profile-header"></div>
+                <div ></div>
             </div>
             <div class="row user-details">
                 <div class="col-12">
@@ -23,15 +20,28 @@
             </div>
         </div>
     </div>
-</section>
-<li></li>
-<ol class="breadcrumb">
-    <li class="breadcrumb-item active" style="font-weight: 700;font-size: medium;"> My Collection:</li>
+    <li></li>
   </ol>
+<li></li>
+
+
+<a *ngIf="showCards" type="submit" class="btn btn-primary btn-lg" role="button" (click)="alertsToggle()">Customize</a>
+<a *ngIf="showCustomize" type="submit" class="btn btn-primary btn-lg" style="background-color: red;background: red;" role="button" (click)="alertsToggle()">Go Back</a>
+
+<li></li>
+
+<div *ngIf="showCards">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" style="font-size: large;font-weight: 800;"> My Collection:</li>
+      </ol>  
 <hr class="mb-5">
-<div class="row row-flex" *ngIf="user$ | async as user; else">
+<div class="row row-flex">
     <app-collection-card *ngFor="let c of cards" [card]="c"></app-collection-card>
+    
 </div>
+</div>
+
+
 <div class="modal-body" style="padding:0px; position:fixed;top: 80px; left:535px; z-index: 10; ">
     <div *ngIf=databaseUser.recentlyModified class="alert alert-warning alert-dismissible fade show" role="alert">
         <strong>Collection Updated!</strong> Now there are new cards in your collection!
@@ -40,3 +50,39 @@
     </button>
     </div>
 </div>
+
+
+
+
+
+
+  <div *ngIf="showCustomize" class="card text-white bg-info mb-3" style="max-width: 80rem;">
+    <div class="card-header" style="background-color: hotpink;font-size: x-large;font-style:italic">Customize</div>
+    <div class="card-body">
+      
+      <h1 class="text-center" style="font: outline;">Change Profile Settings: </h1>
+      <form [formGroup]="customizeForm" (ngSubmit)="onUpdate()">
+          <div class="form-group">
+              <label for="userName" style="font-size: medium;">User Name:</label>
+              <input type="text" style="color: white;" class="form-control" formControlName="userName">
+          </div>
+          <div class="form-group">
+              <label for="bio" style="font-size: medium;">Write a short bio:</label>
+              <input type="text" style="color:white" class="form-control" formControlName="bio">
+          </div>
+          <div class="form-group">
+              <h3>Update Profile Picture:</h3>
+          <input type="file" accept=" .png, .jpg" (change)="onUpload($event)">
+          </div>
+          <div class="progress">
+              <div class="progress-bar progress-bar-striped bg success" role="progressbar" [style.width]="
+              (uploadPercent | async)+'%'">
+          </div>
+          </div>
+          <br>
+          <input #imageUser type="hidden" [value]="urlImage | async">
+          <button type="submit" class="btn btn-primary btn-lg">Save Changes</button>
+      </form>
+
+    </div>
+  </div>

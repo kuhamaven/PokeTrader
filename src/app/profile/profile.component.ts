@@ -4,6 +4,10 @@ import {Observable, from} from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Card } from '../models/card.model';
 import { User } from '../models/user.model';
+import { FormControl, FormGroup } from '@angular/forms';
+import { AngularFireStorage } from "@angular/fire/storage";
+import { map, finalize } from "rxjs/operators";
+
 
 @Component({
   selector: 'app-profile',
@@ -18,9 +22,23 @@ public userData: string[]=[];
 cards: Card[] = [];
 public userEmail: string[] = [];
 public databaseUser:User=new User();
+customizeForm = new FormGroup({
+  userName: new FormControl(''),
+  bio: new FormControl(''),
+  urlPhoto: new FormControl(''),
+});
+selectedFile: File = null;
+fb;
+downloadURL: Observable<string>;
+uploadPercent: Observable<number>;
+urlImage: Observable<string>;
+public customizePopUp=false;
+public showCards=true;
+public showCustomize=false;
 
 
-constructor( private http: HttpClient, private authService: AuthService) { 
+
+constructor( private http: HttpClient, private authService: AuthService, private storage:AngularFireStorage ) { 
 }
 
 
@@ -32,6 +50,8 @@ constructor( private http: HttpClient, private authService: AuthService) {
       }
     ) .catch(x=> console.log(x))
   }
+
+
   
 
   loadProfile(){
@@ -61,6 +81,81 @@ constructor( private http: HttpClient, private authService: AuthService) {
     this.databaseUser.recentlyModified=false;
   }
 
+  onUpload(e){
+    //console.log("subir",e);
+    const id = this.userEmail[0];
+    const file=e.target.files[0];
+    const filePath= `uploads/profile_${id}`;
+    const ref=this.storage.ref(filePath);
+    const task=this.storage.upload(filePath,file);
+    this.uploadPercent=task.percentageChanges();
+    task.snapshotChanges().pipe(finalize(() => this.urlImage= ref.getDownloadURL())).subscribe();
+  }
+
+  onFileSelected(event) {
+    var n = Date.now();
+    const file = event.target.files[0];
+    const filePath = `RoomsImages/${n}`;
+    const fileRef = this.storage.ref(filePath);
+    const task = this.storage.upload(`RoomsImages/${n}`, file);
+    task
+      .snapshotChanges()
+      .pipe(
+        finalize(() => {
+          this.downloadURL = fileRef.getDownloadURL();
+          this.downloadURL.subscribe(url => {
+            if (url) {
+              this.fb = url;
+            }
+            console.log(this.fb);
+          });
+        })
+      )
+      .subscribe(url => {
+        if (url) {
+          console.log(url);
+        }
+      });
+  }
+
+  async onUpdate(){
+    const { userName, bio } = this.customizeForm.value;
+    try{
+        const url =(await this.urlImage.toPromise()).toString();
+        const userData=[this.userEmail[0],userName,bio,url]
+        this.http.put('http://localhost:8080/customize',JSON.stringify(userData)).toPromise().then( data => {
+      
+        }
+          )
+          .catch(x => console.log(x))
+      
+    }
+    catch(error){
+      console.log(error);
+    }
+    finally{
+
+    this.loadProfile();
+    this.alertsToggle();
+  }
+  }
+
+openCustomizer(){
+  this.customizePopUp=true;
+}
+
+alertsToggle(){
+  if(this.showCards){
+      this.showCards=false;
+      this.showCustomize=true;
+       }
+  else {
+       this.showCards=true;
+       this.showCustomize=false;
+      }
+
+      return false;
+  }
 
 
 

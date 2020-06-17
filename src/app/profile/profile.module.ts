@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { ProfileComponent } from './profile.component';
 import { CollectionCardComponent } from '../collection-card/collection-card.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,6 +12,7 @@ import { CollectionCardComponent } from '../collection-card/collection-card.comp
   imports: [
     CommonModule,
     ProfileRoutingModule,
+    ReactiveFormsModule,
   ]
 })
 

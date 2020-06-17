@@ -1,19 +1,26 @@
 <div class="card mb-3">
-    <h3 class="card-header">Is Available: {{trade.isOpen}}</h3>
+    <h4 class="card-header" style="background-color: greenyellow;">Available {{trade.isOpen}}</h4>
     <div class="card-body">
-      <h5 class="card-title">{{trade.card.name}}</h5>
-      <h6 class="card-subtitle text-muted"></h6>
+      <h3 class="card-title">{{trade.card.name}}</h3>
+      <h4 class="card-subtitle text-muted"></h4>
     </div>
     <img style="height: 100%; width: 100%; display: block;" src={{trade.card.imageURL}}>
-    <div class="card-body">
-      <p class="card-text">Condition: {{trade.condition}}</p>
+  <div class="card-body">
+    <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+      <div class="card-header">Trade Information:</div>
+      <div class="card-body">
+        <h5>  Condition: {{trade.condition}}</h5>
+    
+      <ul class="list-group list-group-flush">
+        <h5>     Willing To Accept:</h5>
+        <h5 class="list-group-item" style= "color:black;"
+         *ngFor="let c of trade.willingToAccept">{{c.name}} ( {{c.id}})</h5>
+      </ul>
     </div>
-    <ul class="list-group list-group-flush">
-      <h1>Willing To Accept:</h1>
-      <h1 class="list-group-item"*ngFor="let c of trade.willingToAccept">{{c.name}} ( {{c.id}})</h1>
-    </ul>
+    </div>
+</div>
     <div class="card-body">
-      <a href="#" class="card-link">See Offers</a>
+      <a class="card-link">See Offers</a>
     </div>
     <div class="card-footer text-muted">
       {{trade.openingDate}}

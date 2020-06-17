@@ -1,3 +1,13 @@
+
+<div class="jumbotron">
+    <h1 class="display-3">My Active Trades</h1>
+    <p class="lead"></p>
+    <hr class="my-4">
+    <p class="link"></p>
+    <p class="lead">
+      <a type="submit" style="background: red;" class="btn btn-primary btn-lg" role="button" (click)="navigateToCreateTrade()">Create a New Trade</a>
+    </p>
+  </div>
 <div class="row row-flex" >
 <app-tradecomponent *ngFor="let t of trades"[trade]="t"></app-tradecomponent>
 </div>

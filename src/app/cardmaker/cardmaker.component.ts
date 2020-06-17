@@ -6,7 +6,7 @@ import AdminIds from './../../assets/AdminIds.json';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { FormGroup, FormControl } from '@angular/forms';
-
+import { Router } from '@angular/router';
 
 
 
@@ -32,7 +32,7 @@ export class CardmakerComponent implements OnInit {
   alert: boolean=false;
 
 
-  constructor(  private http: HttpClient, private authSvc: AuthService) {
+  constructor(  private http: HttpClient, private authSvc: AuthService,private router: Router) {
     
   }
 
@@ -56,6 +56,7 @@ export class CardmakerComponent implements OnInit {
     .catch(x => console.log(x))
     this.registerCardForm.reset();
     this.alert=true;
+
     return false;
     
   }
@@ -67,6 +68,10 @@ export class CardmakerComponent implements OnInit {
 
   closeAlert(){
     this.alert=false;
+  }
+  navigateToDatabase()
+  {
+    this.router.navigate(['/cardset']);
   }
 
 }

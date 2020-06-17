@@ -1,6 +1,11 @@
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item active" style="opacity: initial;font-weight: bolder;font-size: x-large;"> My Profile</li>
+  </ol>
+
 <section id="profile" class="container">
     <div class="row mt-5">
-        <div class="offset-lg-4 col-lg-4 col-sm-6 col-12 main-section text-center card" *ngIf="user$ | async as user; else ">
+        <div class="offset-lg-12 col-lg-12 col-sm-6 col-12 main-section text-center card" *ngIf="user$ | async as user; else ">
             <div class="row">
                 <div class="col-lg-12 col-sm-12 col-12 profile-header"></div>
             </div>
@@ -19,7 +24,10 @@
         </div>
     </div>
 </section>
-
+<li></li>
+<ol class="breadcrumb">
+    <li class="breadcrumb-item active" style="font-weight: 700;font-size: medium;"> My Collection:</li>
+  </ol>
 <hr class="mb-5">
 <div class="row row-flex" *ngIf="user$ | async as user; else">
     <app-collection-card *ngFor="let c of cards" [card]="c"></app-collection-card>

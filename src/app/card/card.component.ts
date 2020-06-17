@@ -10,6 +10,7 @@ export class CardComponent implements OnInit {
   @Input() card: Card;
   @Input() setSelected;
   selected: boolean = false;
+  clicked:boolean=false;
   @HostBinding('attr.class') cssClass = 'col-md-4';
 
   constructor() {  }

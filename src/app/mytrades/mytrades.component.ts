@@ -46,5 +46,9 @@ export class MytradesComponent implements OnInit {
         console.log(error);
       }
     }
+
+    navigateToCreateTrade(){
+      this.router.navigate(['/tradecreator']);
+    }
     
 }

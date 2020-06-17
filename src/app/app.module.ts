@@ -22,9 +22,7 @@ import { BidcomponentComponent } from './bidcomponent/bidcomponent.component';
   declarations: [
     AppComponent,
     NavbarComponent,
-    TradecomponentComponent,
-    BidcomponentComponent,
-
+   
 
   ],
   imports: [

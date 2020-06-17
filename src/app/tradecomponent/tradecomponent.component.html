@@ -4,12 +4,13 @@
       <h5 class="card-title">{{trade.card.name}}</h5>
       <h6 class="card-subtitle text-muted"></h6>
     </div>
-    <img style="height: 200px; width: 100%; display: block;" src={{trade.card.imageURL}}>
+    <img style="height: 100%; width: 100%; display: block;" src={{trade.card.imageURL}}>
     <div class="card-body">
       <p class="card-text">Condition: {{trade.condition}}</p>
     </div>
     <ul class="list-group list-group-flush">
-      <li class="list-group-item"*ngFor="let c of trade.willingToAccept" [Card]="c">{{c.name}} ( {{c.id}})</li>
+      <h1>Willing To Accept:</h1>
+      <h1 class="list-group-item"*ngFor="let c of trade.willingToAccept">{{c.name}} ( {{c.id}})</h1>
     </ul>
     <div class="card-body">
       <a href="#" class="card-link">See Offers</a>

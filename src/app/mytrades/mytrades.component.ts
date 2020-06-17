@@ -27,6 +27,7 @@ export class MytradesComponent implements OnInit {
     this.authSvc.afAuth.currentUser.then(
       user => {
         this.userEmail.push(user.email)
+        console.log(this.userEmail)
         this.loadTrades();
       }
     ) .catch(x=> console.log(x))
@@ -36,7 +37,8 @@ export class MytradesComponent implements OnInit {
       try {
         this.http.put('http://localhost:8080/mytrades',JSON.stringify(this.userEmail)).toPromise().then(
         data => {
-          Object.assign(this.trades,data)
+          console.log(data);
+          Object.assign(this.trades,data);
         }
       )
       }

@@ -3,15 +3,15 @@ import { CommonModule } from '@angular/common';
 
 import { TradecreatorRoutingModule } from './tradecreator-routing.module';
 import { TradecreatorComponent } from './tradecreator.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import { HostcardComponent } from '../trade/hostcard/hostcard.component';
+import { WillingtoacceptcardComponent } from '../trade/willingtoacceptcard/willingtoacceptcard.component';
 
 
 @NgModule({
-  declarations: [TradecreatorComponent],
+  declarations: [TradecreatorComponent, HostcardComponent, WillingtoacceptcardComponent],
   imports: [
     CommonModule,
-    TradecreatorRoutingModule,
-    ReactiveFormsModule
+    TradecreatorRoutingModule
   ]
 })
 export class TradecreatorModule { }

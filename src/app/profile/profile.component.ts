@@ -35,7 +35,7 @@ urlImage: Observable<string>;
 public customizePopUp=false;
 public showCards=true;
 public showCustomize=false;
-
+public picture: boolean=false;
 
 
 constructor( private http: HttpClient, private authService: AuthService, private storage:AngularFireStorage ) { 
@@ -90,6 +90,7 @@ constructor( private http: HttpClient, private authService: AuthService, private
     const task=this.storage.upload(filePath,file);
     this.uploadPercent=task.percentageChanges();
     task.snapshotChanges().pipe(finalize(() => this.urlImage= ref.getDownloadURL())).subscribe();
+    this.picture=true;
   }
 
   onFileSelected(event) {
@@ -120,6 +121,7 @@ constructor( private http: HttpClient, private authService: AuthService, private
 
   async onUpdate(){
     const { userName, bio } = this.customizeForm.value;
+    if(this.picture){
     try{
         const url =(await this.urlImage.toPromise()).toString();
         const userData=[this.userEmail[0],userName,bio,url]
@@ -138,6 +140,27 @@ constructor( private http: HttpClient, private authService: AuthService, private
     this.loadProfile();
     this.alertsToggle();
   }
+}
+else{
+  try{
+    const url ='';
+    const userData=[this.userEmail[0],userName,bio,url]
+    this.http.put('http://localhost:8080/customize',JSON.stringify(userData)).toPromise().then( data => {
+  
+    }
+      )
+      .catch(x => console.log(x))
+  
+}
+catch(error){
+  console.log(error);
+}
+finally{
+
+this.loadProfile();
+this.alertsToggle();
+}
+}
   }
 
 openCustomizer(){

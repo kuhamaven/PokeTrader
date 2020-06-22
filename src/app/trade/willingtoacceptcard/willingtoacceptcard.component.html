@@ -1,0 +1,16 @@
+<div class="card-content">
+    <div class="card-img">
+        <img src={{card.imageURL}} alt="">
+    </div>
+    <div class="card-body">
+        <h4>Name: {{card.name}}</h4>
+        <h5>Type: {{card.type}}</h5>
+        <h5>Stage: {{card.variant}}</h5>
+        <h3> </h3>
+        <h1></h1>
+        <button type="button" [disabled]="clicked" (click)="setSelected(card.id);clicked=true;" class="btn-btn-primary">Add to colection</button>
+        <span *ngIf="isSelected()">
+            <span ngNonBindable> In collection!</span>
+        </span>
+    </div>
+</div>

@@ -1,39 +1,3 @@
-<div class="row">
-    <div class="col-md-6	mx-auto  mt-5" *ngIf="user$ | async as user; else ">
-        <!-- form	card	login	with	validation	feedback	-->
-        <div class="card" >
-            <div class="card-body">
-                <h1 class="text-center">Create Trade</h1>
-            </div>
-            <div class="card-body">
-                <form [formGroup]="registerTradeForm" (ngSubmit)="createTrade(user.email)">
-                    <div class="form-group">
-                        <label for="name">Card Id</label>
-                        <input type="text" class="form-control" formControlName="cardId" placeholder="Type in your card id..." >
-                    </div>
-                  <!--   <div class="form-group">
-                        <label for="type">Condition</label>
-                        <input type="text" class="form-control" formControlName="condition" placeholder="Specify condition...">
-                    </div> -->
-                    <div class="form-group">
-                        <label for="exampleSelect1">Select Condition</label>
-                        <select class="form-control" formControlName="condition">
-                          <option>Mint</option>
-                          <option>Near Mint</option>
-                          <option>Played</option>
-                          <option>Heavily Played</option>
-                        </select>
-                      </div>
-                    <div class="form-group">
-                        <label for="type">Willing to accept</label>
-                        <input type="text" class="form-control" formControlName="wta" placeholder="Specify the card(S) you would accept in return...">
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-large btn-block">Done!</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 <div class="modal-body" style="padding:0px; position:fixed;top: 80px; left:535px; z-index: 10; ">
     <div *ngIf=alert class="alert alert-success alert-dismissible fade show" role="alert">
         <strong>Trade Created!</strong> Your trade will now be available for other users to see!
@@ -41,4 +5,43 @@
       <span aria-hidden="true">&times;</span>
     </button>
     </div>
+</div>
+
+<div class="modal-body" style="padding:0px; position:fixed;top: 80px; left:535px; z-index: 10; ">
+    <div *ngIf=confirm class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Request added!</strong> We hope someone offers you this one!
+        <button (click)="closeConfirm()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+</div>
+
+<div class="modal-body" style="padding:0px; position:fixed;top: 80px; left:535px; z-index: 10; ">
+    <div *ngIf=error class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Oopsie!</strong> You can't request the same card you are offering!
+        <button (click)="closeError()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+</div>
+
+<div *ngIf="collectionInitialized">
+    <div class="row row-flex">
+        <app-hostcard *ngFor="let c of hostCollection" [card]="c" [setSelected]="selectHostCard"></app-hostcard>
+    </div>
+</div>
+
+
+<div *ngIf="conditionSelector">
+    <a type="submit" class="btn btn-primary btn-lg" role="button" (click)="setCondition('Mint')">Mint</a>
+    <a type="submit" class="btn btn-primary btn-lg" role="button" (click)="setCondition('Near Mint')">Near Mint</a>
+    <a type="submit" class="btn btn-primary btn-lg" role="button" (click)="setCondition('Played')">Played</a>
+    <a type="submit" class="btn btn-primary btn-lg" role="button" (click)="setCondition('Heavily Played')">Heavily Played</a>
+</div>
+
+<div *ngIf="showCardset">
+    <div class="row row-flex">
+        <app-willingtoacceptcard *ngFor="let c of wholeCardset" [card]="c" [setSelected]="selectWTACard"></app-willingtoacceptcard>
+    </div>
+    <button type="submit" class="btn btn-primary btn-large btn-block" (click)="createTrade()">Send</button>
 </div>

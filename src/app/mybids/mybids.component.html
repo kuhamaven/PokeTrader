@@ -1,0 +1,12 @@
+
+<div class="jumbotron">
+    <h1 class="display-3">My Pending Bids</h1>
+    <p class="lead"></p>
+    <hr class="my-4">
+    <p class="link"></p>
+    <p class="lead">
+    </p>
+  </div>
+<div class="row row-flex" >
+<app-bid *ngFor="let t of bids"[bid]="t"></app-bid>
+</div>

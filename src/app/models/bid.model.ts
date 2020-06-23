@@ -3,7 +3,7 @@ import { Trade } from './trade.model';
 export class Bid{
     public userId: string;
     public card: Card;
-    public trade: Trade;
+    public trade: number;
     public id: number;
     public date: string;
     

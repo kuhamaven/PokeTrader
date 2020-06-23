@@ -27,7 +27,8 @@ const routes: Routes = [
   { path: 'cardmaker', loadChildren: () => import('./cardmaker/cardmaker.module').then(m => m.CardmakerModule) },
   { path: 'searchuser', loadChildren: () => import('./searchuser/searchuser.module').then(m => m.SearchuserModule) },
   { path: 'tradecreator', loadChildren: () => import('./tradecreator/tradecreator.module').then(m => m.TradecreatorModule) },
-  { path: 'mytrades', loadChildren: () => import('./mytrades/mytrades.module').then(m => m.MytradesModule) }
+  { path: 'mytrades', loadChildren: () => import('./mytrades/mytrades.module').then(m => m.MytradesModule) },
+  { path: 'mybids', loadChildren: () => import('./mybids/mybids.module').then(m => m.MybidsModule) }
 ];
 
 @NgModule({

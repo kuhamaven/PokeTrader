@@ -1,0 +1,30 @@
+
+<div  class="card mb-3"*ngIf="initialized">
+    <h4 class="card-header" style="background-color: greenyellow;">Offered to {{hostEmail}}</h4>
+    <div class="card-body">
+      <h3 class="card-title">{{bid.card.name}}</h3>
+      <h4 class="card-subtitle text-muted"></h4>
+    </div>
+    <img style="height: 100%; width: 100%; display: block;" src={{bid.card.imageURL}}>
+  <div class="card-body">
+    <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+      <div class="card-header">Trade Information:</div>
+      <div class="card-body">
+        <h5 class="card-body" *ngIf="trade.isOpen; else rejected">
+          Status: Pending
+        </h5>
+        <ng-template #rejected>
+          <h5 class="card-body">
+            Status Rejected
+          </h5>
+        </ng-template>
+    </div>
+    </div>
+</div>
+    <div class="card-body">
+    </div>
+    <div class="card-footer text-muted">
+      {{bid.date}}
+    </div>
+  </div> 
+  

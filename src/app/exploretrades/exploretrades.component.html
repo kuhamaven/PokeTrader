@@ -1,7 +1,13 @@
+<div class="jumbotron">
+    <h1 class="display-3">Explore All Available Trades</h1>
+    <p class="lead">Here You Will be Able to Bid On Other Users Cards</p>
+
+    <hr class="my-4">
 <div class="row row-flex" *ngIf="showTrades">
     <app-tradecomponent *ngFor="let t of trades" [trade]="t" [postOffer]="postOffer"></app-tradecomponent>
 </div>
 
 <div class="row row-flex" *ngIf="showPostOffer">
     <app-biddercard *ngFor="let c of userCollection"[card]="c" [setBidCard]="setBidCard"></app-biddercard>
+</div>
 </div>

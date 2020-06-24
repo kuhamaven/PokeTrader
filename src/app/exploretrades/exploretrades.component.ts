@@ -98,4 +98,8 @@ export class ExploretradesComponent implements OnInit {
 
     }
 
+    navigateToMyBids(){
+      this.router.navigate[("/mybids")];
+    }
+
 }

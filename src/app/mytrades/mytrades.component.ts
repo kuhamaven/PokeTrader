@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { Router } from '@angular/router';
 import { Trade } from '../models/trade.model';
+import { Bid } from '../models/bid.model';
 
 
 
@@ -17,10 +18,15 @@ import { Trade } from '../models/trade.model';
 export class MytradesComponent implements OnInit {
   public alert: boolean=false;
   trades: Trade[] = [];
+  bids: Bid[]=[];
   public user$: Observable<any> = this.authSvc.afAuth.user;
   public userEmail: string[] = [];
+  showTrade:boolean=false;
+  showBids:boolean=false;
 
-  constructor(private http: HttpClient, private authSvc: AuthService,private router: Router) { }
+  constructor(private http: HttpClient, private authSvc: AuthService,private router: Router) { 
+    this.loadBids=this.loadBids.bind(this);
+  }
 
   ngOnInit(): void {
 
@@ -39,6 +45,7 @@ export class MytradesComponent implements OnInit {
         data => {
           console.log(data);
           Object.assign(this.trades,data);
+          this.showTrade=true;
         }
       )
       }
@@ -49,6 +56,37 @@ export class MytradesComponent implements OnInit {
 
     navigateToCreateTrade(){
       this.router.navigate(['/tradecreator']);
+    }
+
+    loadBids(tid:Number){
+      const tidArray=[];
+      tidArray.push(tid);
+      try {
+        this.http.put('http://localhost:8080/tradebids',JSON.stringify(tidArray)).toPromise().then(
+        data => {
+          console.log(data);
+          Object.assign(this.bids,data);
+          this.showBids=true;
+          this.showTrade=false;
+        }
+      )
+      }
+      catch(error) {
+        console.log(error);
+      }
+    }
+
+    onAccept(){
+
+    }
+
+    onDecline(){
+
+    }
+    navigateToMyTrades(){
+      this.showTrade=true;
+      this.showBids=false;
+      this.bids=[];
     }
     
 }

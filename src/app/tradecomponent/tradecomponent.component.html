@@ -20,7 +20,7 @@
     </div>
 </div>
     <div class="card-body">
-      <a class="card-link">See Offers</a>
+      <button type="button" [disabled]="clicked" (click)="loadBids(trade.id);clicked=true;" class="btn-btn-primary">See My Offers</button>
     </div>
     <div class="card-footer text-muted">
       {{trade.openingDate}}

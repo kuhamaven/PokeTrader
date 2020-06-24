@@ -9,6 +9,7 @@ export class Bid{
     public accepted: boolean;
     public rejected:boolean;
     public hostEmail:string;
+    public bidderEmail:string;
     
 
     constructor(){

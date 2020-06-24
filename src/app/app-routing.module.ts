@@ -28,7 +28,8 @@ const routes: Routes = [
   { path: 'searchuser', loadChildren: () => import('./searchuser/searchuser.module').then(m => m.SearchuserModule) },
   { path: 'tradecreator', loadChildren: () => import('./tradecreator/tradecreator.module').then(m => m.TradecreatorModule) },
   { path: 'mytrades', loadChildren: () => import('./mytrades/mytrades.module').then(m => m.MytradesModule) },
-  { path: 'mybids', loadChildren: () => import('./mybids/mybids.module').then(m => m.MybidsModule) }
+  { path: 'mybids', loadChildren: () => import('./mybids/mybids.module').then(m => m.MybidsModule) },
+  { path: 'exploretrades', loadChildren: () => import('./exploretrades/exploretrades.module').then(m => m.ExploretradesModule) }
 ];
 
 @NgModule({

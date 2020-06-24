@@ -1,0 +1,7 @@
+<div class="row row-flex" *ngIf="showTrades">
+    <app-tradecomponent *ngFor="let t of trades" [trade]="t" [postOffer]="postOffer"></app-tradecomponent>
+</div>
+
+<div *ngIf="showPostOffer">
+    Holis holis tarolis
+</div>

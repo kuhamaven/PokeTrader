@@ -1,67 +1,67 @@
+<div class="card mb-3" *ngIf="showSeeTrade;else showbid">
+    <h4 class="card-header" style="background-color: greenyellow;">Available {{trade.isOpen}}</h4>
+    <div class="card-body">
+        <h3 class="card-title">{{trade.card.name}}</h3>
+        <h4 class="card-subtitle text-muted"></h4>
+    </div>
+    <img style="height: 100%; width: 100%; display: block;" src={{trade.card.imageURL}}>
+    <div class="card-body">
+        <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+            <div class="card-header">Trade Information:</div>
+            <div class="card-body">
+                <h5> Condition: {{trade.condition}}</h5>
 
-<div class="card mb-3"*ngIf="showSeeTrade;else showbid">
-  <h4 class="card-header" style="background-color: greenyellow;">Available {{trade.isOpen}}</h4>
-  <div class="card-body">
-    <h3 class="card-title">{{trade.card.name}}</h3>
-    <h4 class="card-subtitle text-muted"></h4>
-  </div>
-  <img style="height: 100%; width: 100%; display: block;" src={{trade.card.imageURL}}>
-<div class="card-body">
-  <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
-    <div class="card-header">Trade Information:</div>
-    <div class="card-body">
-      <h5>  Condition: {{trade.condition}}</h5>
-  
-    <ul class="list-group list-group-flush">
-      <h5>     Willing To Accept:</h5>
-      <h5 class="list-group-item" style= "color:black;"
-       *ngFor="let c of trade.willingToAccept">{{c.name}} ( {{c.id}})</h5>
-    </ul>
-  </div>
-  </div>
-</div>
-  <div class="card-body">
-    <a type="submit" class="btn btn-primary btn-lg" role="button" (click)="goBack()">See My Bid</a>
-  </div>
-  <div class="card-footer text-muted">
-    {{trade.openingDate}}
-  </div>
-</div>
-<ng-template #showbid>
-<div  class="card mb-3">
-    <h4 class="card-header" style="background-color: greenyellow;">Offered to {{bid.hostEmail}}</h4>
-    <div class="card-body">
-      <h3 class="card-title">{{bid.card.name}}</h3>
-      <h4 class="card-subtitle text-muted"></h4>
+                <ul class="list-group list-group-flush">
+                    <h5> Willing To Accept:</h5>
+                    <h5 class="list-group-item" style="color:black;" *ngFor="let c of trade.willingToAccept">{{c.name}} ( {{c.id}})</h5>
+                </ul>
+            </div>
+        </div>
     </div>
-    <img style="height: 100%; width: 100%; display: block;" src={{bid.card.imageURL}}>
-  <div class="card-body">
-    <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
-      <div class="card-header">Trade Information:</div>
-      <div class="card-body">
-        <h5 class="card-body" *ngIf="bid.accepted; else rejected">
-          Status: Accepted
-        </h5>
-        <ng-template #rejected>
-
-          <h5 class="card-body"*ngIf="bid.rejected;else pending">
-            Status: Rejected
-          </h5>
-        <ng-template #pending>
-          <h5 class="card-body">
-            Status: Pending
-          </h5>
-        </ng-template>
-        </ng-template>
-        <a type="submit" class="btn btn-primary btn-lg" role="button" (click)="seeTrade(bid.tradeId)">See Trade</a>
-    </div>
-    </div>
-</div>
     <div class="card-body">
+        <a type="submit" class="btn btn-primary btn-lg" role="button" (click)="goBack()">See My Bid</a>
     </div>
     <div class="card-footer text-muted">
-      {{bid.date}}
+        {{trade.openingDate}}
     </div>
-  </div> 
-  </ng-template>
-  
+</div>
+<ng-template #showbid>
+    <div class="card mb-3">
+        <h5 class="card-header" style="background-color: greenyellow;">Offered to {{bid.hostEmail}}
+        </h5>
+        <div class="card-body">
+            <h3 class="card-title">{{bid.card.name}}</h3>
+            <h4 class="card-subtitle text-muted"></h4>
+        </div>
+        <img style="height: 100%; width: 100%; display: block;" src={{bid.card.imageURL}}>
+        <div class="card-body">
+            <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+                <div class="card-header">Trade Information:</div>
+                <div class="card-body">
+                    <h5 class="card-body" *ngIf="bid.accepted; else rejected">
+                        Status: Accepted
+                    </h5>
+                    <ng-template #rejected>
+
+                        <h5 class="card-body" *ngIf="bid.rejected;else pending">
+                            Status: Rejected
+                        </h5>
+                        <ng-template #pending>
+                            <h5 class="card-body">
+                                Status: Pending
+                            </h5>
+                        </ng-template>
+                    </ng-template>
+                </div>
+
+            </div>
+            <a type="submit" class="btn btn-primary btn-lg" role="button" (click)="seeTrade(bid.tradeId)">See Trade</a>
+
+        </div>
+        <div class="card-body">
+        </div>
+        <div class="card-footer text-muted">
+            {{bid.date}}
+        </div>
+    </div>
+</ng-template>

@@ -1,28 +1,26 @@
-
-
-    <div class="card mb-3">
-        <h5 class="card-header" style="background-color: greenyellow;">Bid By {{bid.bidderEmail}}
-        </h5>
-        <div class="card-body">
-            <h3 class="card-title">{{bid.card.name}}</h3>
-            <h4 class="card-subtitle text-muted"></h4>
-        </div>
-        <img style="height: 100%; width: 100%; display: block;" src={{bid.card.imageURL}}>
-        <div class="card-body">
-            <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
-                <div class="card-header"></div>
-                <div class="card-body">
-                    <a type="submit" class="btn btn-primary btn-lg" role="button" (click)="onAccept(bid.tradeId)">Accept</a>
-                    <a type="submit" class="btn btn-primary btn-lg" role="button" (click)="onDecline(bid.tradeId)">Decline</a>
-                </div>
-
-            </div>
-           
-
-        </div>
-        <div class="card-body">
-        </div>
-        <div class="card-footer text-muted">
-            {{bid.date}}
-        </div>
+<div class="card mb-3">
+    <h5 class="card-header" style="background-color: greenyellow;">Bid By {{bid.bidderEmail}}
+    </h5>
+    <div class="card-body">
+        <h3 class="card-title">{{bid.card.name}}</h3>
+        <h4 class="card-subtitle text-muted"></h4>
     </div>
+    <img style="height: 100%; width: 100%; display: block;" src={{bid.card.imageURL}}>
+    <div class="card-body">
+        <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+            <div class="card-header"></div>
+            <div class="card-body">
+                <a type="submit" class="btn btn-primary btn-lg" role="button" (click)="onAccept(bid.id,bid.bidderEmail)">Accept</a>
+                <a type="submit" class="btn btn-primary btn-lg" role="button" (click)="onDecline(bid.id,bid.bidderEmail)">Decline</a>
+            </div>
+
+        </div>
+
+
+    </div>
+    <div class="card-body">
+    </div>
+    <div class="card-footer text-muted">
+        {{bid.date}}
+    </div>
+</div>

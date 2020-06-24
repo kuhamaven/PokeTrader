@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { Router } from '@angular/router';
 import { Trade } from '../models/trade.model';
 import { Bid } from '../models/bid.model';
+import { emit } from 'process';
 
 
 
@@ -23,9 +24,15 @@ export class MytradesComponent implements OnInit {
   public userEmail: string[] = [];
   showTrade:boolean=false;
   showBids:boolean=false;
+  accept:boolean=false;
+  decline:boolean=false;
+  bidderMailRejected:string='';
+  bidderMailAccepted:string='';
 
   constructor(private http: HttpClient, private authSvc: AuthService,private router: Router) { 
     this.loadBids=this.loadBids.bind(this);
+    this.onDecline=this.onDecline.bind(this);
+    this.onAccept=this.onAccept.bind(this);
   }
 
   ngOnInit(): void {
@@ -76,17 +83,58 @@ export class MytradesComponent implements OnInit {
       }
     }
 
-    onAccept(){
-
+    onAccept(id:number,bidderEmail:string){
+      this.bidderMailAccepted=bidderEmail;
+      this.accept=true;
+      const acceptData = [];
+      acceptData.push(this.userEmail[0]);
+      acceptData.push(id);
+        try {
+          this.http.put('http://localhost:8080/onaccept',JSON.stringify(acceptData)).toPromise().then(
+          data => {
+            this.showBids=false;
+            this.showTrade=true;
+          }
+        )
+        }
+        catch(error) {
+          console.log(error);
+        }
     }
 
-    onDecline(){
-
+   onDecline(id:number,bidderEmail:string){
+     this.bidderMailRejected=bidderEmail;
+     this.decline=true;
+      const declineData = [];
+      declineData.push(this.userEmail[0]);
+      declineData.push(id);
+        try {
+          this.http.put('http://localhost:8080/ondecline',JSON.stringify(declineData)).toPromise().then(
+          data => {
+            for(let bid of this.bids){
+              if(bid.id==id){
+                this.bids.splice(this.bids.indexOf(bid),1);
+              }
+            }
+          }
+        )
+        }
+        catch(error) {
+          console.log(error);
+        }
     }
+
     navigateToMyTrades(){
       this.showTrade=true;
       this.showBids=false;
       this.bids=[];
     }
-    
+
+    closeAccept(){
+      this.accept=false;
+    }
+
+    closeDecline(){
+      this.decline=false;
+    }
 }

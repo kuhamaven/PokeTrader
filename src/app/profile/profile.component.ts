@@ -126,6 +126,9 @@ constructor( private http: HttpClient, private authService: AuthService, private
         const url =(await this.urlImage.toPromise()).toString();
         const userData=[this.userEmail[0],userName,bio,url]
         this.http.put('http://localhost:8080/customize',JSON.stringify(userData)).toPromise().then( data => {
+          
+    this.loadProfile();
+    this.alertsToggle();
       
         }
           )
@@ -136,9 +139,6 @@ constructor( private http: HttpClient, private authService: AuthService, private
       console.log(error);
     }
     finally{
-
-    this.loadProfile();
-    this.alertsToggle();
   }
 }
 else{

@@ -17,21 +17,23 @@ export class ExploretradesComponent implements OnInit {
   trades: Trade[] = [];
   userCollection: Card[]=[];
   public userEmail: string[] = [];
-  bidData: String[] = [];
-  userId: string='';
+  bidData: string[] = [];
   showTrades: boolean=false;
   showPostOffer: boolean=false;
+  tradeId:Number=0;
+
 
   constructor(private http: HttpClient, private authSvc: AuthService,private router: Router) { 
     this.postOffer = this.postOffer.bind(this);
+    this.setBidCard=this.setBidCard.bind(this);
   }
 
   ngOnInit(): void {
 
     this.authSvc.afAuth.currentUser.then(
       user => {
-        this.userEmail.push(user.email)
-        this.userId=user.uid;
+        this.userEmail.push(user.email);
+        this.bidData.push(user.email);
         this.loadTradesAndCollection();
       }
     ) .catch(x=> console.log(x))
@@ -52,6 +54,7 @@ export class ExploretradesComponent implements OnInit {
         this.http.put('http://localhost:8080/collection',JSON.stringify(this.userEmail)).toPromise().then(
         data => {
           Object.assign(this.userCollection,data);
+          console.log(this.userCollection);
         }
       )
       }
@@ -62,9 +65,37 @@ export class ExploretradesComponent implements OnInit {
       this.showTrades=true;
     }
 
-    postOffer(tradeId:number){
+    postOffer(tradeId:Number){
+      console.log(tradeId);
       this.showTrades=false;
       this.showPostOffer=true;
+      this.tradeId=tradeId;
       
     }
+
+    setBidCard(id:string){
+      this.bidData.push(id);
+      this.bidData.push(this.tradeId.toString());
+      this.postBid();
+      
+    }
+
+    postBid(){
+      try {
+        this.http.put('http://localhost:8080/createbid',JSON.stringify(this.bidData)).toPromise().then(()=>
+          this.router.navigate(['/mybids'])
+      )
+      }
+      catch(error) {
+        console.log(error);
+      }
+
+      this.showTrades=true;
+      this.showPostOffer=false;
+      this.bidData=[];
+      this.bidData.push(this.userEmail[0])
+
+
+    }
+
 }

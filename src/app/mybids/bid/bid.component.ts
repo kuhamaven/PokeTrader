@@ -13,51 +13,36 @@ import { Bid } from 'src/app/models/bid.model';
 })
 export class BidComponent implements OnInit {
   @Input()  bid:Bid;
-  trade:Trade;
-  tradeId: number[]=[];
-  hostEmail: string;
-  initialized:boolean=false;
+  trade:Trade=new Trade()
+  showSeeTrade: boolean;
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    const pepito=this.bid.trade
-    this.tradeId.push(pepito);
-    console.log(this.tradeId);
-    this.loadBid();
-
   }
 
-  
-  loadBid(){
+  seeTrade(id:number){
+    console.log(this.bid.tradeId);
+    const tradeId=[];
+    tradeId.push(id)
     try {
-      this.http.put('http://localhost:8080/tradebyid',JSON.stringify(this.tradeId)).toPromise().then(
+      this.http.put('http://localhost:8080/tradebyid',JSON.stringify(tradeId)).toPromise().then(
       data => {
         console.log(data);
         Object.assign(this.trade,data);
-        this.getUserEmail();
+        this.showSeeTrade=true;
       }
     )
     }
     catch(error) {
       console.log(error);
     }
+  }
+  goBack(){
+  this.showSeeTrade=false;
   }
   
-  getUserEmail(){
-    try {
-      this.http.put('http://localhost:8080/userbyid',JSON.stringify(this.trade.userId)).toPromise().then(
-      data => {
-        console.log(data);
-        Object.assign(this.hostEmail,data);
-        this.initialized=true;
-      }
-    )
-    }
-    catch(error) {
-      console.log(error);
-    }
 
-  }
+
 
 
 } 

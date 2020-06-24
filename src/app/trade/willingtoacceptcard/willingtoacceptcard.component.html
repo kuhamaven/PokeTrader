@@ -8,7 +8,7 @@
         <h5>Stage: {{card.variant}}</h5>
         <h3> </h3>
         <h1></h1>
-        <button type="button" [disabled]="clicked" (click)="setSelected(card.id);clicked=true;" class="btn-btn-primary">Add to colection</button>
+        <button type="button" [disabled]="clicked" (click)="setSelected(card.id);clicked=true;" class="btn-btn-primary">Select</button>
         <span *ngIf="isSelected()">
             <span ngNonBindable> In collection!</span>
         </span>

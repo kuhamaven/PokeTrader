@@ -25,23 +25,57 @@
     </div>
 </div>
 
-<div *ngIf="collectionInitialized">
-    <div class="row row-flex">
-        <app-hostcard *ngFor="let c of hostCollection" [card]="c" [setSelected]="selectHostCard"></app-hostcard>
+
+
+
+<div *ngIf="collectionInitialized" class="jumbotron">
+    <h1 class="display-3">Create Trade</h1>
+    <p class="lead">Select the Card You Want To Trade</p>
+    <hr class="my-4">
+    <div >
+        <div class="row row-flex">
+            <app-hostcard *ngFor="let c of hostCollection" [card]="c" [setSelected]="selectHostCard"></app-hostcard>
+        </div>
     </div>
+
+
+  </div>
+
+
+  <div *ngIf="conditionSelector" class="jumbotron">
+    <h1 class="display-3">Create Trade</h1>
+    <p class="lead">Select Your Cards Condition.</p>
+    <hr class="my-4">
+  <div  class="btn-group btn-group-toggle" data-toggle="buttons">
+    <label class="btn btn-primary active">
+      <input type="radio" name="options"  autocomplete="off" (click)="setCondition('Mint')" > Mint
+    </label>
+    <label class="btn btn-primary">
+      <input type="radio" name="options"  autocomplete="off" (click)="setCondition('Near Mint')"> Near Mint
+    </label>
+    <label class="btn btn-primary">
+      <input type="radio" name="options"  autocomplete="off" (click)="setCondition('Played')"> Played
+    </label>
+    <label class="btn btn-primary">
+        <input type="radio" name="options"  autocomplete="off" (click)="setCondition('Heavily Played')" > Heavily Played
+      </label>
+  </div>
 </div>
 
 
-<div *ngIf="conditionSelector">
-    <a type="submit" class="btn btn-primary btn-lg" role="button" (click)="setCondition('Mint')">Mint</a>
-    <a type="submit" class="btn btn-primary btn-lg" role="button" (click)="setCondition('Near Mint')">Near Mint</a>
-    <a type="submit" class="btn btn-primary btn-lg" role="button" (click)="setCondition('Played')">Played</a>
-    <a type="submit" class="btn btn-primary btn-lg" role="button" (click)="setCondition('Heavily Played')">Heavily Played</a>
-</div>
 
+
+
+
+
+<div *ngIf="showCardset" class="jumbotron">
+    <h1 class="display-3">Create Trade</h1>
+    <p class="lead">Select The Card(s) You Want In Return</p>
+    <hr class="my-4">
 <div *ngIf="showCardset">
     <div class="row row-flex">
         <app-willingtoacceptcard *ngFor="let c of wholeCardset" [card]="c" [setSelected]="selectWTACard"></app-willingtoacceptcard>
     </div>
     <button type="submit" class="btn btn-primary btn-large btn-block" (click)="createTrade()">Send</button>
+</div>
 </div>

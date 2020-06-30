@@ -3,6 +3,7 @@
     <div class="card-body">
         <h3 class="card-title">{{trade.card.name}}</h3>
         <h4 class="card-subtitle text-muted"></h4>
+        <a [routerLink]="['/searchuser/', trade.hostEmail]">{{trade.hostEmail}}</a>
     </div>
     <img style="height: 100%; width: 100%; display: block;" src={{trade.card.imageURL}}>
     <div class="card-body">
@@ -27,7 +28,7 @@
 </div>
 <ng-template #showbid>
     <div class="card mb-3">
-        <h5 class="card-header" style="background-color: greenyellow;">Offered to {{bid.hostEmail}}
+        <h5 class="card-header" style="background-color: greenyellow;" [routerLink]="['/searchuser/', bid.hostEmail]" >Offered to {{bid.hostEmail}}
         </h5>
         <div class="card-body">
             <h3 class="card-title">{{bid.card.name}}</h3>

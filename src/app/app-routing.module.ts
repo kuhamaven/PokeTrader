@@ -25,11 +25,12 @@ const routes: Routes = [
   },
   { path: 'profile', loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule) },
   { path: 'cardmaker', loadChildren: () => import('./cardmaker/cardmaker.module').then(m => m.CardmakerModule) },
-  { path: 'searchuser', loadChildren: () => import('./searchuser/searchuser.module').then(m => m.SearchuserModule) },
+  { path: 'searchuser/:userEmail', loadChildren: () => import('./searchuser/searchuser.module').then(m => m.SearchuserModule) },
   { path: 'tradecreator', loadChildren: () => import('./tradecreator/tradecreator.module').then(m => m.TradecreatorModule) },
   { path: 'mytrades', loadChildren: () => import('./mytrades/mytrades.module').then(m => m.MytradesModule) },
   { path: 'mybids', loadChildren: () => import('./mybids/mybids.module').then(m => m.MybidsModule) },
-  { path: 'exploretrades', loadChildren: () => import('./exploretrades/exploretrades.module').then(m => m.ExploretradesModule) }
+  { path: 'exploretrades', loadChildren: () => import('./exploretrades/exploretrades.module').then(m => m.ExploretradesModule) },
+  { path: 'searchuser', loadChildren: () => import('./searchuser/searchuser.module').then(m => m.SearchuserModule) }
 ];
 
 @NgModule({

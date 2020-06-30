@@ -2,7 +2,7 @@ import { Card } from './card.model';
 import { Bid } from './bid.model';
 
 export class Trade{
-    public userId: string;
+    public hostEmail: string;
     public card: Card;
     public id: number;
     public openingDate: string;

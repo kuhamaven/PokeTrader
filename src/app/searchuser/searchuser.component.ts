@@ -4,7 +4,7 @@ import {Observable, from} from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Card } from '../models/card.model';
 import { User } from '../models/user.model';
-
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-searchuser',
@@ -20,9 +20,18 @@ public alertOn: boolean=false;
 public profileOn:boolean=false;
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private route: ActivatedRoute,
+    private router: Router) {
+      this.userEmail.push(this.route.snapshot.params.userEmail);
+      console.log(this.userEmail)
+      if(this.route.snapshot.params.userEmail){
+        console.log("holi me cumpli");
+      this.loadProfile();
+      }
+     }
 
   ngOnInit(): void {
+  
   }
 
   loadProfile(){

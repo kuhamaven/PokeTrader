@@ -1,5 +1,5 @@
 <div class="card mb-3">
-    <h5 class="card-header" style="background-color: greenyellow;">Bid By {{bid.bidderEmail}}
+    <h5 class="card-header" style="background-color: greenyellow;" [routerLink]="['/searchuser/', bid.bidderEmail]">Bid By {{bid.bidderEmail}}
     </h5>
     <div class="card-body">
         <h3 class="card-title">{{bid.card.name}}</h3>

@@ -3,6 +3,7 @@
     <div class="card-body">
         <h3 class="card-title">{{trade.card.name}}</h3>
         <h4 class="card-subtitle text-muted"></h4>
+        <a [routerLink]="['/searchuser/', trade.hostEmail]">{{trade.hostEmail}}</a>
     </div>
     <img style="height: 100%; width: 100%; display: block;" src={{trade.card.imageURL}}>
     <div class="card-body">

@@ -8,7 +8,7 @@ export class Trade{
     public openingDate: string;
     public condition: string;
     public willingToAccept: Card[];
-    public isOpen: boolean;
+    public open: boolean;
     public bidders:Bid[];
     public hostVerification: boolean;
     public bidderVerification: boolean;

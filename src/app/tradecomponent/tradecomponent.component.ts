@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Trade } from '../models/trade.model';
 import { Input, HostBinding } from '@angular/core';
 import {Card} from '../models/card.model';
-
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-tradecomponent',
@@ -18,9 +18,23 @@ export class TradecomponentComponent implements OnInit {
   
 
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
+  }
+
+  hostVerification(tradeId:number){
+     const tradeData = [];
+     tradeData.push(tradeId);
+  
+       try {
+         this.http.put('http://localhost:8080/hostverification',JSON.stringify(tradeData)).toPromise().then(
+         data => {}
+       )
+       }
+       catch(error) {
+         console.log(error);
+       }
   }
 
  

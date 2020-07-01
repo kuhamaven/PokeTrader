@@ -1,4 +1,4 @@
-<div class="card mb-3">
+<div *ngIf="trade.open" class="card mb-3">
     <h4 class="card-header" style="background-color: greenyellow;">Available</h4>
     <div class="card-body">
         <h3 class="card-title">{{trade.card.name}}</h3>
@@ -12,15 +12,42 @@
                 <h5> Condition: {{trade.condition}}</h5>
 
                 <ul class="list-group list-group-flush">
-                    <h5> Willing To Accept: lol</h5>
+                    <h5> Willing To Accept: </h5>
                     <h5 class="list-group-item" style="color:black;" *ngFor="let c of trade.willingToAccept">{{c.name}} ( {{c.id}})</h5>
-                    <a *ngIf="trade.isOpen==false" type="submit" class="btn btn-primary btn-lg" role="button">FINALIZAR TRADE</a>
+                    
                 </ul>
             </div>
         </div>
     </div>
     <div class="card-body">
         <button type="button" [disabled]="clicked" (click)="loadBids(trade.id);clicked=true;" class="btn-btn-primary">See My Offers</button>
+    </div>
+    <div class="card-footer text-muted">
+        {{trade.openingDate}}
+    </div>
+</div>
+
+
+<div *ngIf="trade.open==false" class="card mb-3">
+    <h4 *ngIf="trade.hostVerification==false" class="card-header" style="background-color:red;">Pending</h4>
+    <h4 *ngIf="trade.hostVerification" class="card-header" style="background-color: yellow;">Waiting for Bidder</h4>
+    <div class="card-body" >
+        <h3 class="card-title">{{trade.card.name}}</h3>
+        <h4 class="card-subtitle text-muted"></h4>
+    </div>
+    <img style="height: 100%; width: 100%; display: block;" src={{trade.card.imageURL}}>
+    <div class="card-body" >
+        <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+  
+           
+    
+    <a  type="submit" class="btn btn-primary btn-lg" role="button" (click)="hostVerification(trade.id)" style="background: yellowgreen;">Complete Trade</a>
+                
+            
+        </div>
+    </div>
+    <div class="card-body">
+        <button type="button" [disabled]="clicked" (click)="loadBids(trade.id);clicked=true;" class="btn-btn-secondary">See Accepted Offer</button>
     </div>
     <div class="card-footer text-muted">
         {{trade.openingDate}}

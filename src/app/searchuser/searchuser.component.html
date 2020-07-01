@@ -1,12 +1,14 @@
-<div class="jumbotron">
-    <h2>Search for Other Users to Trade with!</h2>
-   
+
+    <ol class="breadcrumb">
 <form class="form-inline my-2 my-lg-0">
+    <li class="breadcrumb-item"><a>Search for other users to trade!   </a></li>
+    <li class="breadcrumb-item"><a>     </a></li>
     <input class="form-control mr-sm-2" type="text" placeholder="Search"#email>
     <button class="btn btn-secondary my-2 my-sm-0" style="color: red;"  type="submit"(click)="searchUser(email.value)">Go!</button>
   </form>
-
-  </div >
+  
+</ol>
+  
   <section *ngIf=profileOn id="profile" class="container">
     <div class="row mt-5">
         <div class="offset-lg-4 col-lg-4 col-sm-6 col-12 main-section text-center card" >

@@ -1,13 +1,40 @@
 <div class="jumbotron">
     <h1 class="display-3">Explore All Available Trades</h1>
     <p class="lead">Here You Will be Able to Bid On Other Users Cards</p>
+    <div class="form-group">
+        <form class="form-inline my-4 my-lg-0">
+            <select class="form-control mr-sm-2" #filter>
+            <option>Water</option>
+            <option>Water</option>
+            <option>Fairy</option>
+            <option>Dark</option>
+            <option>Fire</option>
+            <option>Electric</option>
+            <option>Grass</option>
+            <option>Fighting</option>
+            <option>Psychic</option>
+            <option>Dragon</option>
+            <option>Steel</option>
+            <option>Colorless</option>
+            <option>Item</option>
+            <option>Supporter</option>
+            <option>Stadium</option>
+            </select>
+            <button class="btn btn-secondary my-2 my-sm-0" style="color: rgb(0, 140, 255);" type="submit" (click)="filterTrade(filter.value)">Filter</button>
+            <button class="btn btn-secondary my-2 my-sm-0" style="color: rgb(124, 79, 167);" type="submit" (click)="turnOffFilters()">Remove filter</button>
+        </form>
+    </div>
 
     <hr class="my-4">
-<div class="row row-flex" *ngIf="showTrades">
-    <app-tradecomponent *ngFor="let t of trades" [trade]="t" [postOffer]="postOffer"></app-tradecomponent>
-</div>
+    <div class="row row-flex" *ngIf="showTrades">
+        <app-tradecomponent *ngFor="let t of trades" [trade]="t" [postOffer]="postOffer"></app-tradecomponent>
+    </div>
 
-<div class="row row-flex" *ngIf="showPostOffer">
-    <app-biddercard *ngFor="let c of userCollection"[card]="c" [setBidCard]="setBidCard"></app-biddercard>
-</div>
+    <div class="row row-flex" *ngIf="showFilterTrade">
+        <app-tradecomponent *ngFor="let t of trades" [trade]="t" [postOffer]="postOffer"></app-tradecomponent>
+    </div>
+
+    <div class="row row-flex" *ngIf="showPostOffer">
+        <app-biddercard *ngFor="let c of userCollection" [card]="c" [setBidCard]="setBidCard"></app-biddercard>
+    </div>
 </div>

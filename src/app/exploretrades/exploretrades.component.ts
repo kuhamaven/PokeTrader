@@ -20,6 +20,7 @@ export class ExploretradesComponent implements OnInit {
   bidData: string[] = [];
   showTrades: boolean=false;
   showPostOffer: boolean=false;
+  showFilterTrade: boolean=false;
   tradeId:Number=0;
 
 
@@ -102,6 +103,43 @@ export class ExploretradesComponent implements OnInit {
       this.router.navigate[("/mybids")];
     }
 
-    
+    filterTrade(filter:string){
+      const filterData = [];
+      filterData.push(this.userEmail[0]);
+      filterData.push(filter);
+      console.log(filter);
+      try {
+        this.http.put('http://localhost:8080/exploretrades',JSON.stringify(filterData)).toPromise().then(
+        data => {
+          this.trades=[];
+          Object.assign(this.trades,data);
+          this.showTrades=false;
+          this.showFilterTrade=true;
+        }
+      )
+      }
+      catch(error) {
+        console.log(error);
+      }
+
+      return false;
+    }
+
+    turnOffFilters(){
+      try {
+        this.http.put('http://localhost:8080/exploretrades',JSON.stringify(this.userEmail)).toPromise().then(
+        data => {
+          this.trades=[];
+          Object.assign(this.trades,data);
+          this.showFilterTrade=false;
+          this.showTrades=true;
+        }
+      )
+      }
+      catch(error) {
+        console.log(error);
+      }
+      return false;
+    }
 
 }

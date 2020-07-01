@@ -36,9 +36,9 @@
 
 
     <div class="card mb-3">
-        <h4 *ngIf="bid.rejected" class="card-header" style="background-color:red;"  >Rejected
+        <h4 *ngIf="bid.rejected" class="card-header" style="background-color:red;">Rejected
         </h4>
-        <h4 *ngIf="bid.rejected==false" class="card-header" style="background-color:yellow;"  >Pending
+        <h4 *ngIf="bid.rejected==false" class="card-header" style="background-color:yellow;">Pending
         </h4>
         <div class="card-body">
             <h3 class="card-title">{{bid.card.name}} ({{bid.card.id}})</h3>
@@ -50,18 +50,18 @@
                 <div class="card-header">Trade Information:</div>
                 <div class="card-body">
                     <h4>Offered To: </h4>
-                    <h5   [routerLink]="['/searchuser/', bid.hostEmail]" >{{bid.hostEmail}} </h5>
+                    <h5 [routerLink]="['/searchuser/', bid.hostEmail]">{{bid.hostEmail}} </h5>
 
                     <h4 *ngIf="bid.accepted; else rejected">
                         Status: Accepted
                         <ul></ul>
-                       <div><a  type="submit" class="btn btn-primary btn-lg" role="button" (click)="bidderVerification(trade.id)" style="background: yellowgreen;">Complete Trade</a>
-                       </div>
+                        <div><a type="submit" class="btn btn-primary btn-lg" role="button" (click)="bidderVerification(bid.tradeId)" style="background: yellowgreen;">Complete Trade</a>
+                        </div>
 
                     </h4>
                     <ng-template #rejected>
 
-                        <h5  *ngIf="bid.rejected;else pending">
+                        <h5 *ngIf="bid.rejected;else pending">
                             Status: Rejected
                         </h5>
                         <ng-template #pending>
@@ -70,12 +70,12 @@
                             </h5>
                         </ng-template>
                     </ng-template>
-                 
+
                 </div>
 
-                
+
             </div>
-            <a type="submit" class="btn btn-primary btn-lg"  role="button" (click)="seeTrade(bid.tradeId)" style="background: red;">See Trade</a>
+            <a type="submit" class="btn btn-primary btn-lg" role="button" (click)="seeTrade(bid.tradeId)" style="background: red;">See Trade</a>
 
         </div>
         <div class="card-body">
@@ -84,7 +84,7 @@
             {{bid.date}}
         </div>
     </div>
-    
+
 
 
 

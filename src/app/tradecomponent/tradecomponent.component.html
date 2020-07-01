@@ -41,7 +41,7 @@
   
            
     
-    <a  type="submit" class="btn btn-primary btn-lg" role="button" (click)="hostVerification(trade.id)" style="background: yellowgreen;">Complete Trade</a>
+    <a *ngIf="trade.hostVerification==false" type="submit" class="btn btn-primary btn-lg" role="button" (click)="hostVerification(trade.id)" style="background: yellowgreen;">Complete Trade</a>
                 
             
         </div>

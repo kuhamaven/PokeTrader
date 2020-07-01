@@ -15,7 +15,7 @@ export class BidComponent implements OnInit {
   @Input()  bid:Bid;
   trade:Trade=new Trade()
   showSeeTrade: boolean;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private router:Router) { }
 
   ngOnInit(): void {
   }
@@ -40,7 +40,20 @@ export class BidComponent implements OnInit {
   goBack(){
   this.showSeeTrade=false;
   }
-  
+
+  bidderVerification(tradeId:number){
+    const tradeData = [];
+    tradeData.push(tradeId);
+ 
+      try {
+        this.http.put('http://localhost:8080/bidderverification',JSON.stringify(tradeData)).toPromise().then(
+        data => {  this.router.navigate(['/profile']); }
+      )
+      }
+      catch(error) {
+        console.log(error);
+      }
+ }
 
 
 

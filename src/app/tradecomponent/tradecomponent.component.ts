@@ -3,6 +3,7 @@ import { Trade } from '../models/trade.model';
 import { Input, HostBinding } from '@angular/core';
 import {Card} from '../models/card.model';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tradecomponent',
@@ -18,7 +19,7 @@ export class TradecomponentComponent implements OnInit {
   
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private router:Router) { }
 
   ngOnInit(): void {
   }
@@ -29,12 +30,17 @@ export class TradecomponentComponent implements OnInit {
   
        try {
          this.http.put('http://localhost:8080/hostverification',JSON.stringify(tradeData)).toPromise().then(
-         data => {}
+         data => {
+
+          this.router.navigate(['/profile']);
+         }
        )
        }
        catch(error) {
          console.log(error);
        }
+
+       
   }
 
  

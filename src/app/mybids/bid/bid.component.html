@@ -26,12 +26,22 @@
         {{trade.openingDate}}
     </div>
 </div>
+
+
+
+
+
 <ng-template #showbid>
+
+
+
     <div class="card mb-3">
-        <h5 class="card-header" style="background-color: greenyellow;" [routerLink]="['/searchuser/', bid.hostEmail]" >Offered to {{bid.hostEmail}}
-        </h5>
+        <h4 *ngIf="bid.rejected" class="card-header" style="background-color:red;"  >Rejected
+        </h4>
+        <h4 *ngIf="bid.rejected==false" class="card-header" style="background-color:yellow;"  >Pending
+        </h4>
         <div class="card-body">
-            <h3 class="card-title">{{bid.card.name}}</h3>
+            <h3 class="card-title">{{bid.card.name}} ({{bid.card.id}})</h3>
             <h4 class="card-subtitle text-muted"></h4>
         </div>
         <img style="height: 100%; width: 100%; display: block;" src={{bid.card.imageURL}}>
@@ -39,12 +49,19 @@
             <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
                 <div class="card-header">Trade Information:</div>
                 <div class="card-body">
-                    <h5 class="card-body" *ngIf="bid.accepted; else rejected">
+                    <h4>Offered To: </h4>
+                    <h5   [routerLink]="['/searchuser/', bid.hostEmail]" >{{bid.hostEmail}} </h5>
+
+                    <h4 *ngIf="bid.accepted; else rejected">
                         Status: Accepted
-                    </h5>
+                        <ul></ul>
+                       <div><a  type="submit" class="btn btn-primary btn-lg" role="button" (click)="bidderVerification(trade.id)" style="background: yellowgreen;">Complete Trade</a>
+                       </div>
+
+                    </h4>
                     <ng-template #rejected>
 
-                        <h5 class="card-body" *ngIf="bid.rejected;else pending">
+                        <h5  *ngIf="bid.rejected;else pending">
                             Status: Rejected
                         </h5>
                         <ng-template #pending>
@@ -53,10 +70,12 @@
                             </h5>
                         </ng-template>
                     </ng-template>
+                 
                 </div>
 
+                
             </div>
-            <a type="submit" class="btn btn-primary btn-lg" role="button" (click)="seeTrade(bid.tradeId)">See Trade</a>
+            <a type="submit" class="btn btn-primary btn-lg"  role="button" (click)="seeTrade(bid.tradeId)" style="background: red;">See Trade</a>
 
         </div>
         <div class="card-body">
@@ -65,4 +84,20 @@
             {{bid.date}}
         </div>
     </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </ng-template>

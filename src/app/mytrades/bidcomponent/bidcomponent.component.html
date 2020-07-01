@@ -9,10 +9,14 @@
     <div class="card-body">
         <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
             <div class="card-header"></div>
-            <div class="card-body">
-                <a type="submit" class="btn btn-primary btn-lg" role="button" (click)="onAccept(bid.id,bid.bidderEmail)">Accept</a>
-                <a type="submit" class="btn btn-primary btn-lg" role="button" (click)="onDecline(bid.id,bid.bidderEmail)">Decline</a>
+            <div class="card-body" *ngIf="bid.accepted;else buttons">
             </div>
+            <ng-template #buttons>
+                <div class="card-body">
+                    <a type="submit" class="btn btn-primary btn-lg" role="button" (click)="onAccept(bid.id,bid.bidderEmail)">Accept</a>
+                    <a type="submit" class="btn btn-primary btn-lg" role="button" (click)="onDecline(bid.id,bid.bidderEmail)">Decline</a>
+                </div>
+            </ng-template>
 
         </div>
 

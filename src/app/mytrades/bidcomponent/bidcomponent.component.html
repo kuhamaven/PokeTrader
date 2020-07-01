@@ -2,23 +2,26 @@
     <h5 class="card-header" style="background-color: greenyellow;" [routerLink]="['/searchuser/', bid.bidderEmail]">Bid By {{bid.bidderEmail}}
     </h5>
     <div class="card-body">
-        <h3 class="card-title">{{bid.card.name}}</h3>
+        <h3 class="card-title">{{bid.card.name}} ({{bid.card.id}})</h3>
         <h4 class="card-subtitle text-muted"></h4>
     </div>
     <img style="height: 100%; width: 100%; display: block;" src={{bid.card.imageURL}}>
     <div class="card-body">
-        <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
-            <div class="card-header"></div>
-            <div class="card-body" *ngIf="bid.accepted;else buttons">
+        
+           
+            <div  *ngIf="bid.accepted;else buttons">
             </div>
             <ng-template #buttons>
-                <div class="card-body">
-                    <a type="submit" class="btn btn-primary btn-lg" role="button" (click)="onAccept(bid.id,bid.bidderEmail)">Accept</a>
-                    <a type="submit" class="btn btn-primary btn-lg" role="button" (click)="onDecline(bid.id,bid.bidderEmail)">Decline</a>
-                </div>
+               <div class="card-body">
+                <div class="card text-white bg-primary mb-3" style="max-width: 20rem; color: white;">
+                    <button type="button" class="btn btn-success" (click)="onAccept(bid.id,bid.bidderEmail)">Accept</button>
+                    
+                    <button type="button" class="btn btn-danger" (click)="onDecline(bid.id,bid.bidderEmail)">Decline</button>
+               </div>
+               </div>
+                
             </ng-template>
 
-        </div>
 
 
     </div>

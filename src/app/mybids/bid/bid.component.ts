@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { Router } from '@angular/router';
 import { Trade } from 'src/app/models/trade.model';
 import { Bid } from 'src/app/models/bid.model';
+import { HostBinding} from '@angular/core';
 
 @Component({
   selector: 'app-bid',
@@ -13,6 +14,7 @@ import { Bid } from 'src/app/models/bid.model';
 })
 export class BidComponent implements OnInit {
   @Input()  bid:Bid;
+  @HostBinding('attr.class') cssClass = 'col-md-4';
   trade:Trade=new Trade()
   showSeeTrade: boolean;
   constructor(private http: HttpClient,private router:Router) { }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, HostBinding } from '@angular/core';
 import { Bid } from 'src/app/models/bid.model';
 
 @Component({
@@ -7,6 +7,7 @@ import { Bid } from 'src/app/models/bid.model';
   styleUrls: ['./bidcomponent.component.scss']
 })
 export class BidcomponentComponent implements OnInit {
+  @HostBinding('attr.class') cssClass = 'col-md-4';
 @Input() bid:Bid;
 @Input() onAccept: any;
 @Input() onDecline: any;

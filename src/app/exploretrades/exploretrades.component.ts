@@ -15,18 +15,19 @@ import { Trade } from '../models/trade.model';
 })
 export class ExploretradesComponent implements OnInit {
   trades: Trade[] = [];
-  userCollection: Card[]=[];
+  userToken: string;
+  userCollection: Card[] = [];
   public userEmail: string[] = [];
   bidData: string[] = [];
-  showTrades: boolean=false;
-  showPostOffer: boolean=false;
-  showFilterTrade: boolean=false;
-  tradeId:Number=0;
+  showTrades: boolean = false;
+  showPostOffer: boolean = false;
+  showFilterTrade: boolean = false;
+  tradeId: Number = 0;
 
 
-  constructor(private http: HttpClient, private authSvc: AuthService,private router: Router) { 
+  constructor(private http: HttpClient, private authSvc: AuthService, private router: Router) {
     this.postOffer = this.postOffer.bind(this);
-    this.setBidCard=this.setBidCard.bind(this);
+    this.setBidCard = this.setBidCard.bind(this);
   }
 
   ngOnInit(): void {
@@ -35,111 +36,111 @@ export class ExploretradesComponent implements OnInit {
       user => {
         this.userEmail.push(user.email);
         this.bidData.push(user.email);
-        this.loadTradesAndCollection();
+        user.getIdToken().then(
+          result => {
+            this.userToken = result;
+            this.loadTradesAndCollection();
+          }
+        )
       }
-    ) .catch(x=> console.log(x))
-    }
-    
-    loadTradesAndCollection(){
-      try {
-        this.http.put('http://localhost:8080/exploretrades',JSON.stringify(this.userEmail)).toPromise().then(
+    ).catch(x => console.log(x))
+  }
+
+  loadTradesAndCollection() {
+    try {
+      this.http.put('http://localhost:8080/exploretrades?tokenId=' + this.userToken, JSON.stringify(this.userEmail)).toPromise().then(
         data => {
-          Object.assign(this.trades,data);
+          Object.assign(this.trades, data);
         }
       )
-      }
-      catch(error) {
-        console.log(error);
-      }
-      try {
-        this.http.put('http://localhost:8080/collection',JSON.stringify(this.userEmail)).toPromise().then(
+    }
+    catch (error) {
+      console.log(error);
+    }
+    try {
+      this.http.put('http://localhost:8080/collection?tokenId=' + this.userToken, JSON.stringify(this.userEmail)).toPromise().then(
         data => {
-          Object.assign(this.userCollection,data);
-          console.log(this.userCollection);
+          Object.assign(this.userCollection, data);
         }
       )
-      }
-      catch(error) {
-        console.log(error);
-      }
-
-      this.showTrades=true;
+    }
+    catch (error) {
+      console.log(error);
     }
 
-    postOffer(tradeId:Number){
-      console.log(tradeId);
-      this.showTrades=false;
-      this.showPostOffer=true;
-      this.tradeId=tradeId;
-      
-    }
+    this.showTrades = true;
+  }
 
-    setBidCard(id:string){
-      this.bidData.push(id);
-      this.bidData.push(this.tradeId.toString());
-      this.postBid();
-      
-    }
+  postOffer(tradeId: Number) {
+    this.showTrades = false;
+    this.showPostOffer = true;
+    this.tradeId = tradeId;
 
-    postBid(){
-      try {
-        this.http.put('http://localhost:8080/createbid',JSON.stringify(this.bidData)).toPromise().then(()=>
-          this.router.navigate(['/mybids'])
+  }
+
+  setBidCard(id: string) {
+    this.bidData.push(id);
+    this.bidData.push(this.tradeId.toString());
+    this.postBid();
+
+  }
+
+  postBid() {
+    try {
+      this.http.put('http://localhost:8080/createbid?tokenId=' + this.userToken, JSON.stringify(this.bidData)).toPromise().then(() =>
+        this.router.navigate(['/mybids'])
       )
-      }
-      catch(error) {
-        console.log(error);
-      }
-
-      this.showTrades=true;
-      this.showPostOffer=false;
-      this.bidData=[];
-      this.bidData.push(this.userEmail[0])
-
-
+    }
+    catch (error) {
+      console.log(error);
     }
 
-    navigateToMyBids(){
-      this.router.navigate[("/mybids")];
-    }
+    this.showTrades = true;
+    this.showPostOffer = false;
+    this.bidData = [];
+    this.bidData.push(this.userEmail[0])
+  }
 
-    filterTrade(filter:string){
-      const filterData = [];
-      filterData.push(this.userEmail[0]);
-      filterData.push(filter);
-      console.log(filter);
-      try {
-        this.http.put('http://localhost:8080/exploretrades',JSON.stringify(filterData)).toPromise().then(
+  navigateToMyBids() {
+    this.router.navigate[("/mybids")];
+  }
+
+  filterTrade(filter: string) {
+    const filterData = [];
+    filterData.push(this.userEmail[0]);
+    filterData.push(filter);
+    try {
+      this.http.put('http://localhost:8080/exploretrades?tokenId=' + this.userToken, JSON.stringify(filterData)).toPromise().then(
         data => {
-          this.trades=[];
-          Object.assign(this.trades,data);
-          this.showTrades=false;
-          this.showFilterTrade=true;
+          this.trades = [];
+          Object.assign(this.trades, data);
+          this.showTrades = false;
+          this.showFilterTrade = true;
         }
       )
-      }
-      catch(error) {
-        console.log(error);
-      }
-
-      return false;
+    }
+    catch (error) {
+      console.log(error);
     }
 
-    turnOffFilters(){
-      try {
-        this.http.put('http://localhost:8080/exploretrades',JSON.stringify(this.userEmail)).toPromise().then(
+    return false;
+  }
+
+  turnOffFilters() {
+    try {
+      this.http.put('http://localhost:8080/exploretrades?tokenId=' + this.userToken, JSON.stringify(this.userEmail)).toPromise().then(
         data => {
-          this.trades=[];
-          Object.assign(this.trades,data);
-          this.showFilterTrade=false;
-          this.showTrades=true;
+          this.trades = [];
+          Object.assign(this.trades, data);
+          this.showFilterTrade = false;
+          this.showTrades = true;
         }
       )
-      }
-      catch(error) {
-        console.log(error);
-      }
-      return false;
     }
+    catch (error) {
+      console.log(error);
+    }
+    return false;
+  }
 
 }

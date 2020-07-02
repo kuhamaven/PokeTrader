@@ -13,107 +13,114 @@ import { Card } from '../models/card.model';
 })
 export class TradecreatorComponent implements OnInit {
 
-alert: boolean=false;
-public hostCollection: Card[]=[];
-public initialized: boolean=false;
-public collectionInitialized: boolean=false;
-public newTradeData: string[] = [];
-public conditionSelector: boolean=false;
-public wholeCardset: Card[]=[];
-public showCardset: boolean=false;
-public error:boolean=false;
-public confirm:boolean=false;
+  alert: boolean = false;
+  public hostCollection: Card[] = [];
+  public initialized: boolean = false;
+  public collectionInitialized: boolean = false;
+  public newTradeData: string[] = [];
+  public conditionSelector: boolean = false;
+  public wholeCardset: Card[] = [];
+  public showCardset: boolean = false;
+  public error: boolean = false;
+  public confirm: boolean = false;
+  userToken: string;
 
-  constructor(private http: HttpClient, private authSvc: AuthService,private router: Router) {
+  constructor(private http: HttpClient, private authSvc: AuthService, private router: Router) {
     this.selectHostCard = this.selectHostCard.bind(this);
+
     this.authSvc.afAuth.currentUser.then(
       user => {
-        const firebasemail = user.email;
-        this.newTradeData.push(firebasemail);
-        this.initialized=true;
-        this.loadCollection();
+        user.getIdToken().then(
+          result => {
+            this.userToken = result;
+            const firebasemail = user.email;
+            this.newTradeData.push(firebasemail);
+            this.initialized = true;
+            this.loadCollection();
+          }
+        )
+
       }
-    ) .catch(x=> console.log(x))
+    ).catch(x => console.log(x))
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
-  loadCollection(){
+  loadCollection() {
     try {
-      this.http.put('http://localhost:8080/collection',JSON.stringify(this.newTradeData)).toPromise().then(
-      data => {
-        Object.assign(this.hostCollection,data)
-        this.collectionInitialized=true;
-      }
-    )
+      this.http.put('http://localhost:8080/collection?tokenId=' + this.userToken, JSON.stringify(this.newTradeData)).toPromise().then(
+        data => {
+          Object.assign(this.hostCollection, data)
+          this.collectionInitialized = true;
+        }
+      )
     }
-    catch(error) {
+    catch (error) {
       console.log(error);
     }
   }
 
 
-  createTrade(){
-    this.alert=true;
-      this.http.put('http://localhost:8080/createtrade',JSON.stringify(this.newTradeData)).toPromise().then( data => { 
-        this.alert=true;
-    this.router.navigate(['/mytrades']);
-      }
+  createTrade() {
+    this.alert = true;
+    this.http.put('http://localhost:8080/createtrade?tokenId=' + this.userToken, JSON.stringify(this.newTradeData)).toPromise().then(data => {
+      this.alert = true;
+      this.router.navigate(['/mytrades']);
+    }
     )
-    .catch(x => console.log(x))
-    
+      .catch(x => console.log(x))
+
     return false;
   }
 
-  closeAlert(){
-    this.alert=false;
+  closeAlert() {
+    this.alert = false;
   }
 
   selectHostCard = (id: string) => {
     this.newTradeData.push(id);
-    this.collectionInitialized=false;
-    this.conditionSelector=true;
+    this.collectionInitialized = false;
+    this.conditionSelector = true;
   }
 
-  setCondition(condition: string){
+  setCondition(condition: string) {
     this.newTradeData.push(condition);
-    this.conditionSelector=false;
+    this.conditionSelector = false;
     this.loadCardset();
     return false;
   }
 
   selectWTACard = (id: string) => {
-    if(this.newTradeData[1]==id){
-      this.error=true;
+    if (this.newTradeData[1] == id) {
+      this.error = true;
       return false;
     }
-    if(this.newTradeData.indexOf(id)<0){
-    this.newTradeData.push(id);
-    console.log(this.newTradeData);
-    this.confirm=true;
+    if (this.newTradeData.indexOf(id) < 0) {
+      this.newTradeData.push(id);
+      this.confirm = true;
     }
   }
 
-  loadCardset(){
+  loadCardset() {
     try {
-      this.http.get('http://localhost:8080/card').toPromise().then(
-      data => {
-        Object.assign(this.wholeCardset,data)
-      }
-    )
+      this.http.get('http://localhost:8080/card?tokenId=' + this.userToken).toPromise().then(
+        data => {
+          Object.assign(this.wholeCardset, data)
+        }
+      )
     }
-    catch(error) {
+    catch (error) {
       console.log(error);
     }
-    this.showCardset=true;
+    this.showCardset = true;
 
   }
 
-  closeError(){
-    this.error=false;
+  closeError() {
+    this.error = false;
   }
 
-  closeConfirm(){
-    this.confirm=false;
+  closeConfirm() {
+    this.confirm = false;
   }
 }

@@ -17,59 +17,64 @@ import { Router } from '@angular/router';
 
 })
 export class CardsetComponent implements OnInit {
-  public alert: boolean=false;
+  public alert: boolean = false;
   cards: Card[] = [];
+  userToken: string;
   cardsIDList: string[] = [];
   public user$: Observable<any> = this.authSvc.afAuth.user;
 
 
-  constructor( private http: HttpClient, private authSvc: AuthService,private router: Router) { 
+  constructor(private http: HttpClient, private authSvc: AuthService, private router: Router) {
     this.addNewCardToCollection = this.addNewCardToCollection.bind(this);
-    //this.cards = cardsList;
-    try {
-      this.http.get('http://localhost:8080/card').toPromise().then(
-      data => {
-        Object.assign(this.cards,data)
-      }
-    )
-    }
-    catch(error) {
-      console.log(error);
-    }
-    
+
   }
 
   ngOnInit(): void {
+    this.authSvc.afAuth.currentUser.then(
+      user => {
+        user.getIdToken().then(
+          result => {
+            this.userToken = result;
+            this.loadCards();
+          }
+        )
+      }
+    )
+  }
+
+  loadCards() {
+    try {
+      let url = 'http://localhost:8080/card?tokenId=' + this.userToken;
+      this.http.get(url).toPromise().then(
+        data => {
+          Object.assign(this.cards, data)
+        }
+      )
+    }
+    catch (error) {
+      console.log(error);
+    }
+
   }
 
   addNewCardToCollection = (id: string) => {
-    if(this.cardsIDList.indexOf(id)<0){
-    this.cardsIDList.push(id);
-    this.alert=true;
+    if (this.cardsIDList.indexOf(id) < 0) {
+      this.cardsIDList.push(id);
+      this.alert = true;
     }
   }
 
-  setCards(email: string){
-    this.authSvc.afAuth.currentUser.then(
-        user => {
-          user.getIdToken().then(
-            result => {
-              let userToken = result;
-            }
-          )
-        }
-      )
+  setCards(email: string) {
+    let url = 'http://localhost:8080/cardmaker?tokenId=' + this.userToken;
     const cardsIDListWithMail = [email].concat(this.cardsIDList);
-      this.http.put('http://localhost:8080/cardmaker',JSON.stringify(cardsIDListWithMail)).toPromise().then( data => {
-     
-  }
-    )
-    .catch(x => console.log(x))
-    this.router.navigate(['/profile']);
+    this.http.put(url, JSON.stringify(cardsIDListWithMail)).toPromise().then(data => {
+      this.router.navigate(['/profile']);
+    })
+      .catch(x => console.log(x))
   }
 
-  closeAlert(){
-    this.alert=false;
+  closeAlert() {
+    this.alert = false;
   }
 
 

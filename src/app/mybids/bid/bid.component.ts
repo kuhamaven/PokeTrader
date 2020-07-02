@@ -1,11 +1,10 @@
- import { Component, OnInit,Input} from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { Router } from '@angular/router';
 import { Trade } from 'src/app/models/trade.model';
 import { Bid } from 'src/app/models/bid.model';
-import { HostBinding} from '@angular/core';
+import { HostBinding } from '@angular/core';
 
 @Component({
   selector: 'app-bid',
@@ -13,51 +12,57 @@ import { HostBinding} from '@angular/core';
   styleUrls: ['./bid.component.scss']
 })
 export class BidComponent implements OnInit {
-  @Input()  bid:Bid;
+  @Input() bid: Bid;
   @HostBinding('attr.class') cssClass = 'col-md-4';
-  trade:Trade=new Trade()
+  trade: Trade = new Trade()
   showSeeTrade: boolean;
-  constructor(private http: HttpClient,private router:Router) { }
+  userToken: string;
+  constructor(private http: HttpClient, private router: Router, private authSvc: AuthService) { }
 
   ngOnInit(): void {
-  }
-
-  seeTrade(id:number){
-    console.log(this.bid.tradeId);
-    const tradeId=[];
-    tradeId.push(id)
-    try {
-      this.http.put('http://localhost:8080/tradebyid',JSON.stringify(tradeId)).toPromise().then(
-      data => {
-        console.log(data);
-        Object.assign(this.trade,data);
-        this.showSeeTrade=true;
+    this.authSvc.afAuth.currentUser.then(
+      user => {
+        user.getIdToken().then(
+          result => {
+            this.userToken = result;
+          }
+        )
       }
     )
+  }
+
+  seeTrade(id: number) {
+    const tradeId = [];
+    tradeId.push(id)
+    try {
+      this.http.put('http://localhost:8080/tradebyid?tokenId=' + this.userToken, JSON.stringify(tradeId)).toPromise().then(
+        data => {
+          Object.assign(this.trade, data);
+          this.showSeeTrade = true;
+        }
+      )
     }
-    catch(error) {
+    catch (error) {
       console.log(error);
     }
   }
-  goBack(){
-  this.showSeeTrade=false;
+
+  goBack() {
+    this.showSeeTrade = false;
   }
 
-  bidderVerification(tradeId:number){
+  bidderVerification(tradeId: number) {
     const tradeData = [];
     tradeData.push(tradeId);
- 
-      try {
-        this.http.put('http://localhost:8080/bidderverification',JSON.stringify(tradeData)).toPromise().then(
-        data => {  this.router.navigate(['/profile']); }
+
+    try {
+      this.http.put('http://localhost:8080/bidderverification?tokenId=' + this.userToken, JSON.stringify(tradeData)).toPromise().then(
+        data => { this.router.navigate(['/profile']); }
       )
-      }
-      catch(error) {
-        console.log(error);
-      }
- }
-
-
-
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
 
 } 

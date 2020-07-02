@@ -17,124 +17,128 @@ import { emit } from 'process';
   providers: [AuthService]
 })
 export class MytradesComponent implements OnInit {
-  public alert: boolean=false;
+  public alert: boolean = false;
   trades: Trade[] = [];
-  bids: Bid[]=[];
+  bids: Bid[] = [];
   public user$: Observable<any> = this.authSvc.afAuth.user;
   public userEmail: string[] = [];
-  showTrade:boolean=false;
-  showBids:boolean=false;
-  accept:boolean=false;
-  decline:boolean=false;
-  bidderMailRejected:string='';
-  bidderMailAccepted:string='';
+  showTrade: boolean = false;
+  showBids: boolean = false;
+  accept: boolean = false;
+  decline: boolean = false;
+  bidderMailRejected: string = '';
+  bidderMailAccepted: string = '';
+  userToken: string;
 
-  constructor(private http: HttpClient, private authSvc: AuthService,private router: Router) { 
-    this.loadBids=this.loadBids.bind(this);
-    this.onDecline=this.onDecline.bind(this);
-    this.onAccept=this.onAccept.bind(this);
+  constructor(private http: HttpClient, private authSvc: AuthService, private router: Router) {
+    this.loadBids = this.loadBids.bind(this);
+    this.onDecline = this.onDecline.bind(this);
+    this.onAccept = this.onAccept.bind(this);
   }
 
   ngOnInit(): void {
 
     this.authSvc.afAuth.currentUser.then(
       user => {
-        this.userEmail.push(user.email)
-        console.log(this.userEmail)
-        this.loadTrades();
-      }
-    ) .catch(x=> console.log(x))
-    }
-    
-    loadTrades(){
-      try {
-        this.http.put('http://localhost:8080/mytrades',JSON.stringify(this.userEmail)).toPromise().then(
-        data => {
-          console.log(data);
-          Object.assign(this.trades,data);
-          this.showTrade=true;
-        }
-      )
-      }
-      catch(error) {
-        console.log(error);
-      }
-    }
-
-    navigateToCreateTrade(){
-      this.router.navigate(['/tradecreator']);
-    }
-
-    loadBids(tid:Number){
-      const tidArray=[];
-      tidArray.push(tid);
-      try {
-        this.http.put('http://localhost:8080/tradebids',JSON.stringify(tidArray)).toPromise().then(
-        data => {
-          console.log(data);
-          Object.assign(this.bids,data);
-          this.showBids=true;
-          this.showTrade=false;
-        }
-      )
-      }
-      catch(error) {
-        console.log(error);
-      }
-    }
-
-    onAccept(id:number,bidderEmail:string){
-      this.bidderMailAccepted=bidderEmail;
-      this.accept=true;
-      const acceptData = [];
-      acceptData.push(this.userEmail[0]);
-      acceptData.push(id);
-        try {
-          this.http.put('http://localhost:8080/onaccept',JSON.stringify(acceptData)).toPromise().then(
-          data => {
-            this.showBids=false;
-            this.showTrade=true;
+        user.getIdToken().then(
+          result => {
+            this.userToken = result;
+            this.userEmail.push(user.email)
+            this.loadTrades();
           }
         )
-        }
-        catch(error) {
-          console.log(error);
-        }
-    }
 
-   onDecline(id:number,bidderEmail:string){
-     this.bidderMailRejected=bidderEmail;
-     this.decline=true;
-      const declineData = [];
-      declineData.push(this.userEmail[0]);
-      declineData.push(id);
-        try {
-          this.http.put('http://localhost:8080/ondecline',JSON.stringify(declineData)).toPromise().then(
-          data => {
-            for(let bid of this.bids){
-              if(bid.id==id){
-                this.bids.splice(this.bids.indexOf(bid),1);
-              }
+      }
+    ).catch(x => console.log(x))
+  }
+
+  loadTrades() {
+    try {
+      this.http.put('http://localhost:8080/mytrades?tokenId=' + this.userToken, JSON.stringify(this.userEmail)).toPromise().then(
+        data => {
+          Object.assign(this.trades, data);
+          this.showTrade = true;
+        }
+      )
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
+
+  navigateToCreateTrade() {
+    this.router.navigate(['/tradecreator']);
+  }
+
+  loadBids(tid: Number) {
+    const tidArray = [];
+    tidArray.push(tid);
+    try {
+      this.http.put('http://localhost:8080/tradebids?tokenId=' + this.userToken, JSON.stringify(tidArray)).toPromise().then(
+        data => {
+          Object.assign(this.bids, data);
+          this.showBids = true;
+          this.showTrade = false;
+        }
+      )
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
+
+  onAccept(id: number, bidderEmail: string) {
+    this.bidderMailAccepted = bidderEmail;
+    this.accept = true;
+    const acceptData = [];
+    acceptData.push(this.userEmail[0]);
+    acceptData.push(id);
+    try {
+      this.http.put('http://localhost:8080/onaccept?tokenId=' + this.userToken, JSON.stringify(acceptData)).toPromise().then(
+        data => {
+          this.showBids = false;
+          this.showTrade = true;
+        }
+      )
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
+
+  onDecline(id: number, bidderEmail: string) {
+    this.bidderMailRejected = bidderEmail;
+    this.decline = true;
+    const declineData = [];
+    declineData.push(this.userEmail[0]);
+    declineData.push(id);
+    try {
+      this.http.put('http://localhost:8080/ondecline?tokenId=' + this.userToken, JSON.stringify(declineData)).toPromise().then(
+        data => {
+          for (let bid of this.bids) {
+            if (bid.id == id) {
+              this.bids.splice(this.bids.indexOf(bid), 1);
             }
           }
-        )
         }
-        catch(error) {
-          console.log(error);
-        }
+      )
     }
+    catch (error) {
+      console.log(error);
+    }
+  }
 
-    navigateToMyTrades(){
-      this.showTrade=true;
-      this.showBids=false;
-      this.bids=[];
-    }
+  navigateToMyTrades() {
+    this.showTrade = true;
+    this.showBids = false;
+    this.bids = [];
+  }
 
-    closeAccept(){
-      this.accept=false;
-    }
+  closeAccept() {
+    this.accept = false;
+  }
 
-    closeDecline(){
-      this.decline=false;
-    }
+  closeDecline() {
+    this.decline = false;
+  }
 }

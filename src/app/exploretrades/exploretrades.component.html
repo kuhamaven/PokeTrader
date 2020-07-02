@@ -3,7 +3,7 @@
     <p class="lead">Here You Will be Able to Bid On Other Users Cards</p>
     <div class="form-group">
         <form class="form-inline my-4 my-lg-0">
-            <select class="form-control mr-sm-2" #filter>
+            <select class="form-control mr-sm-2" #typefilter>
             <option>Water</option>
             <option>Water</option>
             <option>Fairy</option>
@@ -20,7 +20,27 @@
             <option>Supporter</option>
             <option>Stadium</option>
             </select>
-            <button class="btn btn-secondary my-2 my-sm-0" style="color: rgb(0, 140, 255);" type="submit" (click)="filterTrade(filter.value)">Filter</button>
+            <button class="btn btn-secondary my-2 my-sm-0" style="color: rgb(0, 140, 255);" type="submit" (click)="filterTrade(typefilter.value,'Type')">Filter</button>
+            <select class="form-control mr-sm-2" #variantfilter>
+                <option>Basic</option>
+                <option>Stage 1</option>
+                <option>Stage 2</option>
+                <option>BREAK</option>
+                <option>LEGEND</option>
+                <option>ex</option>
+                <option>EX</option>
+                <option>Mega-EX</option>
+                <option>GX</option>
+                <option>TAG TEAM</option>
+                <option>LV.X</option>
+                <option>Prime</option>
+                <option>SP</option>
+                <option>Star</option>
+                <option>V</option>
+                <option>VMAX</option>
+                <option>NonPokemon</option>
+                </select>
+            <button class="btn btn-secondary my-2 my-sm-0" style="color: rgb(212, 134, 195)" type="submit" (click)="filterTrade(variantfilter.value,'Variant')">Filter</button>
             <button class="btn btn-secondary my-2 my-sm-0" style="color: rgb(124, 79, 167);" type="submit" (click)="turnOffFilters()">Remove filter</button>
         </form>
     </div>

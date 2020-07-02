@@ -105,10 +105,11 @@ export class ExploretradesComponent implements OnInit {
     this.router.navigate[("/mybids")];
   }
 
-  filterTrade(filter: string) {
+  filterTrade(filter: string, filterKind: string) {
     const filterData = [];
     filterData.push(this.userEmail[0]);
     filterData.push(filter);
+    filterData.push(filterKind);
     try {
       this.http.put('http://localhost:8080/exploretrades?tokenId=' + this.userToken, JSON.stringify(filterData)).toPromise().then(
         data => {

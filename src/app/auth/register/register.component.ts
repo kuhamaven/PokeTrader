@@ -76,8 +76,11 @@ export class RegisterComponent implements OnInit {
       if(user){ 
         const url =(await this.urlImage.toPromise()).toString();
         const userData=[email,user.user.uid,url]
-        this.http.put('http://localhost:8080/register',JSON.stringify(userData)).toPromise().then( data => {
-      
+        user.user.getIdToken().then(
+          result => {
+            this.http.put('http://localhost:8080/register?tokenId='+result,JSON.stringify(userData)).toPromise().then( data => {
+          }
+        )      
         }
           )
           .catch(x => console.log(x))

@@ -4,7 +4,7 @@
     <div class="form-group">
         <form class="form-inline my-4 my-lg-0">
             <select class="form-control mr-sm-2" #typefilter>
-            <option>Water</option>
+            <option>All Types</option>
             <option>Water</option>
             <option>Fairy</option>
             <option>Dark</option>
@@ -20,8 +20,8 @@
             <option>Supporter</option>
             <option>Stadium</option>
             </select>
-            <button class="btn btn-secondary my-2 my-sm-0" style="color: rgb(0, 140, 255);" type="submit" (click)="filterTrade(typefilter.value,'Type')">Filter</button>
             <select class="form-control mr-sm-2" #variantfilter>
+                <option>All Variants</option>
                 <option>Basic</option>
                 <option>Stage 1</option>
                 <option>Stage 2</option>
@@ -40,8 +40,7 @@
                 <option>VMAX</option>
                 <option>NonPokemon</option>
                 </select>
-            <button class="btn btn-secondary my-2 my-sm-0" style="color: rgb(212, 134, 195)" type="submit" (click)="filterTrade(variantfilter.value,'Variant')">Filter</button>
-            <button class="btn btn-secondary my-2 my-sm-0" style="color: rgb(124, 79, 167);" type="submit" (click)="turnOffFilters()">Remove filter</button>
+            <button class="btn btn-secondary my-2 my-sm-0" style="color: rgb(212, 134, 195)" type="submit" (click)="filterTrade(typefilter.value,variantfilter.value)">Filter</button>
         </form>
     </div>
 

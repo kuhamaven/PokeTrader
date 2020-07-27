@@ -14,18 +14,23 @@ export class NavbarComponent{
   private adminIDList: string [] = AdminIds;
   public user$: Observable<any> = this.authSvc.afAuth.user;
   public tradeDropdown: boolean=false;
+  setInterval=setInterval;
+  private isLogged:boolean=false;
 
-
-  constructor(private authSvc: AuthService, private router: Router) { }
+  constructor(private authSvc: AuthService, private router: Router) { 
+    setInterval(()=> { this.checkLogged() }, 100);
+  }
 
   async onLogout(){
     try{
       await this.authSvc.logout();
+      this.isLogged=false;
       this.router.navigate(['/login']);
     }
     catch(error){
       console.log(error)
     }
+ 
     
   }
 
@@ -43,5 +48,27 @@ export class NavbarComponent{
     }
     return false;
   }
+
+  checkLogged(){
+    if(!this.isLogged){ 
+    let urls:string[]=['/login','/register','/home','/'];
+    
+    this.authSvc.afAuth.currentUser.then(
+      user => {
+      if(!user){
+        if(urls.indexOf(this.router.url)<0) {
+          this.router.navigate(['/login'])};
+
+      }else{
+        this.isLogged=true;
+      }
+       
+      }
+    ).catch(x => console.log(x))
+  
+    }
+   
+   }
+
 
 }

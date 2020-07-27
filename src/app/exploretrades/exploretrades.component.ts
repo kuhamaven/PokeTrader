@@ -47,8 +47,13 @@ export class ExploretradesComponent implements OnInit {
   }
 
   loadTradesAndCollection() {
+    let jsonBody: string[]=[];
+      jsonBody.push(this.userEmail[0]);
+      jsonBody.push('All Types');
+      jsonBody.push('All Variants');
     try {
-      this.http.put('http://localhost:8080/exploretrades?tokenId=' + this.userToken, JSON.stringify(this.userEmail)).toPromise().then(
+   
+      this.http.put('http://localhost:8080/exploretrades?tokenId=' + this.userToken, JSON.stringify(jsonBody)).toPromise().then(
         data => {
           Object.assign(this.trades, data);
         }
@@ -105,11 +110,11 @@ export class ExploretradesComponent implements OnInit {
     this.router.navigate[("/mybids")];
   }
 
-  filterTrade(filter: string, filterKind: string) {
+  filterTrade(filterType: string, filterVariant: string) {
     const filterData = [];
     filterData.push(this.userEmail[0]);
-    filterData.push(filter);
-    filterData.push(filterKind);
+    filterData.push(filterType);
+    filterData.push(filterVariant);
     try {
       this.http.put('http://localhost:8080/exploretrades?tokenId=' + this.userToken, JSON.stringify(filterData)).toPromise().then(
         data => {

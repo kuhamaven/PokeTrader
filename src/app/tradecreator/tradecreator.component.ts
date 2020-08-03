@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { Router } from '@angular/router';
 import { Card } from '../models/card.model';
+import { Cardarray } from '../models/cardarray.model';
 
 @Component({
   selector: 'app-tradecreator',
@@ -17,12 +18,16 @@ export class TradecreatorComponent implements OnInit {
   public hostCollection: Card[] = [];
   public initialized: boolean = false;
   public collectionInitialized: boolean = false;
-  public newTradeData: string[] = [];
+  public newTradeData: Card[] = [];
+  public condition:string='';
   public conditionSelector: boolean = false;
-  public wholeCardset: Card[] = [];
+  public wholeCardset: Cardarray = new Cardarray();
   public showCardset: boolean = false;
   public error: boolean = false;
   public confirm: boolean = false;
+  public start: boolean = false;
+  public firebaseEmail:string[]=[];
+  public hostCardId:string='';
   userToken: string;
 
   constructor(private http: HttpClient, private authSvc: AuthService, private router: Router) {
@@ -34,7 +39,8 @@ export class TradecreatorComponent implements OnInit {
           result => {
             this.userToken = result;
             const firebasemail = user.email;
-            this.newTradeData.push(firebasemail);
+            this.firebaseEmail.push(firebasemail);
+
             this.initialized = true;
             this.loadCollection();
           }
@@ -48,7 +54,7 @@ export class TradecreatorComponent implements OnInit {
 
   loadCollection() {
     try {
-      this.http.put('http://localhost:8080/collection?tokenId=' + this.userToken, JSON.stringify(this.newTradeData)).toPromise().then(
+      this.http.put('http://localhost:8080/collection?tokenId=' + this.userToken, JSON.stringify(this.firebaseEmail)).toPromise().then(
         data => {
           Object.assign(this.hostCollection, data)
           this.collectionInitialized = true;
@@ -63,7 +69,8 @@ export class TradecreatorComponent implements OnInit {
 
   createTrade() {
     this.alert = true;
-    this.http.put('http://localhost:8080/createtrade?tokenId=' + this.userToken, JSON.stringify(this.newTradeData)).toPromise().then(data => {
+    console.log(this.newTradeData)
+    this.http.put('http://localhost:8080/createtrade?tokenId=' + this.userToken+"&condition="+this.condition+"&hostcardid="+this.hostCardId, JSON.stringify(this.newTradeData)).toPromise().then(data => {
       this.alert = true;
       this.router.navigate(['/mytrades']);
     }
@@ -77,42 +84,82 @@ export class TradecreatorComponent implements OnInit {
     this.alert = false;
   }
 
-  selectHostCard = (id: string) => {
-    this.newTradeData.push(id);
+  selectHostCard = (card:Card) => {
+    this.hostCardId=card.id;
     this.collectionInitialized = false;
     this.conditionSelector = true;
   }
 
   setCondition(condition: string) {
-    this.newTradeData.push(condition);
+    this.condition=condition;
     this.conditionSelector = false;
-    this.loadCardset();
+    this.loadCards();
     return false;
   }
 
-  selectWTACard = (id: string) => {
-    if (this.newTradeData[1] == id) {
+  selectWTACard = (card: Card) => {
+    if (this.newTradeData[0] == card) {
       this.error = true;
       return false;
     }
-    if (this.newTradeData.indexOf(id) < 0) {
-      this.newTradeData.push(id);
+    if (this.newTradeData.indexOf(card) < 0) {
+      this.newTradeData.push(card);
       this.confirm = true;
     }
   }
 
-  loadCardset() {
+  loadCardset(name: string,type:string,subtype:string,supertype:string,rarity:string) {
+      this.start=false
+      if(type=='All Types'){
+        type='';
+      }
+      if(subtype=='All Subtypes'){
+        subtype='';
+      }
+      if(supertype=='All Supertypes'){
+        supertype='';
+      }
+      if(rarity=='All Rarities'){
+        rarity='';
+      }
+      try {
+       
+        let url = 'https://api.pokemontcg.io/v1/cards'+'?name='+name+'&types='+type+'&subtype='+subtype+'&supertype'+supertype+'&rarity='+rarity;
+        this.http.get(url).toPromise().then(
+          data => {
+            this.wholeCardset.cards=[];
+         Object.assign(this.wholeCardset,data);
+         console.log(this.wholeCardset)
+          this.start=true;
+  
+          }
+        )
+      }
+      catch (error) {
+        console.log(error);
+      }
+  
+    
+
+  }
+
+  loadCards() {
     try {
-      this.http.get('http://localhost:8080/card?tokenId=' + this.userToken).toPromise().then(
+     
+      let url = 'https://api.pokemontcg.io/v1/cards';
+      this.http.get(url).toPromise().then(
         data => {
-          Object.assign(this.wholeCardset, data)
+       Object.assign(this.wholeCardset,data);
+          console.log(this.wholeCardset);
+        this.start=true;
+
         }
       )
     }
     catch (error) {
       console.log(error);
     }
-    this.showCardset = true;
+    this.showCardset=true;
 
   }
 

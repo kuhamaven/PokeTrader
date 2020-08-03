@@ -20,6 +20,7 @@ export class ProfileComponent implements OnInit {
   public currentUser: any;
   public userData: string[] = [];
   cards: Card[] = [];
+  wishlist: Card[] = [];
   public userEmail: string[] = [];
   public databaseUser: User = new User();
   customizeForm = new FormGroup({
@@ -77,6 +78,21 @@ export class ProfileComponent implements OnInit {
         }
       )
     }
+
+  
+    catch (error) {
+      console.log(error);
+    }
+
+    try {
+      this.http.put('http://localhost:8080/wishlist?tokenId=' + this.userToken, JSON.stringify(this.userEmail)).toPromise().then(
+        data => {
+          Object.assign(this.wishlist, data)
+        }
+      )
+    }
+
+  
     catch (error) {
       console.log(error);
     }
@@ -85,6 +101,10 @@ export class ProfileComponent implements OnInit {
 
   closeAlert(): void {
     this.databaseUser.recentlyModified = false;
+  }
+
+  closeAlertWishlist(): void {
+    this.databaseUser.recentlyModifiedWishlist = false;
   }
 
   onUpload(e) {

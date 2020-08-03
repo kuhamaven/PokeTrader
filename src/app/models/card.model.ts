@@ -1,34 +1,25 @@
 
 export class Card{
     public name: string;
-    public imageURL: string;
-    public id: number;
-    public type: string;
-    public variant: string;
+    public imageUrl: string;
+    public id: string;
+    public types: string[];
+    public supertype: string;
+    public subtype: string;
+    public rarity: string;
+    public set:string;
+    public nationalPokedexNumber:number;
 
-    constructor(n:string, u:string, i:number, t: string, v: string){
+    constructor(n:string, u:string, i:string, t: string[], v: string, w: string,x: string,y: string,z:number){
         this.name=n;
-        this.imageURL=u;
-        this.type=t;
+        this.imageUrl=u;
+        this.types=t;
         this.id=i;
-        this.variant=v;
+        this.supertype=v;
+        this.subtype=w;
+        this.rarity=x;
+        this.set=y;
+        this.nationalPokedexNumber=z;
     }
 }
 
-export enum CardTypes {
-    Fire = "FIRE",
-    Water = "WATER",
-    Electric = "ELECTRIC",
-    Grass = "GRASS",
-    Fighting = "FIGHTING",
-    Dark = "DARK",
-    Psychic = "PSYCHIC",
-    Fairy = "FAIRY",
-    Dragon = "DRAGON",
-    Colorless = "COLORLESS",
-    Steel = "STEEL",
-    Supporter = "SUPPORTER",
-    Item = "ITEM",
-    Stadium = "STADIUM"
-  }
-  

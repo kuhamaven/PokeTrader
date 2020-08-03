@@ -5,7 +5,7 @@
         <h4 class="card-subtitle text-muted"></h4>
         <a [routerLink]="['/searchuser/', trade.hostEmail]">{{trade.hostEmail}}</a>
     </div>
-    <img style="height: 100%; width: 100%; display: block;" src={{trade.card.imageURL}}>
+    <img style="height: 100%; width: 100%; display: block;" src={{trade.card.imageUrl}}>
     <div class="card-body">
         <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
             <div class="card-header">Trade Information:</div>
@@ -44,7 +44,7 @@
             <h3 class="card-title">{{bid.card.name}} ({{bid.card.id}})</h3>
             <h4 class="card-subtitle text-muted"></h4>
         </div>
-        <img style="height: 100%; width: 100%; display: block;" src={{bid.card.imageURL}}>
+        <img style="height: 100%; width: 100%; display: block;" src={{bid.card.imageUrl}}>
         <div class="card-body">
             <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
                 <div class="card-header">Trade Information:</div>

@@ -1,10 +1,10 @@
 <div class="card-content">
     <div class="card-img">
-        <img src={{card.imageURL}} alt="">
+        <img src={{card.imageUrl}} alt="">
     </div>
     <div class="card-body">
         <h4>{{card.name}} {{card.id}}</h4>
-        <button type="button" [disabled]="clicked" (click)="setSelected(card.id);clicked=true;" class="btn-btn-primary">Offer this card!</button>
+        <button type="button" [disabled]="clicked" (click)="setSelected(card);clicked=true;" class="btn-btn-primary">Offer this card!</button>
         <span *ngIf="isSelected()">
             <span ngNonBindable> In collection!</span>
         </span>

@@ -1,6 +1,73 @@
 
 <ol class="breadcrumb">
     <li class="breadcrumb-item active" style="font-size: medium;font-weight: 300;">PokeTrader Card Database</li>
+    <div class="form-group">
+     
+ 
+        <input class="form-control" type="text" placeholder="Search by Name" #name>
+          <select class="form-control" #typesfilter>
+          <option>All Types</option>
+          <option>Water</option>
+          <option>Fairy</option>
+          <option>Darkness</option>
+          <option>Fire</option>
+          <option>Lightning</option>
+          <option>Grass</option>
+          <option>Fighting</option>
+          <option>Psychic</option>
+          <option>Dragon</option>
+          <option>Metal</option>
+          <option>Colorless</option>
+          </select>
+        
+          <select class="form-control" #subtypefilter>
+              <option>All Subtypes</option>
+              <option>Stadium</option>
+              <option>MEGA</option>
+              <option>V</option>
+              <option>Item</option>
+              <option>Level Up</option>
+              <option>Stage 2</option>
+              <option>BREAK</option>
+              <option>Stage 1</option>
+              <option>VMAX</option>
+              <option>Rocket's Secret Machine</option>
+              <option>Basic</option>
+              <option>Pokémon Tool</option>
+              <option>Technical Machine</option>
+              <option>EX</option>
+              <option>LEGEND</option>
+              <option>Special</option>
+              <option>TAG TEAM</option>
+              <option>Rare Holo</option>
+              <option>GX</option>
+              <option>Supporter</option>
+              <option>Restored</option>
+              </select>
+              <li></li>
+              <select class="form-control" #supertypefilter>
+                <option>All supertype</option>
+                <option>Pokémon</option>
+                <option>Energy</option>
+                <option>Trainer </option>
+                </select>
+                <li></li>
+                <select class="form-control" #rarityfilter>
+                  <option>All Rarities </option>
+                  <option>Rare</option>
+                  <option>Rare Holo</option>
+                  <option>Common</option>
+                  <option>Uncommon</option>
+                  <option>Rare Holo EX</option>
+                  <option>Rare Holo GX</option>
+                  <option>Rare Ultra</option>
+                  <option>Rare Promo</option>
+                  <option>Rare Secret</option>
+                  <option>Rare Prime</option>
+                  <option>V</option>
+                  </select>
+                  <button type="button" class="btn btn-success" (click)="loadCardsWithFilter(name.value,typesfilter.value,subtypefilter.value,supertypefilter.value,rarityfilter.value)">Search</button>
+  </div>
   </ol>
 <div class="modal-body" style="padding:0px; position:fixed; top: 30px; left:540px; z-index: 10;">
     <div *ngIf="alert" class="alert alert-success alert-dismissible fade show" role="alert">
@@ -10,8 +77,18 @@
     </button>
     </div>
 </div>
+<div class="modal-body" style="padding:0px; position:fixed; top: 30px; left:540px; z-index: 10;">
+  <div *ngIf="alertWishlist" class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>Card Added!</strong> This card will now be included in your wishlist.
+      <button (click)="closeAlertWishlist()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  </div>
+</div>
 <hr class="mb-5" [ngStyle]="{backgroundImage:'https://i.imgur.com/y3Vt8R8.png'}">
+<div *ngIf= "start">
 <div class="row row-flex" *ngIf="user$ | async as user; else" [ngStyle]="{backgroundImage:'https://i.imgur.com/y3Vt8R8.png'}">
-    <app-card *ngFor="let c of cards" [card]="c" [setSelected]="addNewCardToCollection"></app-card>
+    <app-card *ngFor="let c of cards.cards" [card]="c" [setSelected]="addNewCardToCollection"  [setSelectedForWishlist]="addNewCardToWishlist"></app-card>
     <button type="submit" class="btn btn-primary btn-large btn-block" (click)="setCards(user.email)">Send</button>
+</div>
 </div>

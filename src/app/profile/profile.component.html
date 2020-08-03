@@ -41,11 +41,30 @@
 </div>
 </div>
 
+<div *ngIf="showCards">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" style="font-size: large;font-weight: 800;"> My Wishlist:</li>
+      </ol>  
+<hr class="mb-5">
+<div class="row row-flex">
+    <app-collection-card *ngFor="let c of wishlist" [card]="c"></app-collection-card>
+    
+</div>
+</div>
+
 
 <div class="modal-body" style="padding:0px; position:fixed;top: 80px; left:535px; z-index: 10; ">
     <div *ngIf=databaseUser.recentlyModified class="alert alert-warning alert-dismissible fade show" role="alert">
         <strong>Collection Updated!</strong> Now there are new cards in your collection!
         <button (click)="closeAlert()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+</div>
+<div class="modal-body" style="padding:0px; position:fixed;top: 80px; left:535px; z-index: 10; ">
+    <div *ngIf=databaseUser.recentlyModifiedWishlist class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Wishlist Updated!</strong> Now there are new cards in your Wishlist!
+        <button (click)="closeAlertWishlist()" type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
     </div>

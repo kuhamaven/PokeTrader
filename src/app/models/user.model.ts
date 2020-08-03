@@ -7,7 +7,9 @@ export class User{
     public userName: string;
     public id: string;
     public cards: Card[];
+    public wishlist: Card[];
     public recentlyModified: boolean;
+    public recentlyModifiedWishlist: boolean;
 
     constructor(){
         this.email="";
@@ -16,7 +18,9 @@ export class User{
         this.userName="";
         this.id="";
         this.cards=[];
+        this.wishlist=[];
         this.recentlyModified=false;
+        this.recentlyModifiedWishlist=false;
     }
 
     

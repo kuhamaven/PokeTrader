@@ -1,16 +1,21 @@
 <div class="card-content">
     <div class="card-img">
-        <img src={{card.imageURL}} alt="">
+        <img src={{card.imageUrl}} alt="">
     </div>
     <div class="card-body">
         <h4>Name: {{card.name}}</h4>
-        <h5>Type: {{card.type}}</h5>
-        <h5>Stage: {{card.variant}}</h5>
+     
+        <h5>Subtype: {{card.subtype}}</h5>
+        <h5>Supertype: {{card.supertype}}</h5>
         <h3> </h3>
         <h1></h1>
-        <button type="button" [disabled]="clicked" (click)="setSelected(card.id);clicked=true;" class="btn-btn-primary">Add to colection</button>
+        <button type="button" [disabled]="clicked" (click)="setSelected(card);clicked=true;" class="btn-btn-primary">Add to colection</button>
         <span *ngIf="isSelected()">
             <span ngNonBindable> In collection!</span>
+        </span>
+        <button type="button" [disabled]="clicked2" (click)="setSelectedForWishlist(card);clicked2=true;" class="btn-btn-primary">Add to Wishlist</button>
+        <span *ngIf="isSelectedForWishList()">
+            <span ngNonBindable> In Wishlist!</span>
         </span>
     </div>
 </div>

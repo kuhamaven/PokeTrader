@@ -2,10 +2,10 @@
     <h1 class="display-3">Explore All Available Trades</h1>
     <p class="lead">Here You Will be Able to Bid On Other Users Cards</p>
     <div class="form-group">
-     
- 
+
+
         <input class="form-control" type="text" placeholder="Search by Name" #name>
-          <select class="form-control" #type>
+        <select class="form-control" #type>
           <option>All Types</option>
           <option>Water</option>
           <option>Fairy</option>
@@ -19,8 +19,8 @@
           <option>Metal</option>
           <option>Colorless</option>
           </select>
-        
-          <select class="form-control" #subtype>
+
+        <select class="form-control" #subtype>
               <option>All Subtypes</option>
               <option>Stadium</option>
               <option>MEGA</option>
@@ -44,15 +44,15 @@
               <option>Supporter</option>
               <option>Restored</option>
               </select>
-             
-              <select class="form-control" #supertype>
+
+        <select class="form-control" #supertype>
                 <option>All supertype</option>
                 <option>Pokémon</option>
                 <option>Energy</option>
                 <option>Trainer </option>
                 </select>
-             
-                <select class="form-control" #rarity>
+
+        <select class="form-control" #rarity>
                   <option>All Rarities </option>
                   <option>Rare</option>
                   <option>Rare Holo</option>
@@ -66,13 +66,17 @@
                   <option>Rare Prime</option>
                   <option>V</option>
                   </select>
-                  <ul></ul>
-                  <input type="checkbox"  #input>
-                  <label>Only Wishlist </label>
-                  <ul></ul>
-                  <button type="button  " class="btn btn-success" (click)="filterTrade(name.value,supertype.value,type.value,subtype.value,rarity.value,input.checked)">Search</button>
-  </div>
-   
+        <ul></ul>
+        <input type="checkbox" #wishlistcheck>
+        <label>Show me only trades with cards from my Wishlist! </label>
+        <ul></ul>
+        <ul></ul>
+        <input type="checkbox" #friendscheck>
+        <label>Show me only trades with cards from my Friends!  </label>
+        <ul></ul>
+        <button type="button  " class="btn btn-success" (click)="filterTrade(name.value,supertype.value,type.value,subtype.value,rarity.value,wishlistcheck.checked,friendscheck.checked)">Search</button>
+    </div>
+
 
     <hr class="my-4">
     <div class="row row-flex" *ngIf="showTrades">

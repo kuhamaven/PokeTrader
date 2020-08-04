@@ -117,7 +117,7 @@ export class ExploretradesComponent implements OnInit {
     this.router.navigate[("/mybids")];
   }
 
-  filterTrade(name: string, supertype: string,type: string,subtype: string,rarity: string,state: boolean) {
+  filterTrade(name: string, supertype: string,type: string,subtype: string,rarity: string,wishlist: boolean,friendlist: boolean) {
     const filterData = [];
     filterData.push("%"+name+"%");
    
@@ -138,12 +138,14 @@ export class ExploretradesComponent implements OnInit {
     else{
       filterData.push("%"+rarity)
     }
-    if(state) filterData.push("true");
+    if(wishlist) filterData.push("true");
     else{
       filterData.push("false");
-
     }
-    
+    if(friendlist) filterData.push("true");
+    else{
+      filterData.push("false");
+    }    
     try {
       this.http.put('http://localhost:8080/exploretrades?tokenId=' + this.userToken, JSON.stringify(filterData)).toPromise().then(
         data => {

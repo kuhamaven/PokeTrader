@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Card } from '../models/card.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -23,11 +24,13 @@ export class ExploretradesComponent implements OnInit {
   showPostOffer: boolean = false;
   showFilterTrade: boolean = false;
   tradeId: Number = 0;
+  wishlistBoolean: boolean=false;
 
 
   constructor(private http: HttpClient, private authSvc: AuthService, private router: Router) {
     this.postOffer = this.postOffer.bind(this);
     this.setBidCard = this.setBidCard.bind(this);
+    const wishlistControl= new FormControl();
   }
 
   ngOnInit(): void {
@@ -48,9 +51,13 @@ export class ExploretradesComponent implements OnInit {
 
   loadTradesAndCollection() {
     let jsonBody: string[]=[];
-      jsonBody.push(this.userEmail[0]);
-      jsonBody.push('All Types');
-      jsonBody.push('All Variants');
+      jsonBody.push('%');
+      jsonBody.push('All types');
+      jsonBody.push('All supertype');
+      jsonBody.push('All Subtypes');
+      jsonBody.push('All Rarities');
+      jsonBody.push('All supertype');
+      jsonBody.push('false');
     try {
    
       this.http.put('http://localhost:8080/exploretrades?tokenId=' + this.userToken, JSON.stringify(jsonBody)).toPromise().then(
@@ -110,11 +117,33 @@ export class ExploretradesComponent implements OnInit {
     this.router.navigate[("/mybids")];
   }
 
-  filterTrade(filterType: string, filterVariant: string) {
+  filterTrade(name: string, supertype: string,type: string,subtype: string,rarity: string,state: boolean) {
     const filterData = [];
-    filterData.push(this.userEmail[0]);
-    filterData.push(filterType);
-    filterData.push(filterVariant);
+    filterData.push("%"+name+"%");
+   
+    if(supertype=="All supertype") filterData.push("%");
+    else{
+      filterData.push("%"+supertype)
+    }
+    if(type=="All Types") filterData.push("%");
+    else{
+      filterData.push(type)
+    }
+    
+    if(subtype=="All Subtypes") filterData.push("%");
+    else{
+      filterData.push("%"+subtype)
+    }
+    if(rarity=="All Rarities") filterData.push("%");
+    else{
+      filterData.push("%"+rarity)
+    }
+    if(state) filterData.push("true");
+    else{
+      filterData.push("false");
+
+    }
+    
     try {
       this.http.put('http://localhost:8080/exploretrades?tokenId=' + this.userToken, JSON.stringify(filterData)).toPromise().then(
         data => {
@@ -147,6 +176,15 @@ export class ExploretradesComponent implements OnInit {
       console.log(error);
     }
     return false;
+  }
+
+  onCheckboxChange(state: Boolean){
+    if(!state) this.wishlistBoolean=true;
+    if(state) this.wishlistBoolean=false;
+  }
+
+  notify(value){
+    console.log(value)
   }
 
 }

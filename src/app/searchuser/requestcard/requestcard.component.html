@@ -1,0 +1,11 @@
+<div id="fb">
+    <div id="fb-top">
+      <p><b>Friend Request</b><span></span></p>
+    </div>
+    <img src={{user.photoUrl}} height="100" width="100" alt="Image">
+    <p id="info"><b>{{user.userName}}</b> <br> <span>{{user.email}}</span></p>
+    <div id="button-block">
+      <div id="confirm" (click)="respondRequest(user.email,true)">Confirm</div>
+      <div id="delete"(click)="respondRequest(user.email,false)">Delete Request</div>
+    </div>
+  </div>

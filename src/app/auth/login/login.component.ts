@@ -14,6 +14,8 @@ export class LoginComponent implements OnInit {
     email: new FormControl(''),
     password: new FormControl(''),
   });
+  errorString: string="";
+  alertError:boolean=false;
 
   constructor(private authSvc: AuthService, private router: Router) { }
 
@@ -23,15 +25,25 @@ export class LoginComponent implements OnInit {
   async onLogin(){
     const { email, password } = this.loginForm.value;
     try{
-      const user = await this.authSvc.login(email, password);
+      const user = await this.authSvc.login(email, password,this.errorString);
+      if(this.errorString.length>0){
+        this.alertError=true;
+      }
       if (user){
         this.router.navigate(['/home']);
       }
     }
     catch(error){
-      console.log(error);
+      this.errorString=error.toString();
+      this.alertError=true;
+      
     }
     
+  }
+
+  turnOffError(){
+    this.alertError=false;
+    this.errorString="";
   }
 
 }

@@ -7,7 +7,7 @@ export class AuthService {
 
   constructor(public afAuth: AngularFireAuth) { }
 @ViewChild('imageUser') inputImageUser: ElementRef;
-  async login(email:string, password:string){
+  async login(email:string, password:string,errorString:string){
     try {
       const result = await this.afAuth.signInWithEmailAndPassword(
         email,
@@ -16,11 +16,12 @@ export class AuthService {
     return result;
   }
     catch(error){
-      console.log(error);
+      errorString=error.message
+      alert(error.message);
     }
   }
 
-  async register(email: string, password: string){
+  async register(email: string, password: string,errorString:string){
     try {
       const result = await this.afAuth.createUserWithEmailAndPassword(
         email,
@@ -29,8 +30,8 @@ export class AuthService {
       return result;
     }
     catch(error){
-      if(error.code=='auth/email-already-in-use') { alert(error.message)};
-      if(error.code=='auth/weak-password') { alert(error.message)};
+      errorString=error.message;
+     alert(error.message);
     }
 
   

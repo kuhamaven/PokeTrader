@@ -1,3 +1,9 @@
+<div class="alert alert-dismissible alert-danger" *ngIf=alertError>
+    <button type="button" class="close" data-dismiss="alert" (click)=turnOffError()>&times;</button>
+    <strong>Oh no!</strong> <a href="#" class="alert-link">{{errorString}}</a>
+  </div>
+
+
 <div class="row">
     <div class="col-md-6 mx-auto mt-5">
         <div class="card">

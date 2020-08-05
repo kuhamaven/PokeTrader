@@ -20,6 +20,9 @@ export class RegisterComponent implements OnInit {
     password: new FormControl(''),
   });
 
+  errorString: string="";
+  alertError:boolean=false;
+
   constructor(private authSvc: AuthService, private router: Router, private storage: AngularFireStorage,private http:HttpClient) { 
   }
 
@@ -71,8 +74,11 @@ export class RegisterComponent implements OnInit {
   async onRegister(){
     const { email, password } = this.registerForm.value;
     try{
-      const user = await this.authSvc.register(email, password);
+      const user = await this.authSvc.register(email, password,this.errorString);
   
+      if(this.errorString.length>0){
+        this.alertError=true;
+      }
       if(user){ 
         const url =(await this.urlImage.toPromise()).toString();
         const userData=[email,user.user.uid,url]
@@ -90,7 +96,8 @@ export class RegisterComponent implements OnInit {
       }
     }
     catch(error){
-      console.log(error);
+      this.errorString=error.toString();
+      this.alertError=true;
     }
   }
 
@@ -100,6 +107,11 @@ export class RegisterComponent implements OnInit {
       return {invalid: true};
     }
       return null;
+    }
+
+    turnOffError(){
+      this.alertError=false;
+      this.errorString="";
     }
 
 }

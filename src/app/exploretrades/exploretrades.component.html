@@ -1,7 +1,8 @@
+
 <div class="jumbotron">
     <h1 class="display-3">Explore All Available Trades</h1>
     <p class="lead">Here You Will be Able to Bid On Other Users Cards</p>
-    <div class="form-group">
+    <div class="form-group"*ngIf=showTrades>
 
 
         <input class="form-control" type="text" placeholder="Search by Name" #name>
@@ -77,17 +78,18 @@
         <button type="button  " class="btn btn-success" (click)="filterTrade(name.value,supertype.value,type.value,subtype.value,rarity.value,wishlistcheck.checked,friendscheck.checked)">Search</button>
     </div>
 
+<div *ngIf=showTrades>
+    <div class="row row-flex" *ngIf=showTrades>
+        <app-tradecomponent *ngFor="let t of trades" [trade]="t" [postOffer]="postOffer"></app-tradecomponent>
+    </div>
+</div>
 
-    <hr class="my-4">
-    <div class="row row-flex" *ngIf="showTrades">
+
+    <div class="row row-flex" *ngIf=showFilterTrade>
         <app-tradecomponent *ngFor="let t of trades" [trade]="t" [postOffer]="postOffer"></app-tradecomponent>
     </div>
 
-    <div class="row row-flex" *ngIf="showFilterTrade">
-        <app-tradecomponent *ngFor="let t of trades" [trade]="t" [postOffer]="postOffer"></app-tradecomponent>
-    </div>
-
-    <div class="row row-flex" *ngIf="showPostOffer">
+    <div class="row row-flex" *ngIf=showPostOffer>
         <app-biddercard *ngFor="let c of userCollection" [card]="c" [setBidCard]="setBidCard"></app-biddercard>
     </div>
 </div>

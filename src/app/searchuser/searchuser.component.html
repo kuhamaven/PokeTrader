@@ -2,7 +2,7 @@
 <div class="modal-body"  style="padding:0px; position:fixed; top: 30px; left:540px; z-index: 10;">
     <div *ngIf="reqSent" class="alert alert-success alert-dismissible fade show" role="alert">
         <strong>Friend Request Sent!</strong>This Request is now pending.
-        <button (click)="closeAlert()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <button (click)="closeAlertReqSent()" type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
     </div>
@@ -20,7 +20,7 @@
     <div class="btn-group mr-2" role="group" aria-label="First group">
       <button type="button" class="btn btn-secondary" (click)="changeToFriendlist()">My FriendList</button>
       <button type="button" class="btn btn-secondary"(click)="changeToPending()" >Pending Friend Requests</button>
-      <button type="button" class="btn btn-secondary"(click)="changeToReceivedRequests()" >Recieved Requests </button>
+      <button type="button" class="btn btn-secondary"(click)="changeToReceivedRequests()" >Received Requests </button>
       <button type="button" class="btn btn-secondary"(click)="changeToSearchUsers()" >Search Users</button>
     </div>
     </div>
@@ -93,14 +93,28 @@
   <div *ngIf=pr>
     <div class="jumbotron">
         <h1 class="display-3">My Pending Requests:</h1>
-        <p class="lead">Here you will be able to see the friend Requests other users sent you! </p>
+        <p class="lead">Here you will be able to see your pending friend requests! </p>
       
-        <app-requestcard *ngFor="let r of pendingRequests" [user]="r" [respondRequest]="respondRequest"></app-requestcard>
+        <app-pendingrequestcard *ngFor="let r of pendingRequests" [user]="r"></app-pendingrequestcard>
        
          
         
       </div>
       </div>
+
+ 
+      <div *ngIf=rr>
+        <div class="jumbotron">
+            <h1 class="display-3">My Received Requests:</h1>
+            <p class="lead">Here you will be able to see the friend requests other users have sent you! </p>
+          
+            <app-requestcard *ngFor="let r of receivedRequests" [user]="r" [respondRequest]="respondRequest"></app-requestcard>
+           
+             
+            
+          </div>
+          </div>     
+
 
 
 

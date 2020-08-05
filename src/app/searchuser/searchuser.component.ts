@@ -16,6 +16,7 @@ export class SearchuserComponent implements OnInit {
   public userData: string[] = [];
   cards: Card[] = [];
   friends: User[] = [];
+  receivedRequests: User[]=[];
   pendingRequests: User[]=[];
   public userEmail: string[] = [];
   public databaseUser: User = new User();
@@ -40,12 +41,15 @@ export class SearchuserComponent implements OnInit {
               this.loadProfile();
             }
             else{
-          this.loadFriendList()}
+          this.loadFriendList();
+          this.loadReceivedRequests();
+          this.loadPendingRequests();
+            }
           }
         )
       }
     )
-    this.loadPendingRequests();
+    
   }
 
   ngOnInit(): void {}
@@ -105,6 +109,7 @@ export class SearchuserComponent implements OnInit {
       this.http.put('http://localhost:8080/friendrequest?tokenId=' + this.userToken, JSON.stringify(array)).toPromise().then(
         data => {
          this.reqSent=true;
+         this.loadPendingRequests();
         }
       )
     }
@@ -117,6 +122,7 @@ export class SearchuserComponent implements OnInit {
 
 
   loadFriendList(){
+    this.friends=[];
     try {
       this.http.get('http://localhost:8080/friend?tokenId='+this.userToken).toPromise().then(
         data => {
@@ -167,7 +173,9 @@ export class SearchuserComponent implements OnInit {
     try {
       this.http.put('http://localhost:8080/frr?tokenId=' + this.userToken, JSON.stringify(array)).toPromise().then(
         data => {
-        this.loadPendingRequests();
+
+        this.loadReceivedRequests();
+        this.loadFriendList();
         }
       )
     }
@@ -178,7 +186,24 @@ export class SearchuserComponent implements OnInit {
 
   }
 
+  loadReceivedRequests(){
+    this.receivedRequests=[];
+    var array:string[]=[]
+    try {
+      this.http.put('http://localhost:8080/receivedrequest?tokenId='+this.userToken,JSON.stringify(array)).toPromise().then(
+        data => {
+          Object.assign(this.receivedRequests, data)
+        }
+      )
+    }
+    catch (error) {
+      console.log(error);
+    }
+
+  }
+
   loadPendingRequests(){
+    this.pendingRequests=[];
     var array:string[]=[]
     try {
       this.http.put('http://localhost:8080/pendingrequest?tokenId='+this.userToken,JSON.stringify(array)).toPromise().then(
@@ -192,6 +217,11 @@ export class SearchuserComponent implements OnInit {
     }
 
   }
+
+  closeAlertReqSent(){
+    this.reqSent=false;
+  }
+
 
 
 }

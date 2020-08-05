@@ -85,6 +85,7 @@ export class ExploretradesComponent implements OnInit {
 
   postOffer(tradeId: Number) {
     this.showTrades = false;
+    this.showFilterTrade = false;
     this.showPostOffer = true;
     this.tradeId = tradeId;
 
@@ -153,6 +154,7 @@ export class ExploretradesComponent implements OnInit {
           Object.assign(this.trades, data);
           this.showTrades = false;
           this.showFilterTrade = true;
+          this.showPostOffer = false;
         }
       )
     }

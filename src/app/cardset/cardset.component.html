@@ -1,11 +1,10 @@
-
 <ol class="breadcrumb">
     <li class="breadcrumb-item active" style="font-size: medium;font-weight: 300;">PokeTrader Card Database</li>
     <div class="form-group">
-     
- 
+
+
         <input class="form-control" type="text" placeholder="Search by Name" #name>
-          <select class="form-control" #typesfilter>
+        <select class="form-control" #typesfilter>
           <option>All Types</option>
           <option>Water</option>
           <option>Fairy</option>
@@ -19,8 +18,8 @@
           <option>Metal</option>
           <option>Colorless</option>
           </select>
-        
-          <select class="form-control" #subtypefilter>
+
+        <select class="form-control" #subtypefilter>
               <option>All Subtypes</option>
               <option>Stadium</option>
               <option>MEGA</option>
@@ -44,15 +43,15 @@
               <option>Supporter</option>
               <option>Restored</option>
               </select>
-              <li></li>
-              <select class="form-control" #supertypefilter>
+        <li></li>
+        <select class="form-control" #supertypefilter>
                 <option>All supertype</option>
                 <option>Pokémon</option>
                 <option>Energy</option>
                 <option>Trainer </option>
                 </select>
-                <li></li>
-                <select class="form-control" #rarityfilter>
+        <li></li>
+        <select class="form-control" #rarityfilter>
                   <option>All Rarities </option>
                   <option>Rare</option>
                   <option>Rare Holo</option>
@@ -66,9 +65,9 @@
                   <option>Rare Prime</option>
                   <option>V</option>
                   </select>
-                  <button type="button" class="btn btn-success" (click)="loadCardsWithFilter(name.value,typesfilter.value,subtypefilter.value,supertypefilter.value,rarityfilter.value)">Search</button>
-  </div>
-  </ol>
+        <button type="button" class="btn btn-success" (click)="loadCardsWithFilter(name.value,typesfilter.value,subtypefilter.value,supertypefilter.value,rarityfilter.value)">Search</button>
+    </div>
+</ol>
 <div class="modal-body" style="padding:0px; position:fixed; top: 30px; left:540px; z-index: 10;">
     <div *ngIf="alert" class="alert alert-success alert-dismissible fade show" role="alert">
         <strong>Card Added!</strong> This card will now be included in your collection.
@@ -78,17 +77,17 @@
     </div>
 </div>
 <div class="modal-body" style="padding:0px; position:fixed; top: 30px; left:540px; z-index: 10;">
-  <div *ngIf="alertWishlist" class="alert alert-success alert-dismissible fade show" role="alert">
-      <strong>Card Added!</strong> This card will now be included in your wishlist.
-      <button (click)="closeAlertWishlist()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <div *ngIf="alertWishlist" class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Card Added!</strong> This card will now be included in your wishlist.
+        <button (click)="closeAlertWishlist()" type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
-  </div>
+    </div>
 </div>
 <hr class="mb-5" [ngStyle]="{backgroundImage:'https://i.imgur.com/y3Vt8R8.png'}">
-<div *ngIf= "start">
-<div class="row row-flex" *ngIf="user$ | async as user; else" [ngStyle]="{backgroundImage:'https://i.imgur.com/y3Vt8R8.png'}">
-    <app-card *ngFor="let c of cards.cards" [card]="c" [setSelected]="addNewCardToCollection"  [setSelectedForWishlist]="addNewCardToWishlist"></app-card>
-    <button type="submit" class="btn btn-primary btn-large btn-block" (click)="setCards(user.email)">Send</button>
-</div>
+<div *ngIf="start">
+    <div class="row row-flex" *ngIf="user$ | async as user; else" [ngStyle]="{backgroundImage:'https://i.imgur.com/y3Vt8R8.png'}">
+        <app-card *ngFor="let c of cards.cards" [card]="c" [setSelected]="addNewCardToCollection" [setSelectedForWishlist]="addNewCardToWishlist"></app-card>
+        <button type="submit" class="btn btn-primary btn-large btn-block" (click)="setCards(user.email)" style="z-index: 9; position:fixed; bottom: 0px; left: 0px;">Send</button>
+    </div>
 </div>

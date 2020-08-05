@@ -49,16 +49,10 @@ export class CardsetComponent implements OnInit {
   loadCards() {
     try {
      
-      let url = 'https://api.pokemontcg.io/v1/cards';
+      let url = 'https://api.pokemontcg.io/v1/cards?pageSize=100';
       this.http.get(url).toPromise().then(
         data => {
        Object.assign(this.cards,data);
- 
-      let holi: string[]=['a','b','c','d','e','f','g'];
-        console.log(this.cards)
-      
-        console.log(this.cards)
-        console.log(holi)
         this.start=true;
 
         }
@@ -87,7 +81,7 @@ export class CardsetComponent implements OnInit {
     }
     try {
      
-      let url = 'https://api.pokemontcg.io/v1/cards'+'?name='+name+'&types='+type+'&subtype='+subtype+'&supertype'+supertype+'&rarity='+rarity;
+      let url = 'https://api.pokemontcg.io/v1/cards'+'?name='+name+'&types='+type+'&subtype='+subtype+'&supertype'+supertype+'&rarity='+rarity+'&pageSize=300';
       this.http.get(url).toPromise().then(
         data => {
        Object.assign(this.cards,data);

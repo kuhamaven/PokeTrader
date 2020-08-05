@@ -124,7 +124,7 @@ export class TradecreatorComponent implements OnInit {
       }
       try {
        
-        let url = 'https://api.pokemontcg.io/v1/cards'+'?name='+name+'&types='+type+'&subtype='+subtype+'&supertype'+supertype+'&rarity='+rarity;
+        let url = 'https://api.pokemontcg.io/v1/cards'+'?name='+name+'&types='+type+'&subtype='+subtype+'&supertype'+supertype+'&rarity='+rarity+'&pageSize=300';
         this.http.get(url).toPromise().then(
           data => {
             this.wholeCardset.cards=[];

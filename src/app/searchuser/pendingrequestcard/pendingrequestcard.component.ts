@@ -7,6 +7,7 @@ import { User } from 'src/app/models/user.model';
 })
 export class PendingrequestcardComponent implements OnInit {
   @Input() user: User;
+  @Input() loadProfile;
   constructor() { }
 
   ngOnInit(): void {

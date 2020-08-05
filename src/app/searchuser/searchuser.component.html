@@ -1,5 +1,4 @@
-
-<div class="modal-body"  style="padding:0px; position:fixed; top: 30px; left:540px; z-index: 10;">
+<div class="modal-body" style="padding:0px; position:fixed; top: 30px; left:540px; z-index: 10;">
     <div *ngIf="reqSent" class="alert alert-success alert-dismissible fade show" role="alert">
         <strong>Friend Request Sent!</strong>This Request is now pending.
         <button (click)="closeAlertReqSent()" type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -16,108 +15,95 @@
     </div>
 </div>
 
-<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-    <div class="btn-group mr-2" role="group" aria-label="First group">
-      <button type="button" class="btn btn-secondary" (click)="changeToFriendlist()">My FriendList</button>
-      <button type="button" class="btn btn-secondary"(click)="changeToPending()" >Pending Friend Requests</button>
-      <button type="button" class="btn btn-secondary"(click)="changeToReceivedRequests()" >Received Requests </button>
-      <button type="button" class="btn btn-secondary"(click)="changeToSearchUsers()" >Search Users</button>
-    </div>
-    </div>
+
+<div class="btn-group d-flex" role="group" aria-label="First group">
+    <button type="button" class="btn btn-secondary" (click)="changeToFriendlist()">My FriendList</button>
+    <button type="button" class="btn btn-secondary" (click)="changeToPending()">Pending Friend Requests</button>
+    <button type="button" class="btn btn-secondary" (click)="changeToReceivedRequests()">Received Requests </button>
+    <button type="button" class="btn btn-secondary" (click)="changeToSearchUsers()">Search Users</button>
+</div>
 
 
 
 <div *ngIf=su>
     <ol class="breadcrumb">
-<form class="form-inline my-2 my-lg-0">
-    <li class="breadcrumb-item"><a>Search for other users to trade!   </a></li>
-    <li class="breadcrumb-item"><a>     </a></li>
-    <input class="form-control mr-sm-2" type="text" placeholder="Search"#email>
-    <button class="btn btn-secondary my-2 my-sm-0" style="color: red;"  type="submit"(click)="searchUser(email.value)">Go!</button>
-  </form>
-  
-</ol>
+        <form class="form-inline my-2 my-lg-0">
+            <li class="breadcrumb-item"><a>Search for other users to trade!   </a></li>
+            <li class="breadcrumb-item">
+                <a> </a>
+            </li>
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" #email>
+            <button class="btn btn-secondary my-2 my-sm-0" style="color: red;" type="submit" (click)="searchUser(email.value)">Go!</button>
+        </form>
+
+    </ol>
 
 
-  
-  <section *ngIf=profileOn id="profile" class="container">
-    <button type="button" class="btn btn-primary btn-lg" (click)="sendFriendRequest(databaseUser.email)">Send Friend Request</button>
-    <div class="row mt-5">
-        <div class="offset-lg-4 col-lg-4 col-sm-6 col-12 main-section text-center card" >
-            <div class="row">
-                <div class="col-lg-12 col-sm-12 col-12 profile-header"></div>
+
+    <section *ngIf=profileOn id="profile" class="container">
+        <button type="button" class="btn btn-primary btn-lg btn-blck" (click)="sendFriendRequest(databaseUser.email)">Send Friend Request</button>
+        <div class="card text-white bg-warning mb-3" style="max-width: 70rem; text-align: center;">
+
+            <div class="card-header" style="text-align: center;">
+                <h3>{{databaseUser.userName}}
+                </h3>
             </div>
-            <div class="row user-details">
-                <div class="col-12">
-                    <img src="{{ databaseUser.photoUrl }}" class="rounded-circle img-thumbnail" alt="profile">
-                    <h5>{{ databaseUser.userName}}</h5>
-                    <p>
-                        {{databaseUser.email}}
-                    </p>
-
-                    <hr>
-                    <span>{{ databaseUser.bio }}</span>
-                </div>
+            <div class="card-body" style="text-align: center;">
+                <img style="position:inherit" src={{databaseUser.photoUrl}} alt=" ">
+                <h4 class="card-title" style="text-align: center;"> E-mail:{{databaseUser.email}}</h4>
+                <h4 class="card-text" style="text-align: center;">{{databaseUser.bio}}</h4>
+            </div>
+            <div *ngIf=profileOn class="row row-flex">
+                <app-searchuser-card *ngFor="let c of cards" [card]="c"></app-searchuser-card>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<hr class="mb-5">
-<div *ngIf=profileOn class="row row-flex">
-    <app-searchuser-card *ngFor="let c of cards" [card]="c"></app-searchuser-card>
-</div>
-<div class="modal-body" style="padding:0px; position:fixed;top: 80px; left:535px; z-index: 10; ">
-    <div *ngIf=alertOn class="alert alert-warning alert-dismissible fade show" role="alert">
-        <strong>User Does Not Exist!</strong> Try Again!
-        <button (click)="closeAlert()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+
+    <div class="modal-body" style="padding:0px; position:fixed;top: 80px; left:535px; z-index: 10; ">
+        <div *ngIf=alertOn class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>User Does Not Exist!</strong> Try Again!
+            <button (click)="closeAlert()" type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
+        </div>
     </div>
-</div>
 </div>
 
 <div *ngIf=fl>
-<div class="jumbotron">
-    <h1 class="display-3">My Friend List:</h1>
-    <p class="lead">Here you will be able to keep track of all your friends on Poketrader! </p>
-  
-    <app-friendcard *ngFor="let u of friends" [user]="u" ></app-friendcard>
-   
-     
-    
-  </div>
-  </div>
+    <div class="jumbotron">
+        <h1 class="display-3">My Friend List:</h1>
+        <p class="lead">Here you will be able to keep track of all your friends on Poketrader! </p>
+        <div class="row row-flex">
+            <app-friendcard *ngFor="let u of friends" [user]="u" [loadProfile]="setUserByEmail"></app-friendcard>
+        </div>
 
 
-  <div *ngIf=pr>
+    </div>
+</div>
+
+
+<div *ngIf=pr>
     <div class="jumbotron">
         <h1 class="display-3">My Pending Requests:</h1>
         <p class="lead">Here you will be able to see your pending friend requests! </p>
-      
-        <app-pendingrequestcard *ngFor="let r of pendingRequests" [user]="r"></app-pendingrequestcard>
-       
-         
-        
-      </div>
-      </div>
 
- 
-      <div *ngIf=rr>
-        <div class="jumbotron">
-            <h1 class="display-3">My Received Requests:</h1>
-            <p class="lead">Here you will be able to see the friend requests other users have sent you! </p>
-          
-            <app-requestcard *ngFor="let r of receivedRequests" [user]="r" [respondRequest]="respondRequest"></app-requestcard>
-           
-             
-            
-          </div>
-          </div>     
+        <app-pendingrequestcard *ngFor="let r of pendingRequests" [user]="r" [loadProfile]="setUserByEmail"></app-pendingrequestcard>
 
 
 
+    </div>
+</div>
+
+
+<div *ngIf=rr>
+    <div class="jumbotron">
+        <h1 class="display-3">My Received Requests:</h1>
+        <p class="lead">Here you will be able to see the friend requests other users have sent you! </p>
+
+        <app-requestcard *ngFor="let r of receivedRequests" [user]="r" [respondRequest]="respondRequest" [loadProfile]="setUserByEmail"></app-requestcard>
 
 
 
-
+    </div>
+</div>

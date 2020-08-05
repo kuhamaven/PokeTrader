@@ -1,4 +1,3 @@
-
 <div class="modal-body" style="padding:0px; position:fixed;top: 80px; left:535px; z-index: 10; ">
     <div *ngIf=databaseUser.recentlyModified class="alert alert-warning alert-dismissible fade show" role="alert">
         <strong>Collection Updated!</strong> Now there are new cards in your collection!
@@ -20,75 +19,74 @@
 
 <div class="jumbotron">
     <h1 class="display-3">My Profile:</h1>
-   <ul></ul>
-        <div *ngIf="user$ | async as user; else " style="text-align: center;">
-            <div class="card text-white bg-warning mb-3" style="max-width: 70rem; text-align: center;">
-                
-                <div class="card-header" style="text-align: center;">
-                    <h3>{{databaseUser.userName}}
-                        </h3>
+    <ul></ul>
+    <div *ngIf="user$ | async as user; else " style="text-align: center;">
+        <div class="card text-white bg-warning mb-3" style="max-width: 70rem; text-align: center;">
+
+            <div class="card-header" style="text-align: center;">
+                <h3>{{databaseUser.userName}}
+                </h3>
+            </div>
+            <div class="card-body" style="text-align: center;">
+                <img style="position:inherit" src={{databaseUser.photoUrl}} alt=" ">
+                <h4 class="card-title" style="text-align: center;"> E-mail:{{databaseUser.email}}</h4>
+                <h4 class="card-text" style="text-align: center;">{{databaseUser.bio}}</h4>
+            </div>
+        </div>
+        <div style="text-align: center;">
+            <div class="btn-group d-flex" role="group" aria-label="Basic example" style="text-align: center;">
+                <button type="button" style="text-align: center;" class="btn btn-info btn-lg " (click)=changeToCustomize()>Customize</button>
+                <button type="button" style="text-align: center;" class="btn btn-secondary btn-lg " (click)=changeToCollection()>Collection</button>
+                <button type="button" style="text-align: center;" class="btn btn-warning btn-lg " (click)=changeToWishlist()>Wishlist</button>
+            </div>
+        </div>
+
+
+        <div *ngIf=showCards>
+            <hr class="mb-5">
+            <div class="row row-flex">
+                <app-collection-card *ngFor="let c of cards" [card]="c"></app-collection-card>
+            </div>
+        </div>
+
+
+
+        <div *ngIf=showWishlist>
+            <hr class="mb-5">
+            <div class="row row-flex">
+                <app-collection-card *ngFor="let c of wishlist" [card]="c"></app-collection-card>
+            </div>
+        </div>
+
+        <div *ngIf="showCustomize" class="card text-white bg-info mb-3" style="max-width: 80rem;">
+            <div class="card-header" style="background-color: hotpink;font-size: x-large;font-style:italic">Customize</div>
+            <div class="card-body">
+
+                <h1 class="text-center" style="font: outline;">Change Profile Settings: </h1>
+                <form [formGroup]="customizeForm" (ngSubmit)="onUpdate()">
+                    <div class="form-group">
+                        <label for="userName" style="font-size: medium;">User Name:</label>
+                        <input type="text" style="color: white;" class="form-control" formControlName="userName">
                     </div>
-                <div class="card-body" style="text-align: center;">
-                    <img style="position:inherit" src={{databaseUser.photoUrl}} alt=" ">
-                  <h4 class="card-title" style="text-align: center;"> E-mail:{{databaseUser.email}}</h4>
-                  <h4 class="card-text" style="text-align: center;">{{databaseUser.bio}}</h4>
-                </div>
-        
-    </div>
-    <div style="text-align: center;">
-    <div class="btn-group d-flex" role="group" aria-label="Basic example" style="text-align: center;">
-        <button type="button" style="text-align: center;" class="btn btn-info btn-lg " (click)=changeToCustomize()>Customize</button>
-        <button type="button"  style="text-align: center;" class="btn btn-secondary btn-lg " (click)=changeToCollection()>Collection</button>
-        <button type="button" style="text-align: center;" class="btn btn-warning btn-lg "(click)=changeToWishlist()>Wishlist</button>
-      </div>
-    </div>
-
-
-<div *ngIf=showCards>
-<hr class="mb-5">
-<div class="row row-flex">
-    <app-collection-card *ngFor="let c of cards" [card]="c"></app-collection-card>
-    </div>
-</div>
-    
-
-
-<div *ngIf=showWishlist>
-<hr class="mb-5">
-<div class="row row-flex">
-    <app-collection-card *ngFor="let c of wishlist" [card]="c"></app-collection-card>
-    </div>
-</div>
-
-  <div *ngIf="showCustomize" class="card text-white bg-info mb-3" style="max-width: 80rem;">
-    <div class="card-header" style="background-color: hotpink;font-size: x-large;font-style:italic">Customize</div>
-    <div class="card-body">
-      
-      <h1 class="text-center" style="font: outline;">Change Profile Settings: </h1>
-      <form [formGroup]="customizeForm" (ngSubmit)="onUpdate()">
-          <div class="form-group">
-              <label for="userName" style="font-size: medium;">User Name:</label>
-              <input type="text" style="color: white;" class="form-control" formControlName="userName">
-          </div>
-          <div class="form-group">
-              <label for="bio" style="font-size: medium;">Write a short bio:</label>
-              <input type="text" style="color:white" class="form-control" formControlName="bio">
-          </div>
-          <div class="form-group">
-              <h3>Update Profile Picture:</h3>
-          <input type="file" accept=" .png, .jpg" (change)="onUpload($event)">
-          </div>
-          <div class="progress">
-              <div class="progress-bar progress-bar-striped bg success" role="progressbar" [style.width]="
+                    <div class="form-group">
+                        <label for="bio" style="font-size: medium;">Write a short bio:</label>
+                        <input type="text" style="color:white" class="form-control" formControlName="bio">
+                    </div>
+                    <div class="form-group">
+                        <h3>Update Profile Picture:</h3>
+                        <input type="file" accept=" .png, .jpg" (change)="onUpload($event)">
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped bg success" role="progressbar" [style.width]="
               (uploadPercent | async)+'%'">
-          </div>
-          </div>
-          <br>
-          <input #imageUser type="hidden" [value]="urlImage | async">
-          <button type="submit" class="btn btn-primary btn-lg">Save Changes</button>
-      </form>
+                        </div>
+                    </div>
+                    <br>
+                    <input #imageUser type="hidden" [value]="urlImage | async">
+                    <button type="submit" class="btn btn-primary btn-lg">Save Changes</button>
+                </form>
 
+            </div>
+        </div>
     </div>
-  </div>
-  </div>
-  </div>
+</div>

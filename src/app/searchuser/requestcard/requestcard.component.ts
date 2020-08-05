@@ -8,6 +8,8 @@ import { User } from 'src/app/models/user.model';
 export class RequestcardComponent implements OnInit {
   @Input() user: User;
   @Input() respondRequest;
+  @Input() loadProfile;
+
   constructor() { }
 
   ngOnInit(): void {

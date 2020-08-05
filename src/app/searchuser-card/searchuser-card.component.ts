@@ -10,7 +10,7 @@ import { Card } from '../models/card.model';
 })
 export class SearchuserCardComponent implements OnInit {
   @Input() card: Card;
-  @HostBinding('attr.class') cssClass = 'col-md-4';
+  @HostBinding('attr.class') cssClass = 'col-md-3';
   constructor() { }
 
   ngOnInit(): void {

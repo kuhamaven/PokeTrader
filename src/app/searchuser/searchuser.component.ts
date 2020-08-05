@@ -31,6 +31,7 @@ export class SearchuserComponent implements OnInit {
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private authSvc: AuthService, private router: Router) {
     this.respondRequest = this.respondRequest.bind(this);
+    this.setUserByEmail = this.setUserByEmail.bind(this);
     this.authSvc.afAuth.currentUser.then(
       user => {
         user.getIdToken().then(
@@ -74,6 +75,7 @@ export class SearchuserComponent implements OnInit {
   loadCards() {
     this.alertOn = false;
     this.profileOn = true;
+    this.cards=[];
     try {
       this.http.put('http://localhost:8080/collection?tokenId=' + this.userToken, JSON.stringify(this.userEmail)).toPromise().then(
         data => {
@@ -97,6 +99,8 @@ export class SearchuserComponent implements OnInit {
     this.userEmail = [];
     this.userEmail.push(email);
     this.loadProfile();
+    this.changeToSearchUsers();
+    return false;
   }
 
   closeAlert() {

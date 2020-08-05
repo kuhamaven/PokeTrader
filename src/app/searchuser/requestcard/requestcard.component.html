@@ -1,23 +1,27 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" integrity="sha384-3AB7yXWz4OeoZcPbieVW64vVXEwADiYyAEhwilzWsLw+9FgqpyjjStpPnpBO8o8S" crossorigin="anonymous">
 <section class="container mt-4 mb-4">
-<div class="container">
-	<div class="row mb-3">
-		<div class="col-md-6">
-			<div class="d-flex flex-row border rounded">
-	  			<div class="p-0 w-25">
-	  			    <img src={{user.photoUrl}} class="img-thumbnail border-0" />
-	  				
-	  			</div>
-	  			<div class="pl-3 pt-2 pr-2 pb-2 w-75 border-left">
-	  					<h4 class="text-primary">{{user.userName}}</h4>
-	  					<h5 class="text-info">{{user.bio}}</h5>
-	  					<ul class="m-0 float-left" style="list-style: none; margin:0; padding: 0">
-	  						<li><i class="fab fa-facebook-square"></i>{{user.email}} </li>
-	  						<li><i class="fab fa-twitter-square"></i> </li>
-                          </ul>
-                          <button type="button" class="btn btn-success" (click)="respondRequest(user.email,true)">Accept</button>
-                          <button type="button" class="btn btn-danger" (click)="respondRequest(user.email,false)">Decline</button>
-						<p class="text-right m-0"><a href="#" class="btn btn-primary"><i class="far fa-user" ></i> View Profile</a></p>
-				</div>
-			</div>
-		</div>
+    <div class="container">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <div class="d-flex flex-row border rounded">
+                    <div class="p-0 w-25">
+                        <img src={{user.photoUrl}} class="img-thumbnail border-0" />
+
+                    </div>
+                    <div class="pl-3 pt-2 pr-2 pb-2 w-75 border-left">
+                        <h4 class="text-primary">{{user.userName}}</h4>
+                        <h5 class="text-info">{{user.bio}}</h5>
+                        <ul class="m-0 float-left" style="list-style: none; margin:0; padding: 0">
+                            <li><i class="fab fa-facebook-square"></i>{{user.email}} </li>
+                        </ul>
+                        <ul>
+
+                        </ul>
+                        <div class="btn-group d-flex" role="group" aria-label="First group">
+                            <button type="button" class="btn btn-success" (click)="respondRequest(user.email,true)">Accept</button>
+                            <button type="button" class="btn btn-danger" (click)="respondRequest(user.email,false)">Decline</button>
+                        </div>
+                        <p class="text-right m-0"><a (click)="loadProfile(user.email)" class="btn btn-primary"><i class="far fa-user" ></i> View Profile</a></p>
+                    </div>
+                </div>
+            </div>

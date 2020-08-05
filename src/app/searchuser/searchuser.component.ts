@@ -39,6 +39,7 @@ export class SearchuserComponent implements OnInit {
             this.userEmail.push(this.route.snapshot.params.userEmail);
             if (this.route.snapshot.params.userEmail) {
               this.loadProfile();
+              this.changeToSearchUsers()
             }
             else{
           this.loadFriendList();

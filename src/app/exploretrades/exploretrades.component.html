@@ -1,8 +1,8 @@
 
 <div class="jumbotron">
     <h1 class="display-3">Explore All Available Trades</h1>
-    <div class="form-group"*ngIf=showTrades>
-
+    <div class="form-group">
+<ul></ul>
         <div class="btn-group" role="group" aria-label="Basic example">
         <input class="form-control" type="text" placeholder="Search by Name" #name>
         <ul></ul>
@@ -78,7 +78,9 @@
 
         </div>
       
-        <button type="button  " class="btn btn-success" (click)="filterTrade(name.value,supertype.value,type.value,subtype.value,rarity.value,wishlistcheck.checked,friendscheck.checked)">Search</button>
+        <button type="button  " class="btn btn-success" (click)="filterTrade(name.value,supertype.value,type.value,subtype.value,rarity.value,wishlistcheck.checked,friendscheck.checked)">
+            <img src="https://icons.iconarchive.com/icons/custom-icon-design/mono-general-2/24/search-icon.png" alt="">
+        </button>
     </div>
 
 <div *ngIf=showTrades>

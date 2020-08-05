@@ -52,11 +52,11 @@ export class ExploretradesComponent implements OnInit {
   loadTradesAndCollection() {
     let jsonBody: string[]=[];
       jsonBody.push('%');
-      jsonBody.push('All types');
-      jsonBody.push('All supertype');
-      jsonBody.push('All Subtypes');
-      jsonBody.push('All Rarities');
-      jsonBody.push('All supertype');
+      jsonBody.push('%');
+      jsonBody.push('%');
+      jsonBody.push('%');
+      jsonBody.push('%');
+      jsonBody.push('false');
       jsonBody.push('false');
     try {
    
@@ -123,6 +123,9 @@ export class ExploretradesComponent implements OnInit {
     filterData.push("%"+name+"%");
    
     if(supertype=="All supertype") filterData.push("%");
+    else if(supertype.charAt(0)=='P'){
+      filterData.push("Pokemon")
+    }
     else{
       filterData.push("%"+supertype)
     }

@@ -9,13 +9,16 @@
         <img src={{card.imageUrl}} alt="">
     </div>
     <div class="card-body">
-        <i class="fas fa-star"></i>
-        <button type="button" [disabled]="clicked" (click)="setSelected(card);clicked=true;" class="btn-btn-primary">Add to colection</button>
+        
+        <button type="button" [disabled]="clicked" (click)="setSelected(card);clicked=true;" class="btn-btn-primary">
+        <img src="https://icons.iconarchive.com/icons/awicons/vista-artistic/24/add-icon.png" alt="">
+        </button>
         <span *ngIf="isSelected()">
             <span ngNonBindable> In collection!</span>
         </span>
+    
         <button type="button" [disabled]="clicked2" (click)="setSelectedForWishlist(card);clicked2=true;" class="btn-btn-primary">
-            <i class="fas fa-star"></i>
+            <img src="https://icons.iconarchive.com/icons/paomedia/small-n-flat/24/star-icon.png" alt="">
         </button>
         <span *ngIf="isSelectedForWishList()">
             <span ngNonBindable> In Wishlist!</span>

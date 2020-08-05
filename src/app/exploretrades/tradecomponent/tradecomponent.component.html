@@ -1,9 +1,7 @@
 <div class="card mb-3">
     <h4 class="card-header" style="background-color: greenyellow;">Available</h4>
     <div class="card-body">
-        <h3 class="card-title">{{trade.card.name}}</h3>
-        <h4 class="card-subtitle text-muted"></h4>
-        <a [routerLink]="['/searchuser/', trade.hostEmail]">{{trade.hostEmail}}</a>
+        <h3 [routerLink]="['/searchuser/', trade.hostEmail]">{{trade.hostEmail}}</h3>
     </div>
     <img style="height: 100%; width: 100%; display: block;" src={{trade.card.imageUrl}}>
     <div class="card-body">
@@ -11,16 +9,15 @@
             <div class="card-header">Trade Information:</div>
             <div class="card-body">
                 <h5> Condition: {{trade.condition}}</h5>
-
-                <ul class="list-group list-group-flush">
+                <ul class="list-group">
                     <h5> Willing To Accept:</h5>
-                    <h5 class="list-group-item" style="color:black;" *ngFor="let c of trade.willingToAccept">{{c.name}} ( {{c.id}})</h5>
+                    <h5 class="list-group-item" style="color:black" *ngFor="let c of trade.willingToAccept">{{c.name}} ( {{c.id}})</h5>
                 </ul>
             </div>
         </div>
     </div>
     <div class="card-body">
-        <a type="submit" style="background: cornflowerblue;" class="btn btn-primary btn-lg" role="button" (click)="postOffer(trade.id)">Bid!</a>
+        <button type="button" class="btn btn-warning btn-lg btn-block" (click)="postOffer(trade.id)" >Bid!</button>
     </div>
     <div class="card-footer text-muted">
         {{trade.openingDate}}

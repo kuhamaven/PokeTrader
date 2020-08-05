@@ -3,15 +3,10 @@
         <img src={{card.imageUrl}} alt="">
     </div>
     <div class="card-body">
-        <h4>Name: {{card.name}}</h4>
-        <h5>Type: {{card.types}}</h5>
-        <h5>Subtype: {{card.subtype}}</h5>
-        <h5>Supertype: {{card.supertype}}</h5>
-        <h3> </h3>
-        <h1></h1>
         <button type="button" [disabled]="clicked" (click)="setSelected(card);clicked=true;" class="btn-btn-primary">Select</button>
         <span *ngIf="isSelected()">
             <span ngNonBindable> In collection!</span>
         </span>
     </div>
 </div>
+<ul></ul>

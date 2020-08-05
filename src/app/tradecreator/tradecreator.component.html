@@ -71,10 +71,18 @@
 <div *ngIf="showCardset" class="jumbotron">
     <h1 class="display-3">Create Trade</h1>
     <p class="lead">Select The Card(s) You Want In Return</p>
+    
+
+      
+  
     <div class="form-group">
-     
- 
-      <input class="form-control" type="text" placeholder="Search by Name" #name>
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <ul></ul>
+        <ul></ul>
+        <ul></ul>
+        <input class="form-control" type="text" placeholder="Search by Name" #name>
+      
+      <ul></ul>
         <select class="form-control" #typesfilter>
         <option>All Types</option>
         <option>Water</option>
@@ -89,7 +97,7 @@
         <option>Metal</option>
         <option>Colorless</option>
         </select>
-      
+      <ul></ul>
         <select class="form-control" #subtypefilter>
             <option>All Subtypes</option>
             <option>Stadium</option>
@@ -114,14 +122,14 @@
             <option>Supporter</option>
             <option>Restored</option>
             </select>
-            
+            <ul></ul>
             <select class="form-control" #supertypefilter>
               <option>All supertype</option>
               <option>Pokémon</option>
               <option>Energy</option>
               <option>Trainer </option>
               </select>
-              
+              <ul></ul>
               <select class="form-control" #rarityfilter>
                 <option>All Rarities </option>
                 <option>Rare</option>
@@ -136,13 +144,15 @@
                 <option>Rare Prime</option>
                 <option>V</option>
                 </select>
+                <ul></ul>
                 <button type="button" class="btn btn-success" (click)="loadCardset(name.value,typesfilter.value,subtypefilter.value,supertypefilter.value,rarityfilter.value)">Search</button>
+</div>
 </div>
     <hr class="my-4">
 <div *ngIf="start">
     <div class="row row-flex">
         <app-willingtoacceptcard *ngFor="let c of wholeCardset.cards" [card]="c" [setSelected]="selectWTACard"></app-willingtoacceptcard>
     </div>
-    <button type="submit" class="btn btn-primary btn-large btn-block" (click)="createTrade()">Send</button>
+    <button type="submit" class="btn btn-primary btn-large btn-block" (click)="createTrade()"  style="z-index: 9; position:fixed; bottom: 0px; left: 0px;" >Send</button>
 </div>
 </div>

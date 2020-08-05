@@ -36,6 +36,7 @@ export class ProfileComponent implements OnInit {
   public customizePopUp = false;
   public showCards = true;
   public showCustomize = false;
+  public showWishlist = false;
   public picture: boolean = false;
   userToken: string;
 
@@ -163,7 +164,7 @@ export class ProfileComponent implements OnInit {
       finally {
 
         this.loadProfile();
-        this.alertsToggle();
+        this.changeToCollection();
       }
     }
     else {
@@ -180,7 +181,7 @@ export class ProfileComponent implements OnInit {
       }
       finally {
         this.loadProfile();
-        this.alertsToggle();
+        this.changeToCollection();
       }
     }
   }
@@ -189,16 +190,25 @@ export class ProfileComponent implements OnInit {
     this.customizePopUp = true;
   }
 
-  alertsToggle() {
-    if (this.showCards) {
-      this.showCards = false;
-      this.showCustomize = true;
-    }
-    else {
-      this.showCards = true;
-      this.showCustomize = false;
-    }
-    return false;
+
+
+  changeToCustomize(){
+   this.showCards=false;
+   this.showCustomize = true;
+   this.showWishlist = false; 
   }
+  changeToWishlist(){
+    this.showCards=false;
+    this.showCustomize = false;
+    this.showWishlist = true; 
+   }
+   changeToCollection(){
+    this.showCards=true;
+    this.showCustomize = false;
+    this.showWishlist = false; 
+   }
+  
+ 
+
 
 }

@@ -1,58 +1,4 @@
 
-<ol class="breadcrumb">
-    <li class="breadcrumb-item active" style="opacity: initial;font-weight: bolder;font-size: x-large;"> My Profile</li>
-    <div class="row mt-5">
-        <div *ngIf="user$ | async as user; else ">
-            <div class="row">
-                <div ></div>
-            </div>
-            <div class="row user-details">
-                <div class="col-12">
-                    <img src="{{ databaseUser.photoUrl }}" class="rounded-circle img-thumbnail" alt="profile">
-                    <h5>{{ databaseUser.userName}}</h5>
-                    <p>
-                        {{user.email}}
-                    </p>
-
-                    <hr>
-                    <span>{{ databaseUser.bio }}</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <li></li>
-  </ol>
-<li></li>
-
-
-<a *ngIf="showCards" type="submit" class="btn btn-primary btn-lg" role="button" (click)="alertsToggle()">Customize</a>
-<a *ngIf="showCustomize" type="submit" class="btn btn-primary btn-lg" style="background-color: red;background: red;" role="button" (click)="alertsToggle()">Go Back</a>
-
-<li></li>
-
-<div *ngIf="showCards">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item active" style="font-size: large;font-weight: 800;"> My Collection:</li>
-      </ol>  
-<hr class="mb-5">
-<div class="row row-flex">
-    <app-collection-card *ngFor="let c of cards" [card]="c"></app-collection-card>
-    
-</div>
-</div>
-
-<div *ngIf="showCards">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item active" style="font-size: large;font-weight: 800;"> My Wishlist:</li>
-      </ol>  
-<hr class="mb-5">
-<div class="row row-flex">
-    <app-collection-card *ngFor="let c of wishlist" [card]="c"></app-collection-card>
-    
-</div>
-</div>
-
-
 <div class="modal-body" style="padding:0px; position:fixed;top: 80px; left:535px; z-index: 10; ">
     <div *ngIf=databaseUser.recentlyModified class="alert alert-warning alert-dismissible fade show" role="alert">
         <strong>Collection Updated!</strong> Now there are new cards in your collection!
@@ -72,8 +18,47 @@
 
 
 
+<div class="jumbotron">
+    <h1 class="display-3">My Profile:</h1>
+   <ul></ul>
+        <div *ngIf="user$ | async as user; else " style="text-align: center;">
+            <div class="card text-white bg-warning mb-3" style="max-width: 70rem; text-align: center;">
+                
+                <div class="card-header" style="text-align: center;">
+                    <h3>{{databaseUser.userName}}
+                        </h3>
+                    </div>
+                <div class="card-body" style="text-align: center;">
+                    <img style="position:inherit" src={{databaseUser.photoUrl}} alt=" ">
+                  <h4 class="card-title" style="text-align: center;"> E-mail:{{databaseUser.email}}</h4>
+                  <h4 class="card-text" style="text-align: center;">{{databaseUser.bio}}</h4>
+                </div>
+        
+    </div>
+    <div style="text-align: center;">
+    <div class="btn-group d-flex" role="group" aria-label="Basic example" style="text-align: center;">
+        <button type="button" style="text-align: center;" class="btn btn-info btn-lg " (click)=changeToCustomize()>Customize</button>
+        <button type="button"  style="text-align: center;" class="btn btn-secondary btn-lg " (click)=changeToCollection()>Collection</button>
+        <button type="button" style="text-align: center;" class="btn btn-warning btn-lg "(click)=changeToWishlist()>Wishlist</button>
+      </div>
+    </div>
 
 
+<div *ngIf=showCards>
+<hr class="mb-5">
+<div class="row row-flex">
+    <app-collection-card *ngFor="let c of cards" [card]="c"></app-collection-card>
+    </div>
+</div>
+    
+
+
+<div *ngIf=showWishlist>
+<hr class="mb-5">
+<div class="row row-flex">
+    <app-collection-card *ngFor="let c of wishlist" [card]="c"></app-collection-card>
+    </div>
+</div>
 
   <div *ngIf="showCustomize" class="card text-white bg-info mb-3" style="max-width: 80rem;">
     <div class="card-header" style="background-color: hotpink;font-size: x-large;font-style:italic">Customize</div>
@@ -104,4 +89,6 @@
       </form>
 
     </div>
+  </div>
+  </div>
   </div>

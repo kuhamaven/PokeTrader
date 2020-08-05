@@ -1,7 +1,6 @@
 <div class="card mb-3" *ngIf="showSeeTrade;else showbid">
     <h4 class="card-header" style="background-color: greenyellow;">Available</h4>
     <div class="card-body">
-        <h3 class="card-title">{{trade.card.name}}</h3>
         <h4 class="card-subtitle text-muted"></h4>
         <a [routerLink]="['/searchuser/', trade.hostEmail]">{{trade.hostEmail}}</a>
     </div>
@@ -11,7 +10,6 @@
             <div class="card-header">Trade Information:</div>
             <div class="card-body">
                 <h5> Condition: {{trade.condition}}</h5>
-
                 <ul class="list-group list-group-flush">
                     <h5> Willing To Accept:</h5>
                     <h5 class="list-group-item" style="color:black;" *ngFor="let c of trade.willingToAccept">{{c.name}} ( {{c.id}})</h5>
@@ -20,7 +18,7 @@
         </div>
     </div>
     <div class="card-body">
-        <a type="submit" class="btn btn-primary btn-lg" role="button" (click)="goBack()">See My Bid</a>
+        <a type="submit" class="btn btn-success btn-lg btn-block" role="button" style="color:white"  (click)="goBack()">See My Bid</a>
     </div>
     <div class="card-footer text-muted">
         {{trade.openingDate}}
@@ -41,7 +39,6 @@
         <h4 *ngIf="bid.rejected==false" class="card-header" style="background-color:yellow;">Pending
         </h4>
         <div class="card-body">
-            <h3 class="card-title">{{bid.card.name}} ({{bid.card.id}})</h3>
             <h4 class="card-subtitle text-muted"></h4>
         </div>
         <img style="height: 100%; width: 100%; display: block;" src={{bid.card.imageUrl}}>
@@ -55,7 +52,7 @@
                     <h4 *ngIf="bid.accepted; else rejected">
                         Status: Accepted
                         <ul></ul>
-                        <div><a type="submit" class="btn btn-primary btn-lg" role="button" (click)="bidderVerification(bid.tradeId)" style="background: yellowgreen;">Complete Trade</a>
+                        <div><a type="submit" class="btn btn-success btn-lg btn-block"   style="color:white" role="button" (click)="bidderVerification(bid.tradeId)" >Complete Trade</a>
                         </div>
 
                     </h4>
@@ -75,7 +72,7 @@
 
 
             </div>
-            <a type="submit" class="btn btn-primary btn-lg" role="button" (click)="seeTrade(bid.tradeId)" style="background: red;">See Trade</a>
+            <a type="submit" class="btn btn-info btn-lg btn-block" role="button" (click)="seeTrade(bid.tradeId)" style="color:white">See Trade</a>
 
         </div>
         <div class="card-body">

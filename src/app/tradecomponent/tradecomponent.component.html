@@ -20,7 +20,7 @@
         </div>
     </div>
     <div class="card-body">
-        <button type="button" [disabled]="clicked" (click)="loadBids(trade.id);clicked=true;" class="btn-btn-primary">See My Offers</button>
+        <button type="button" class="btn btn-success btn-lg btn-block"  (click)="loadBids(trade.id)">See My Offers</button>
     </div>
     <div class="card-footer text-muted">
         {{trade.openingDate}}
@@ -47,7 +47,9 @@
         </div>
     </div>
     <div class="card-body">
-        <button type="button" [disabled]="clicked" (click)="loadBids(trade.id);clicked=true;" class="btn-btn-secondary">See Accepted Offer</button>
+
+        <button type="button" class="btn btn-primary btn-lg btn-block" (click)="loadBids(trade.id)">See Accepted Offer</button>
+        
     </div>
     <div class="card-footer text-muted">
         {{trade.openingDate}}

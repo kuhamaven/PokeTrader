@@ -1,21 +1,28 @@
+<html>
+<head>
+    <script src="https://kit.fontawesome.com/93c54fe838.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
 <div class="card-content">
     <div class="card-img">
         <img src={{card.imageUrl}} alt="">
     </div>
     <div class="card-body">
-        <h4>Name: {{card.name}}</h4>
-     
-        <h5>Subtype: {{card.subtype}}</h5>
-        <h5>Supertype: {{card.supertype}}</h5>
-        <h3> </h3>
-        <h1></h1>
+        <i class="fas fa-star"></i>
         <button type="button" [disabled]="clicked" (click)="setSelected(card);clicked=true;" class="btn-btn-primary">Add to colection</button>
         <span *ngIf="isSelected()">
             <span ngNonBindable> In collection!</span>
         </span>
-        <button type="button" [disabled]="clicked2" (click)="setSelectedForWishlist(card);clicked2=true;" class="btn-btn-primary">Add to Wishlist</button>
+        <button type="button" [disabled]="clicked2" (click)="setSelectedForWishlist(card);clicked2=true;" class="btn-btn-primary">
+            <i class="fas fa-star"></i>
+        </button>
         <span *ngIf="isSelectedForWishList()">
             <span ngNonBindable> In Wishlist!</span>
         </span>
     </div>
 </div>
+<ul>
+</ul>
+</body>
+</html>

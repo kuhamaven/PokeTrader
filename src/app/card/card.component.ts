@@ -14,7 +14,7 @@ export class CardComponent implements OnInit {
   clicked:boolean=false;
   clicked2:boolean=false;
   selectedForWishlist: boolean=false;
-  @HostBinding('attr.class') cssClass = 'col-md-4';
+  @HostBinding('attr.class') cssClass = 'col-md-3';
 
   constructor() {  }
 

@@ -1,9 +1,13 @@
 <ol class="breadcrumb">
-    <li class="breadcrumb-item active" style="font-size: medium;font-weight: 300;">PokeTrader Card Database</li>
+    <ul class="breadcrumb-item active" style="font-size: medium;font-weight: 300;"></ul>
     <div class="form-group">
-
-
+       
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <ul></ul>
+            <ul></ul>
+            <ul></ul>
         <input class="form-control" type="text" placeholder="Search by Name" #name>
+        <ul></ul>
         <select class="form-control" #typesfilter>
           <option>All Types</option>
           <option>Water</option>
@@ -18,7 +22,7 @@
           <option>Metal</option>
           <option>Colorless</option>
           </select>
-
+          <ul></ul>
         <select class="form-control" #subtypefilter>
               <option>All Subtypes</option>
               <option>Stadium</option>
@@ -43,14 +47,14 @@
               <option>Supporter</option>
               <option>Restored</option>
               </select>
-        <li></li>
+        <ul></ul>
         <select class="form-control" #supertypefilter>
                 <option>All supertype</option>
                 <option>Pokémon</option>
                 <option>Energy</option>
                 <option>Trainer </option>
                 </select>
-        <li></li>
+        <ul></ul>
         <select class="form-control" #rarityfilter>
                   <option>All Rarities </option>
                   <option>Rare</option>
@@ -65,7 +69,9 @@
                   <option>Rare Prime</option>
                   <option>V</option>
                   </select>
+                  <ul></ul>
         <button type="button" class="btn btn-success" (click)="loadCardsWithFilter(name.value,typesfilter.value,subtypefilter.value,supertypefilter.value,rarityfilter.value)">Search</button>
+    </div>
     </div>
 </ol>
 <div class="modal-body" style="padding:0px; position:fixed; top: 30px; left:540px; z-index: 10;">

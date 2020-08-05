@@ -1,11 +1,11 @@
 
 <div class="jumbotron">
     <h1 class="display-3">Explore All Available Trades</h1>
-    <p class="lead">Here You Will be Able to Bid On Other Users Cards</p>
     <div class="form-group"*ngIf=showTrades>
 
-
+        <div class="btn-group" role="group" aria-label="Basic example">
         <input class="form-control" type="text" placeholder="Search by Name" #name>
+        <ul></ul>
         <select class="form-control" #type>
           <option>All Types</option>
           <option>Water</option>
@@ -20,7 +20,7 @@
           <option>Metal</option>
           <option>Colorless</option>
           </select>
-
+<ul></ul>
         <select class="form-control" #subtype>
               <option>All Subtypes</option>
               <option>Stadium</option>
@@ -45,14 +45,14 @@
               <option>Supporter</option>
               <option>Restored</option>
               </select>
-
+<ul></ul>
         <select class="form-control" #supertype>
                 <option>All supertype</option>
                 <option>Pokémon</option>
                 <option>Energy</option>
                 <option>Trainer </option>
                 </select>
-
+<ul></ul>
         <select class="form-control" #rarity>
                   <option>All Rarities </option>
                   <option>Rare</option>
@@ -67,14 +67,17 @@
                   <option>Rare Prime</option>
                   <option>V</option>
                   </select>
-        <ul></ul>
-        <input type="checkbox" #wishlistcheck>
-        <label>Show me only trades with cards from my Wishlist! </label>
-        <ul></ul>
-        <ul></ul>
-        <input type="checkbox" #friendscheck>
-        <label>Show me only trades with cards from my Friends!  </label>
-        <ul></ul>
+                  <ul></ul>
+                  <input type="checkbox"  #wishlistcheck>
+                  <label>Wishlist </label>
+                  <ul></ul>
+                  <ul></ul>
+                  <input type="checkbox"  #friendscheck>
+                  <label>Friends  </label>
+                  <ul></ul>
+
+        </div>
+      
         <button type="button  " class="btn btn-success" (click)="filterTrade(name.value,supertype.value,type.value,subtype.value,rarity.value,wishlistcheck.checked,friendscheck.checked)">Search</button>
     </div>
 

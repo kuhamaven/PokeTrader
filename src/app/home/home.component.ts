@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthService } from 'src/app/auth/services/auth.service';
+
 import { Router } from '@angular/router';
 import { Card } from '../models/card.model';
 
@@ -13,7 +13,7 @@ import { Card } from '../models/card.model';
 export class HomeComponent implements OnInit {
 cards: Card[]=[];
 start: boolean=false;
-  constructor(private http: HttpClient, private authSvc: AuthService, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
     this.loadCards();
@@ -22,7 +22,7 @@ start: boolean=false;
   loadCards() {
     try {
      
-      let url = 'https://localhost:8080/homescreen';
+      let url = 'http://localhost:8080/homescreen';
       this.http.get(url).toPromise().then(
         data => {
        Object.assign(this.cards,data);

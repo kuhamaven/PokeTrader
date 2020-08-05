@@ -3,7 +3,8 @@
     <p class="lead">PokeTrader is a webapp developed to make trading PTCG cards easier!</p>
     <hr class="my-4">
 
-    <p>Popular cards right now!</p>
+    <h2>Popular cards right now!</h2>
+    <ul></ul>
     <div class="row row-flex" *ngIf="start">
         <app-popularcard *ngFor="let c of cards" [card]="c"></app-popularcard>
     </div>
